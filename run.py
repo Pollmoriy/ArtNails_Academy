@@ -1,5 +1,5 @@
 from app import create_app, db
-from sqlalchemy import text  # ✅ важно
+from sqlalchemy import text
 
 app = create_app()
 
@@ -23,3 +23,7 @@ with app.app_context():
 
     # Список таблиц после создания
     print("📋 Таблицы после create_all():", inspector.get_table_names())
+
+# 🔹 Запуск сервера Flask
+if __name__ == "__main__":
+    app.run(debug=True)
