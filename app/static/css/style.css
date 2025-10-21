@@ -470,3 +470,219 @@ header {
     background-color: #DB2777;
     color: #FFFFFF;
 }
+
+/* ==========================
+   Блок "Запись на курсы"
+=========================== */
+.start-learning-block {
+    background-color: #DB2777;
+    height: 322px;
+    display: flex;
+    padding-top: 60px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 60px;
+    text-align: center;
+}
+
+.start-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.start-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: #FFFFFF;
+    margin-top: 18px;
+    max-width: 668px;
+    line-height: 1.4;
+}
+
+.start-buttons {
+    display: flex;
+    gap: 90px;
+    margin-top: 43px;
+    padding: 10px;
+    margin-bottom: 55px;
+}
+
+.btn-start,
+.btn-choose {
+    width: 252px;
+    height: 50px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-start {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: none;
+}
+
+.btn-choose {
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+}
+
+.btn-start:hover {
+    background-color: #E5E5E5; /* лёгкое затемнение */
+}
+
+.btn-choose:hover {
+    background-color: #FFFFFF;
+    color: #DB2777;
+}
+
+.btn-choose:hover img {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(82%) saturate(3403%) hue-rotate(311deg) brightness(89%) contrast(97%);
+    /* превращает иконку в #DB2777 при наведении */
+}
+
+.btn-icon {
+    width: 22px;
+    height: 22px;
+    transition: filter 0.3s ease;
+}
+
+
+/* ==========================
+   Футер
+=========================== */
+.footer {
+    background-color: #111827;
+    height: 275px;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 48px;
+    position: relative;
+}
+
+/* Убираем margin: 0 auto — именно он не давал прижаться к краю */
+.footer-content {
+    display: flex;
+    align-items: flex-start;
+    padding-left: 32px;  /* теперь это единственный отступ */
+    padding-right: 32px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+.footer-logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 16px; /* между логотипом и описанием */
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 531px; /* фиксируем ширину блока с описанием */
+}
+
+.footer-description {
+    width: 531px;           /* ограничиваем именно текст */
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;       /* тоньше, чем regular */
+    font-size: 16px;
+    line-height: 1.4;
+    color: #D1D5DB;
+    margin-top: 16px;       /* расстояние от логотипа */
+    text-align: left;
+    word-wrap: break-word;  /* чтобы переносился текст при переполнении */
+}
+
+.footer-description span {
+    display: block;
+}
+
+/* Колонки */
+.footer-column {
+    margin-left: 198px;
+}
+
+/* Заголовки колонок */
+.footer-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FFFFFF;
+    margin: 0;
+    margin-bottom: 16px; /* между заголовком и списком */
+    line-height: 1;
+}
+
+/* Списки */
+.footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-list li {
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    font-size: 16px;
+    color: #D1D5DB;
+    margin-bottom: 9px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.footer-list a {
+    color: #D1D5DB;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+    max-width: 155px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.footer-list a:hover {
+    color: #DB2777;
+}
+
+/* Разделительная линия */
+.footer-line {
+    position: absolute;
+    bottom: 79px; /* фиксированное положение */
+    left: 32px;
+    right: 32px;
+    height: 1px;
+    background-color: #1F2937;
+}
+
+/* Нижняя надпись */
+.footer-bottom {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+}
+
+.footer-bottom p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    color: #9CA3AF;
+}
