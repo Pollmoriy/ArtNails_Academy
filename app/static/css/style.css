@@ -1,65 +1,83 @@
-body {
+/* Сброс отступов */
+body, html {
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    padding: 0;
 }
 
-.header {
+header {
+    position: fixed; /* закрепляем сверху страницы */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 83px;
+    background-color: #FFFFFF; /* белый фон */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* тень снизу */
+    z-index: 1000; /* чтобы шапка была выше остальных элементов */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px; /* внутренние отступы слева и справа */
+}
+
+.site-header {
+    width: 100%;
     height: 83px;
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 0 50px; /* внутренние отступы */
     box-sizing: border-box;
-    border-bottom: 1px solid #E5E7EB; /* для лёгкого отделения шапки */
+    position: relative; /* над hero-блоком */
+    z-index: 10; /* чтобы была выше hero */
 }
 
-.container {
+.header-content {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    max-width: 1920px;
-    margin: 0 auto;
-    padding: 0 117px;
-    box-sizing: border-box;
 }
 
+.logo {
+    width: 192px;
+    height: 32px;
+}
 
-.nav-menu {
-    display: flex;
-    gap: 30px;
+.nav a {
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
     color: #374151;
-}
-
-.nav-menu a {
+    margin: 0 15px;
     text-decoration: none;
-    color: #374151;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
-.nav-menu a:hover {
+.nav a:hover {
     color: #DB2777;
 }
 
 .header-buttons {
     display: flex;
-    gap: 41px;
+    align-items: center;
 }
 
-.btn-register {
+.btn-signup {
     width: 110px;
     height: 40px;
     border: 2px solid #DB2777;
     border-radius: 8px;
     background: transparent;
     color: #DB2777;
-    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
     font-size: 14px;
+    margin-right: 41px;
     cursor: pointer;
-    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition: all 0.3s ease;
 }
 
-.btn-register:hover {
+.btn-signup:hover {
     background-color: #DB2777;
     color: #FFFFFF;
 }
@@ -70,16 +88,210 @@ body {
     border-radius: 8px;
     background-color: #DB2777;
     color: #FFFFFF;
-    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
     font-size: 14px;
-    border: none;
     cursor: pointer;
-    transition: background-color 0.4s ease;
+    border: none;
+    transition: background-color 0.3s ease;
 }
 
 .btn-login:hover {
     background-color: #A4205B;
 }
 
+# ==========================================================
+
+.hero-block {
+    width: 100%;
+    position: relative;
+    min-height: 1082px;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative; /* оставляем, чтобы текст был поверх фона */
+    z-index: 1;
+    max-width: 1427px;
+    margin: 0 auto;
+    padding: 250px 0 150px 0; /* верхний и нижний отступ от фона */
+    text-align: center;
+}
+
+/* Заголовок */
+.hero-content h1 {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: 96px;
+    line-height: 1.1;
+    text-align: center;
+    line-height: 89px;
+}
+
+.white-text { color: #FFFFFF; }
+.pink-text { color: #FF7DB7; }
+
+.hero-subtext {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    color: #FFFFFF;
+    argin-top: 60px;m
+    text-align: center;
+}
+
+/* Кнопки */
+.hero-buttons {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+.btn-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 25px;
+    border-radius: 8px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 400;
+}
+
+.btn-icon {
+    margin-right: 12px;
+    width: 27px;
+    height: 27px;
+    transition: fill 0.3s ease;
+}
+
+.btn-catalog {
+    width: 290px;
+    height: 64px;
+    background-color: #DB2777;
+    color: #FFFFFF;
+    border: none;
+    font-weight: 400;
+}
+
+.btn-catalog:hover {
+    background-color: #A4205B;
+}
+
+.btn-register-hero {
+    width: 228px;
+    height: 64px;
+    background: transparent;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+}
+
+.btn-register-hero:hover {
+    background-color: #FFFFFF;
+    color: #DB2777;
+}
+
+.btn-register-hero:hover .btn-icon {
+    filter: invert(44%) sepia(73%) saturate(6629%) hue-rotate(316deg) brightness(97%) contrast(94%);
+}
 
 
+/* ==========================
+   Блок "Почему выбирают нас"
+=========================== */
+.why-us-block {
+    width: 100%;
+    background-color: #F9FAFB;
+    padding: 51px 0 100px 0; /* верхний отступ 51px от предыдущего блока */
+    text-align: center;
+}
+
+
+.why-us-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: #000000;
+    margin: 0 auto;
+}
+
+.why-us-subtext {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: #4B5563;
+    margin-top: 37px;
+    max-width: 608px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Контейнер карточек */
+.why-us-cards {
+    display: flex;
+    justify-content: center;
+    gap: 100px; /* расстояние между карточками */
+    margin-top: 60px;
+    flex-wrap: wrap; /* чтобы на маленьких экранах карточки переносились */
+}
+
+/* Карточка */
+.card {
+    width: 255px;
+    height: 296px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 32px;
+    text-align: center;
+}
+
+/* Круг с иконкой */
+.card-icon {
+    width: 64px;
+    height: 64px;
+    background-color: #FCE7F3;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-icon img {
+    width: 32px;
+    height: 32px;
+}
+
+/* Заголовок карточки */
+.card-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 24px;
+    max-width: 150px;
+}
+
+/* Описание карточки */
+.card-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: #4B5563;
+    margin-top: 19px;
+    max-width: 174px;
+}
