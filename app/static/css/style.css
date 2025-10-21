@@ -5,6 +5,9 @@ body, html {
     box-sizing: border-box;
 }
 
+/* ==========================
+   Шапка
+=========================== */
 header {
     position: fixed;
     top: 0;
@@ -107,8 +110,9 @@ header {
     background-color: #A4205B;
 }
 
-# ==========================================================
-
+/* ==========================
+   Блок "Hero"
+=========================== */
 .hero-block {
   position: relative;
   width: 100%;
@@ -306,4 +310,163 @@ header {
     color: #4B5563;
     margin-top: 19px;
     max-width: 174px;
+}
+
+
+/* ==========================
+   Блок "Популярные курсы"
+=========================== */
+.popular-courses-block {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 34px 0 34px 0;
+    text-align: center;
+}
+
+.popular-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: #000000;
+    margin: 0 auto;
+}
+
+.popular-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: #4B5563;
+    max-width: 608px;
+    margin: 22px auto 33px auto;
+}
+
+.courses-container {
+    display: flex;
+    justify-content: center; /* по центру страницы */
+    gap: 107px; /* расстояние между карточками */
+    flex-wrap: wrap;
+    margin-top: 33px;
+}
+
+
+.course-card {
+    width: 351px;
+    height: 480px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.course-img {
+    width: 100%;
+    height: 192px;
+    object-fit: cover;
+}
+
+.course-top-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+}
+
+.course-level {
+    background-color: #FCE7F3;
+    color: #9D174D;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    padding: 2px 12px;
+    border-radius: 9999px;
+}
+
+.course-duration {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #6B7280;
+}
+
+.course-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #000000;
+    padding-left: 24px;
+    margin: 12px 0 0 0;
+     text-align: left;
+}
+
+.course-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #6B7280;
+    padding: 0 24px;
+    margin-top: 10px;
+     text-align: left;
+}
+
+.course-price {
+    position: absolute;
+    bottom: 26px;
+    left: 24px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #000000;
+}
+
+.btn-course-details {
+    border: none;
+    position: absolute;
+    bottom: 26px;
+    right: 24px;
+    width: 105px;
+    height: 36px;
+    background-color: #DB2777;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-course-details:hover {
+    background-color: #9D174D;
+}
+
+.all-courses-container {
+    margin-top: 34px; /* отступ от карточек */
+    text-align: left; /* выравнивание по первой карточке */
+    padding-left: 303px; /* отступ слева для выравнивания с первой карточкой */
+}
+
+.btn-all-courses {
+    padding: 12px 24px;
+    border: 2px solid #DB2777;
+    border-radius: 8px;
+    background: transparent;
+    color: #DB2777;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-all-courses:hover {
+    background-color: #DB2777;
+    color: #FFFFFF;
 }

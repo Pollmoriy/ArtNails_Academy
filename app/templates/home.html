@@ -100,6 +100,42 @@
         </div>
     </section>
 
+    <!-- Блок "Популярные курсы" -->
+    <section class="popular-courses-block">
+        <h2 class="popular-title">Популярные курсы</h2>
+        <p class="popular-subtitle">
+            Выберите курс, который подходит вашему уровню подготовки
+        </p>
+
+        <div class="courses-container">
+            {% for course in popular_courses %}
+            <div class="course-card">
+                <!-- Картинка курса -->
+                <img src="{{ url_for('static', filename=course.image) }}"
+                     alt="{{ course.title }}" class="course-img">
+
+                <!-- Уровень и продолжительность -->
+                <div class="course-top-info">
+                    <span class="course-level">{{ course.level }}</span>
+                    <span class="course-duration">{{ course.weeks }} недели</span>
+                </div>
+
+                <!-- Название и описание -->
+                <h3 class="course-name">{{ course.title }}</h3>
+                <p class="course-desc">{{ course.description }}</p>
+
+                <!-- Цена и кнопка Подробнее -->
+                <span class="course-price">{{ course.price }}</span>
+                <button class="btn-course-details">Подробнее</button>
+            </div>
+            {% endfor %}
+        </div>
+         <div class="all-courses-container">
+        <button class="btn-all-courses">Все курсы →</button>
+    </div>
+    </section>
+
+
 
 </body>
 </html>
