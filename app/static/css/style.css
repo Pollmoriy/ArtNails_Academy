@@ -132,7 +132,7 @@ header {
 /* контент поверх картинки */
 .hero-content {
   position: absolute;   /* позиционируем поверх <img> */
-  top: 308px;           /* подними/опусти по нужде — это смещение от верхней границы hero-block */
+  top: 260px;           /* подними/опусти по нужде — это смещение от верхней границы hero-block */
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
