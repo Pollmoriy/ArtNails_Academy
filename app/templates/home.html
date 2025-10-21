@@ -29,7 +29,10 @@
 
 
    <!-- Блок с фоном и текстом -->
-    <section class="hero-block" style="background: url('{{ url_for('static', filename='img/hero-bg.jpg') }}') center top / cover no-repeat;">
+    <section class="hero-block" style="margin-top: 83px;"> <!-- margin-top компенсирует фиксированную шапку -->
+        <!-- картинка в потоке -->
+        <img src="{{ url_for('static', filename='img/hero-bg.jpg') }}" alt="Фон" class="hero-bg">
+
         <div class="hero-content">
             <h1>
                 <span class="white-text">Станьте профессиональным</span>

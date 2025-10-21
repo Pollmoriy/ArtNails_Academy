@@ -2,35 +2,42 @@
 body, html {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 header {
-    position: fixed; /* закрепляем сверху страницы */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 83px;
-    background-color: #FFFFFF; /* белый фон */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* тень снизу */
-    z-index: 1000; /* чтобы шапка была выше остальных элементов */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px; /* внутренние отступы слева и справа */
-}
-
-.site-header {
     width: 100%;
     height: 83px;
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 50px; /* внутренние отступы */
-    box-sizing: border-box;
-    position: relative; /* над hero-блоком */
-    z-index: 10; /* чтобы была выше hero */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
+
+
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 83px; /* фиксированная высота, как планировалось */
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+
 
 .header-content {
     width: 100%;
@@ -103,19 +110,34 @@ header {
 # ==========================================================
 
 .hero-block {
-    width: 100%;
-    min-height: 1082px;
-    position: relative;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
-.hero-content {
-    position: relative; /* текст поверх фона */
-    z-index: 1;
-    max-width: 1427px;
-    margin: 0 auto;
-    padding: 250px 0 150px 0; /* отступы сверху и снизу */
-    text-align: center;
+/* картинка как элемент потока — задаёт высоту секции */
+.hero-bg {
+  display: block;       /* важно */
+  width: 100%;
+  height: auto;         /* сохраняет пропорции */
+  object-fit: cover;    /* обрезает, если нужно */
+  vertical-align: middle;
+  z-index: 0;
 }
+
+/* контент поверх картинки */
+.hero-content {
+  position: absolute;   /* позиционируем поверх <img> */
+  top: 308px;           /* подними/опусти по нужде — это смещение от верхней границы hero-block */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  max-width: 1427px;
+  width: 100%;
+  text-align: center;
+  padding: 0 20px;
+}
+
 
 /* Заголовок */
 .hero-content h1 {
