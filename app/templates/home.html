@@ -28,17 +28,15 @@
     </header>
 
 
-    <!-- Блок с фоном и текстом -->
-    <section class="hero-block">
-        <img src="{{ url_for('static', filename='img/hero-bg.jpg') }}" alt="Фон" class="hero-bg">
-
+   <!-- Блок с фоном и текстом -->
+    <section class="hero-block" style="background: url('{{ url_for('static', filename='img/hero-bg.jpg') }}') center top / cover no-repeat;">
         <div class="hero-content">
             <h1>
                 <span class="white-text">Станьте профессиональным</span>
                 <span class="pink-text"> мастером маникюра</span>
             </h1>
             <p class="hero-subtext">
-            Изучите искусство маникюра с лучшими инструкторами. Получите сертификат и начните успешную карьеру в индустрии красоты.
+                Изучите искусство маникюра с лучшими инструкторами. Получите сертификат и начните успешную карьеру в индустрии красоты.
             </p>
             <div class="hero-buttons">
                 <button class="btn-hero btn-catalog">
@@ -53,6 +51,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Блок "Почему выбирают нас" -->
     <section class="why-us-block">
