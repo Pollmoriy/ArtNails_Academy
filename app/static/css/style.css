@@ -690,3 +690,135 @@ header {
     font-size: 14px;
     color: #9CA3AF;
 }
+
+
+/* ===== LOGIN PAGE ===== */
+.login-page {
+    min-height: 1023px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #FFFFFF;
+}
+
+.login-container {
+    width: 448px;
+    height: 396px;
+    margin-top: 240px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Заголовки */
+.login-title {
+    font-weight: 800; /* Extra Bold */
+    font-size: 30px;
+    color: #111827;
+    margin-bottom: 7px;
+}
+
+.login-subtitle {
+    font-size: 14px;
+    margin: 0;
+}
+
+.login-subtitle-grey {
+    color: #4B5563;
+    font-weight: 400;
+}
+
+.login-subtitle-pink {
+    color: #DB2777;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Поля ввода */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 36px;
+    gap: 8px; /* поля сливаются, но немного воздуха */
+}
+
+.login-form input {
+    width: 448px;
+    height: 38px;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    padding: 0 12px;
+    font-size: 14px;
+    color: #111827;
+    outline: none;
+}
+
+.login-form input::placeholder {
+    color: #9CA3AF;
+}
+
+/* Забыли пароль */
+.forgot-password {
+    width: 448px;
+    text-align: right;
+    margin-top: 24px;
+}
+
+.forgot-password a {
+    font-size: 14px;
+    color: #DB2777;
+    text-decoration: none;
+    font-weight: 300;
+}
+
+/* Кнопка Войти */
+.btn-login-main {
+    width: 448px;
+    height: 48px;
+    background-color: #DB2777;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-login-main:hover {
+    background-color: #c61f6a;
+}
+
+/* Разделитель */
+.login-divider {
+    margin-top: 24px;
+    font-size: 14px;
+    color: #4B5563;
+    font-weight: 300;
+}
+
+/* Соцсети */
+.login-social {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.social-btn {
+    width: 218px;
+    height: 38px;
+    background-color: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #4B5563;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.social-btn:hover {
+    background-color: #F9FAFB;
+}
+

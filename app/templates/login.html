@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% include 'header.html' %}
 
-</body>
-</html>
+<main class="login-page">
+    <div class="login-container">
+        <h1 class="login-title">Войти в аккаунт</h1>
+        <p class="login-subtitle">
+            <span class="login-subtitle-grey">Или </span>
+            <a href="{{ url_for('auth.register') }}" class="login-subtitle-pink">Создайте новый аккаунт</a>
+        </p>
+
+        <form class="login-form" method="POST">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Пароль" required>
+
+            <div class="forgot-password">
+                <a href="#">Забыли пароль?</a>
+            </div>
+
+            <button type="submit" class="btn-login-main">Войти</button>
+        </form>
+
+        <p class="login-divider">Или войдите через</p>
+
+        <div class="login-social">
+            <button class="social-btn">Google</button>
+            <button class="social-btn">Facebook</button>
+        </div>
+    </div>
+</main>
+
+{% include 'footer.html' %}

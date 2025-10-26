@@ -1,36 +1,10 @@
-<!-- templates/home.html -->
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>ArtNails Academy</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Шапка -->
-    <header class="site-header">
-        <div class="header-content">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="ArtNails" class="logo">
-            <nav class="nav">
-                <a href="#">Главная</a>
-                <a href="#">Курсы</a>
-                <a href="#">Отзывы</a>
-                <a href="#">О нас</a>
-                <a href="#">Личный кабинет</a>
-            </nav>
-            <div class="header-buttons">
-                <button class="btn-signup">Записаться</button>
-                <a href="{{ url_for('auth.login') }}" class="btn-login">Войти</a>
-            </div>
-        </div>
-    </header>
+{% extends 'base.html' %}
 
+{% block title %}Главная — ArtNails Academy{% endblock %}
 
-   <!-- Блок с фоном и текстом -->
-    <section class="hero-block" style="margin-top: 83px;"> <!-- margin-top компенсирует фиксированную шапку -->
-        <!-- картинка в потоке -->
+{% block content %}
+    <!-- Блок с фоном и текстом -->
+    <section class="hero-block" style="margin-top: 83px;">
         <img src="{{ url_for('static', filename='img/hero-bg.jpg') }}" alt="Фон" class="hero-bg">
 
         <div class="hero-content">
@@ -55,44 +29,26 @@
         </div>
     </section>
 
-
-    <!-- Блок "Почему выбирают нас" -->
+   <!-- Блок "Почему выбирают нас" -->
     <section class="why-us-block">
         <div class="container">
             <h2 class="why-us-title">Почему выбирают нас?</h2>
-            <p class="why-us-subtext">
-                Мы предлагаем качественное образование с практическим подходом и поддержкой на каждом этапе обучения
-            </p>
-
+            <p class="why-us-subtext"> Мы предлагаем качественное образование с практическим подходом и поддержкой на каждом этапе обучения </p>
             <div class="why-us-cards">
                 <div class="card">
-                    <div class="card-icon">
-                        <img src="{{ url_for('static', filename='icons/icon1.svg') }}" alt="Icon 1">
-                    </div>
+                    <div class="card-icon"> <img src="{{ url_for('static', filename='icons/icon1.svg') }}" alt="Icon 1"> </div>
                     <h3 class="card-title">Гибкий доступ</h3>
                     <p class="card-desc">Учитесь в удобное время в онлайн-формате</p>
-                </div>
-
+                </div> <div class="card">
+                <div class="card-icon"> <img src="{{ url_for('static', filename='icons/icon2.svg') }}" alt="Icon 2"> </div>
+                <h3 class="card-title">Поддержка сообщества</h3>
+                <p class="card-desc">Общение с единомышленниками и наставниками</p> </div>
                 <div class="card">
-                    <div class="card-icon">
-                        <img src="{{ url_for('static', filename='icons/icon2.svg') }}" alt="Icon 2">
-                    </div>
-                    <h3 class="card-title">Поддержка сообщества</h3>
-                    <p class="card-desc">Общение с единомышленниками и наставниками</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="{{ url_for('static', filename='icons/icon3.svg') }}" alt="Icon 3">
-                    </div>
+                    <div class="card-icon"> <img src="{{ url_for('static', filename='icons/icon3.svg') }}" alt="Icon 3"> </div>
                     <h3 class="card-title">Эксперты-инструкторы</h3>
-                    <p class="card-desc">Обучение у лучших мастеров индустрии с многолетним опытом</p>
-                </div>
-
+                    <p class="card-desc">Обучение у лучших мастеров индустрии с многолетним опытом</p> </div>
                 <div class="card">
-                    <div class="card-icon">
-                        <img src="{{ url_for('static', filename='icons/icon4.svg') }}" alt="Icon 4">
-                    </div>
+                    <div class="card-icon"> <img src="{{ url_for('static', filename='icons/icon4.svg') }}" alt="Icon 4"> </div>
                     <h3 class="card-title">Сертификация</h3>
                     <p class="card-desc">Получите официальный сертификат после завершения курса</p>
                 </div>
@@ -110,29 +66,22 @@
         <div class="courses-container">
             {% for course in popular_courses %}
             <div class="course-card">
-                <!-- Картинка курса -->
-                <img src="{{ url_for('static', filename=course.image) }}"
-                     alt="{{ course.title }}" class="course-img">
-
-                <!-- Уровень и продолжительность -->
+                <img src="{{ url_for('static', filename=course.image) }}" alt="{{ course.title }}" class="course-img">
                 <div class="course-top-info">
                     <span class="course-level">{{ course.level }}</span>
                     <span class="course-duration">{{ course.weeks }} недели</span>
                 </div>
-
-                <!-- Название и описание -->
                 <h3 class="course-name">{{ course.title }}</h3>
                 <p class="course-desc">{{ course.description }}</p>
-
-                <!-- Цена и кнопка Подробнее -->
                 <span class="course-price">{{ course.price }}</span>
                 <button class="btn-course-details">Подробнее</button>
             </div>
             {% endfor %}
         </div>
-         <div class="all-courses-container">
-        <button class="btn-all-courses">Все курсы →</button>
-    </div>
+
+        <div class="all-courses-container">
+            <button class="btn-all-courses">Все курсы →</button>
+        </div>
     </section>
 
     <!-- Блок "Запись на курсы" -->
@@ -153,47 +102,4 @@
             </button>
         </div>
     </section>
-
-     <!-- "Футер" -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-left">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="ArtNails Academy" class="footer-logo">
-                <p class="footer-description">
-                    Профессиональная школа маникюра с сертифицированными курсами и опытными инструкторами. Получите навыки мирового уровня и начните успешную карьеру в индустрии красоты.
-                </p>
-            </div>
-
-            <div class="footer-column">
-                <h3 class="footer-title">Обучение</h3>
-                <ul class="footer-list">
-                    <li><a href="#">Каталог курсов</a></li>
-                    <li><a href="#">Записаться на курс</a></li>
-                    <li><a href="#">Личный кабинет</a></li>
-                    <li><a href="#">Отзывы студентов</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3 class="footer-title">Контакты</h3>
-                <ul class="footer-list">
-                    <li>+375 (29) 874-56-70</li>
-                    <li>info@nail.ru</li>
-                    <li>г. Минск, ул. Ломоносова 5</li>
-                    <li>пн–пт 9:00–18:00</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-line"></div>
-
-        <div class="footer-bottom">
-            <p>© 2024 ArtNails Academy. Все права защищены.</p>
-        </div>
-    </footer>
-
-
-
-
-</body>
-</html>
+{% endblock %}

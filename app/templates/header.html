@@ -1,0 +1,16 @@
+<header class="site-header">
+    <div class="header-content">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="ArtNails" class="logo">
+        <nav class="nav">
+            <a href="{{ url_for('main.home') }}">Главная</a>
+            <a href="#">Курсы</a>
+            <a href="#">Отзывы</a>
+            <a href="#">О нас</a>
+            <a href="{{ url_for('auth.login') }}">Личный кабинет</a>
+        </nav>
+        <div class="header-buttons">
+            <button class="btn-signup">Записаться</button>
+            <a href="{{ url_for('auth.login') }}" class="btn-login">Войти</a>
+        </div>
+    </div>
+</header>
