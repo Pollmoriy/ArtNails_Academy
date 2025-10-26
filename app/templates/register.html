@@ -1,60 +1,58 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 {% include 'header.html' %}
 
-     <!-- Основной блок регистрации -->
-    <section class="register-section" style="margin-top: 77px;"> <!-- учитываем хедер -->
-        <div class="register-content">
-            <h1 class="register-title">Создать аккаунт</h1>
-            <p class="register-subtitle">
-                <span class="subtitle-gray">Или</span>
-                <a href="{{ url_for('auth.login') }}" class="subtitle-pink">Уже есть аккаунт</a>
-            </p>
+<section class="register-section" style="margin-top: 77px;"> <!-- учитываем хедер -->
+    <form class="register-content" method="POST">
+        <h1 class="register-title">Создать аккаунт</h1>
+        <p class="register-subtitle">
+            <span class="subtitle-gray">Или</span>
+            <a href="{{ url_for('auth.login') }}" class="subtitle-pink">Уже есть аккаунт</a>
+        </p>
 
-            <!-- Имя и Фамилия -->
-            <div class="name-row">
-                <div class="name-field">
-                    <label>Имя</label>
-                    <input type="text" placeholder="Введите имя">
-                </div>
-                <div class="name-field">
-                    <label>Фамилия</label>
-                    <input type="text" placeholder="Введите фамилию">
-                </div>
+        <!-- Имя и Фамилия -->
+        <div class="name-row">
+            <div class="name-field">
+                <label>Имя</label>
+                <input type="text" name="first_name" placeholder="Имя" required>
             </div>
-
-            <!-- Email -->
-            <label>Email адрес</label>
-            <input type="email" placeholder="Введите email" class="full-width-input">
-
-            <!-- Пароль -->
-            <label>Пароль</label>
-            <input type="password" placeholder="Введите пароль" class="full-width-input">
-
-            <!-- Подтвердите пароль -->
-            <label>Подтвердите пароль</label>
-            <input type="password" placeholder="Повторите пароль" class="full-width-input">
-
-            <!-- Чекбокс -->
-            <div class="checkbox-row">
-                <input type="checkbox" id="agreement">
-                <label for="agreement">
-                    Я согласен(а) с <a href="#">пользовательским соглашением</a> и <a href="#">политикой конфиденциальности</a>
-                </label>
-            </div>
-
-            <!-- Кнопка Создать аккаунт -->
-            <button class="btn-register">Создать аккаунт</button>
-
-            <!-- Или зарегистрируйтесь через -->
-            <p class="register-or">Или зарегистрируйтесь через</p>
-
-            <!-- Google / Facebook -->
-            <div class="login-social">
-                <button class="social-btn">Google</button>
-                <button class="social-btn">Facebook</button>
+            <div class="name-field">
+                <label>Фамилия</label>
+                <input type="text" name="last_name" placeholder="Фамилия" required>
             </div>
         </div>
-    </section>
 
+        <!-- Email -->
+        <label>Email адрес</label>
+        <input type="email" name="email" placeholder="Введите email" class="full-width-input" required>
+
+        <!-- Пароль -->
+        <label>Пароль</label>
+        <input type="password" name="password" placeholder="Введите пароль" class="full-width-input" required>
+
+        <!-- Подтвердите пароль -->
+        <label>Подтвердите пароль</label>
+        <input type="password" name="confirm_password" placeholder="Повторите пароль" class="full-width-input" required>
+
+        <!-- Чекбокс -->
+        <div class="checkbox-row">
+            <input type="checkbox" name="terms" id="agreement" required>
+            <label for="agreement">
+                Я согласен(а) с <a href="#">пользовательским соглашением</a> и <a href="#">политикой конфиденциальности</a>
+            </label>
+        </div>
+
+        <!-- Кнопка Создать аккаунт -->
+        <button type="submit" class="btn-register">Создать аккаунт</button>
+
+        <!-- Или зарегистрируйтесь через -->
+        <p class="register-or">Или зарегистрируйтесь через</p>
+
+        <!-- Google / Facebook -->
+        <div class="login-social">
+            <button type="button" class="social-btn">Google</button>
+            <button type="button" class="social-btn">Facebook</button>
+        </div>
+    </form>
+</section>
 
 {% include 'footer.html' %}
