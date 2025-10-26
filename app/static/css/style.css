@@ -822,3 +822,135 @@ header {
     background-color: #F9FAFB;
 }
 
+/* ===== REGISTER PAGE ===== */
+.register-content {
+    width: 456px;
+    height: 619px;
+    background: #fff;
+    border-radius: 8px;
+    margin-top: 140px;
+    margin-left: 732px;
+    margin-bottom: 80px;
+    box-sizing: border-box;
+}
+
+.register-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800; /* Extra Bold */
+    font-size: 30px;
+    color: #111827;
+    text-align: center;
+}
+
+.register-subtitle {
+    font-size: 14px;
+    text-align: center;
+    font-weight: 400;
+    margin-top: 22px;
+}
+
+.subtitle-gray {
+    font-weight: 400;
+    color: #4B5563;
+}
+
+.subtitle-pink {
+    font-weight: 600; /* Semi Bold */
+    color: #DB2777;
+    text-decoration: none;
+}
+
+.register-content label {
+    font-size: 14px;
+    color: #374151;
+    font-weight: 400;
+    margin-bottom: 8px; /* расстояние между надписью и полем */
+}
+
+
+.name-row {
+    display: flex;
+    gap: 16px; /* расстояние между полями Имя и Фамилия */
+    margin-top: 21px; /* отступ сверху блока */
+}
+
+.name-row { margin-bottom: 16px; }
+.full-width-input { margin-bottom: 16px; }
+.checkbox-row { margin-top: 22px; }
+.btn-register { margin-top: 20px; }
+.register-or { margin-top: 20px; }
+.social-buttons { margin-top: 20px; }
+
+
+.name-field input,
+.full-width-input {
+    margin-bottom: 16px; /* отступ после поля */
+}
+
+.name-field label {
+    font-size: 14px;
+    color: #374151;
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
+.name-field input {
+    width: 216px;
+    height: 38px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+.full-width-input {
+    width: 456px;
+    height: 38px;
+    margin-bottom: 16px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    margin-top: 22px;
+    font-size: 14px;
+    color: #374151;
+}
+
+.checkbox-row input {
+    margin-right: 8px;
+}
+
+.checkbox-row a {
+    color: #DB2777;
+    text-decoration: none;
+}
+
+.btn-register {
+    width: 448px;
+    height: 48px;
+    background: #DB2777;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-register:hover {
+    background: #b12562;
+}
+
+.register-or {
+    text-align: center;
+    font-size: 14px;
+    color: #374151;
+    margin-top: 20px;
+}
+
