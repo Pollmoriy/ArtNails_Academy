@@ -21,7 +21,8 @@ with app.app_context():
     db.create_all()
     print("✅ db.create_all() вызван")
 
-    # Список таблиц после создания
+    # Создаём новый инспектор для проверки
+    inspector = db.inspect(db.engine)
     print("📋 Таблицы после create_all():", inspector.get_table_names())
 
 # 🔹 Запуск сервера Flask
