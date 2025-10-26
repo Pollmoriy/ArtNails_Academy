@@ -1,5 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from app.routes.auth import auth_bp
+from app.routes.main import main_bp
 
 db = SQLAlchemy()
 
@@ -14,8 +16,8 @@ def create_app():
     db.init_app(app)
 
     # Подключение Blueprint'ов
-    from .routes.main import main_bp
     app.register_blueprint(main_bp)
+    app.register_blueprint(auth_bp)
 
     # ⚠️ Обязательно импортируем все модели
     from . import models
