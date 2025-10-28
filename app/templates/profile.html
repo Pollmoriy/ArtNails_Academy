@@ -1,13 +1,22 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Профиль</title>
-</head>
-<body>
-    <h1>Профиль пользователя</h1>
-    <p>Имя: {{ user.first_name }}</p>
-    <p>Фамилия: {{ user.last_name }}</p>
-    <p>Email: {{ user.email }}</p>
-</body>
-</html>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+{% extends 'base.html' %}
+
+{% block title %}Личный кабинет — ArtNails Academy{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+
+    <!-- Белый верхний блок -->
+    <section class="profile-header">
+        <div class="profile-header-text">
+            <h1>Личный кабинет</h1>
+            <p>Управляйте своим обучением</p>
+        </div>
+        <button class="btn-buy-course">+ Купить курс</button>
+    </section>
+
+    <!-- Здесь позже добавим остальные блоки профиля -->
+
+</div>
+{% endblock %}

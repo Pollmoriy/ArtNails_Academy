@@ -954,3 +954,61 @@ header {
     margin-top: 20px;
 }
 
+
+/* ==========================
+  Личный кабинет
+=========================== */
+.profile-page {
+    background-color: #F9FAFB;
+    min-height: 1272px;
+}
+
+/* Белый верхний блок */
+.profile-header {
+margin-top: 83px;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 109px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 401px;
+    padding-right: 395px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.profile-header-text h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    color: #000000;
+    margin: 0;
+}
+
+.profile-header-text p {
+    margin-top: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #4B5563;
+}
+
+/* Кнопка купить курс */
+.btn-buy-course {
+    width: 174px;
+    height: 58px;
+    background-color: #DB2777;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-buy-course:hover {
+    background-color: #A4205B;
+}
