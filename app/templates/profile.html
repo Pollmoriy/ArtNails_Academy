@@ -5,18 +5,62 @@
 {% block title %}Личный кабинет — ArtNails Academy{% endblock %}
 
 {% block content %}
-<div class="profile-page">
+{% include 'header.html' %}
 
+<div class="profile-page">
     <!-- Белый верхний блок -->
-    <section class="profile-header">
+    <div class="profile-header">
         <div class="profile-header-text">
             <h1>Личный кабинет</h1>
             <p>Управляйте своим обучением</p>
         </div>
         <button class="btn-buy-course">+ Купить курс</button>
-    </section>
+    </div>
 
-    <!-- Здесь позже добавим остальные блоки профиля -->
+    <!-- Основной контент -->
+    <div class="profile-content">
+        <!-- Карточка пользователя -->
+        <div class="profile-card">
+            <!-- Аватар -->
+            <img src="{{ url_for('static', filename=user.avatar) if user.avatar else url_for('static', filename='img/default_avatar.png') }}"
+                 alt="Аватар" class="profile-avatar">
+            <div class="profile-user-info">
+                <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                <p class="profile-email">{{ user.email }}</p>
+                <p class="profile-role">Студент с {{ user.registration_date.strftime('%d %B %Y') }}</p>
+            </div>
 
+            <!-- Статистика -->
+            <div class="profile-stats">
+                <div class="stat stat-purchased">
+                    <div class="stat-number">{{ stats['courses'] }}</div>
+                    <div class="stat-label">Курсов куплено</div>
+                </div>
+                <div class="stat stat-completed">
+                    <div class="stat-number">{{ stats['completed'] }}</div>
+                    <div class="stat-label">Курсов завершено</div>
+                </div>
+                <div class="stat stat-certificates">
+                    <div class="stat-number">{{ stats['certificates'] }}</div>
+                    <div class="stat-label">Сертификатов</div>
+                </div>
+            </div>
+
+            <!-- Кнопки вкладок -->
+            <div class="profile-buttons">
+                <button class="tab-btn active" data-tab="my-courses">Мои курсы</button>
+                <button class="tab-btn" data-tab="certificates">Сертификаты</button>
+                <button class="tab-btn" data-tab="profile-info">Профиль</button>
+            </div>
+        </div>
+
+        <!-- Блоки контента справа, меняются через JS -->
+        <div id="tab-content">
+            <!-- Здесь будет динамический контент через JS -->
+        </div>
+    </div>
 </div>
+
+<!-- JS -->
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
 {% endblock %}

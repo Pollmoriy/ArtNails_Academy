@@ -7,7 +7,6 @@ auth_bp = Blueprint('auth', __name__, template_folder='../templates')
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
-    from app.models import User
     if request.method == 'POST':
         print("Форма отправлена!")
         print("🔗 Текущая строка подключения:", db.engine.url)
@@ -45,7 +44,7 @@ def register():
             print("✅ Пользователь добавлен в БД!")
             print("📋 Список пользователей:", User.query.all())
 
-            return redirect(url_for('main.profile'))
+            return redirect(url_for('profile.profile_page'))
 
         except Exception as e:
             print("❌ Ошибка при добавлении пользователя:", e)
@@ -74,7 +73,7 @@ def login():
         # Авторизация успешна
         session['user_id'] = user.id_user
         flash("Вы успешно вошли!", "success")
-        return redirect(url_for('main.profile'))  # нужно создать маршрут профиля
+        return redirect(url_for('profile.profile_page')) # нужно создать маршрут профиля
 
     return render_template('login.html')
 

@@ -39,9 +39,4 @@ def home():
     ]
     return render_template('home.html', popular_courses=popular_courses)
 
-@main_bp.route('/profile')
-def profile():
-    user_id = session.get('user_id')
-    user = User.query.get(user_id)
-    return render_template('profile.html', user=user)
 
