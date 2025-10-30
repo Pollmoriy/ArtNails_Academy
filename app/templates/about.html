@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}О нас — ArtNails Academy{% endblock %}
+
+{% block content %}
+
+<!-- Первый блок: О нашей академии -->
+<section class="about-hero">
+    <img src="{{ url_for('static', filename='img/about-hero-bg.png') }}" alt="Фон" class="about-hero-bg">
+    <div class="about-overlay"></div>
+
+    <div class="about-content">
+        <h1 class="about-title">О нашей академии</h1>
+        <p class="about-text">
+            ArtNails Academy — ведущая школа nail-индустрии, где мы готовим профессиональных мастеров маникюра и nail-арта уже более 15 лет
+        </p>
+        <div class="hero-buttons">
+                <button class="btn-hero btn-catalog">
+                    <img src="{{ url_for('static', filename='icons/catalog-icon.svg') }}" alt="" class="btn-icon">
+                    Наши курсы
+                </button>
+
+                <button class="btn-hero btn-register-hero-about">
+                    <img src="{{ url_for('static', filename='icons/register-icon.svg') }}" alt="" class="btn-icon">
+                    Записаться
+                </button>
+            </div>
+    </div>
+</section>
+
+<!-- Блок статистики -->
+<section class="stats-block">
+    <div class="stats-container">
+        <div class="stats-item">
+            <p class="stats-number">5000+</p>
+            <p class="stats-label">Выпускников</p>
+        </div>
+        <div class="stats-item">
+            <p class="stats-number">15+</p>
+            <p class="stats-label">Лет опыта</p>
+        </div>
+        <div class="stats-item">
+            <p class="stats-number">50+</p>
+            <p class="stats-label">Курсов</p>
+        </div>
+        <div class="stats-item">
+            <p class="stats-number">98%</p>
+            <p class="stats-label">Трудоустройство</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

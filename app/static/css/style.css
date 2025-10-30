@@ -1130,3 +1130,121 @@ margin-top: 83px;
     background-color: #FCE7F3;
     color: #DB2777;
 }
+
+
+
+/* ==========================
+  О нас
+=========================== */
+/* --- Блок О нашей академии --- */
+.about-hero {
+    position: relative;
+    height: 633px;
+}
+
+.about-hero-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255,255,255,0.8);
+}
+
+.about-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    color: #111827;
+    margin-top: 113px;
+}
+
+.about-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #374151;
+    text-align: center;
+    max-width: 643px;
+    margin-top: 49px;
+}
+
+.btn-icon {
+    margin-right: 12px;
+    width: 27px;
+    height: 27px;
+    transition: fill 0.3s ease;
+}
+
+
+
+.btn-register-hero-about {
+    width: 228px;
+    height: 64px;
+    background: transparent;
+    color: #DB2777;
+    border: 2px solid #DB2777;
+}
+
+.btn-register-hero-about:hover {
+    background-color: #DB2777;
+    color: #FFFFFF;
+}
+
+.btn-register-hero-about .btn-icon {
+    filter: invert(44%) sepia(73%) saturate(6629%) hue-rotate(316deg) brightness(97%) contrast(94%);
+    transition: filter 0.3s ease;
+}
+
+.btn-register-hero-about:hover .btn-icon {
+    filter: brightness(0) invert(1); /* делает иконку белой */
+}
+
+
+/* --- Блок статистики --- */
+.stats-block {
+    height: 183px;
+    background-color: #F9FAFB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stats-container {
+    display: flex;
+    gap: 151px;
+}
+
+.stats-item {
+    text-align: center;
+}
+
+.stats-number {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    color: #DB2777;
+    margin-bottom: 10px;
+}
+
+.stats-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #374151;
+}

@@ -5,7 +5,7 @@
             <a href="{{ url_for('main.home') }}">Главная</a>
             <a href="#">Курсы</a>
             <a href="#">Отзывы</a>
-            <a href="#">О нас</a>
+            <a href="{{ url_for('about.about_page') }}">О нас</a>
             {% if user_logged_in %}
     <a href="{{ url_for('profile.profile_page') }}">Личный кабинет</a>
 {% else %}
