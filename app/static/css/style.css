@@ -527,7 +527,6 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -1248,3 +1247,85 @@ margin-top: 83px;
     font-size: 16px;
     color: #374151;
 }
+
+/* Блок "Наша миссия" */
+.mission-block {
+    width: 100%;
+    height: 530px;
+    background-color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mission-container {
+    width: 1200px; /* Ширина контейнера, регулируй по макету */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 41px; /* Отступ сверху от предыдущего блока */
+    position: relative;
+}
+
+.mission-text {
+    width: 530px; /* Ширина текста */
+}
+
+.mission-title {
+    font-weight: 700; /* Bold */
+    font-size: 36px;
+    color: #111827;
+    margin-bottom: 29px; /* Расстояние до первого абзаца */
+}
+
+.mission-subtext {
+    font-weight: 400; /* Regular */
+    font-size: 18px;
+    color: #374151;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.btn-mission {
+    margin-top: 63px;
+    padding: 12px 32px;
+    border: 2px solid #DB2777;
+    border-radius: 8px;
+    font-weight: 600; /* Semi Bold */
+    font-size: 16px;
+    color: #DB2777;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-mission:hover {
+    background-color: #DB2777;
+    color: #FFFFFF;
+}
+
+.mission-image {
+    margin-left: 40px;
+    margin-top: 41px;
+    display: flex;
+    margin-bottom: 39px;
+    align-items: flex-start; /* выравнивание по верхнему краю блока */
+    height: 450px; /* высота контейнера совпадает с картинкой */
+}
+
+.mission-image img {
+    width: 535px;
+    height: auto; /* пусть высота подстраивается по пропорциям */
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+
+     /* отступ до низа блока */
+    object-fit: cover;
+    display: block; /* чтобы margin-bottom работал корректно */
+}
+
+
+
+
