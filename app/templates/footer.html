@@ -1,3 +1,4 @@
+
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-left">
@@ -12,7 +13,13 @@
             <ul class="footer-list">
                 <li><a href="#">Каталог курсов</a></li>
                 <li><a href="#">Записаться на курс</a></li>
-                <li><a href="{{ url_for('auth.login') }}">Личный кабинет</a></li>
+                <li>
+                    {% if user_logged_in %}
+                <a href="{{ url_for('profile.profile_page') }}">Личный кабинет</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}">Личный кабинет</a>
+            {% endif %}
+                </li>
                 <li><a href="#">Отзывы студентов</a></li>
             </ul>
         </div>
