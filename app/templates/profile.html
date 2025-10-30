@@ -4,6 +4,15 @@
 
 {% block title %}Личный кабинет — ArtNails Academy{% endblock %}
 
+{% if session.get('logged_out') %}
+    <p>Вы вышли. Для доступа к профилю войдите снова.</p>
+{% else %}
+    <div class="profile-page">
+        <!-- весь профиль здесь -->
+    </div>
+{% endif %}
+
+
 {% block content %}
 {% include 'header.html' %}
 

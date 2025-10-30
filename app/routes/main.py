@@ -1,6 +1,4 @@
 from flask import Blueprint, render_template, session
-from app.models import User
-
 
 main_bp = Blueprint(
     'main',
@@ -11,6 +9,10 @@ main_bp = Blueprint(
 
 @main_bp.route('/')
 def home():
+    # Проверка, вошёл ли пользователь
+    user_id = session.get('user_id')
+    user_logged_in = bool(user_id)
+
     popular_courses = [
         {
             "image": "img/IMAGE.png",
@@ -37,6 +39,4 @@ def home():
             "price": "1200 BYN"
         }
     ]
-    return render_template('home.html', popular_courses=popular_courses)
-
-
+    return render_template('home.html', popular_courses=popular_courses, user_logged_in=user_logged_in)

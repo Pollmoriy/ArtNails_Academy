@@ -6,7 +6,11 @@
             <a href="#">Курсы</a>
             <a href="#">Отзывы</a>
             <a href="#">О нас</a>
-            <a href="{{ url_for('auth.login') }}">Личный кабинет</a>
+            {% if user_logged_in %}
+    <a href="{{ url_for('profile.profile_page') }}">Личный кабинет</a>
+{% else %}
+    <a href="{{ url_for('auth.login') }}">Личный кабинет</a>
+{% endif %}
         </nav>
         <div class="header-buttons">
             <button class="btn-signup">Записаться</button>

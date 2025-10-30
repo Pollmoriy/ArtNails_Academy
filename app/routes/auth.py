@@ -40,8 +40,10 @@ def register():
 
             db.session.add(new_user)
             db.session.commit()
-
+            session['user_id'] = new_user.id_user
+            session.permanent = True  # <-- важно
             print("✅ Пользователь добавлен в БД!")
+
             print("📋 Список пользователей:", User.query.all())
 
             return redirect(url_for('profile.profile_page'))
@@ -72,17 +74,12 @@ def login():
 
         # Авторизация успешна
         session['user_id'] = user.id_user
+        session.permanent = True  # <-- важно
+
         flash("Вы успешно вошли!", "success")
         return redirect(url_for('profile.profile_page')) # нужно создать маршрут профиля
 
     return render_template('login.html')
-
-
-@auth_bp.route('/logout')
-def logout():
-    session.pop('user_id', None)
-    flash("Вы вышли из аккаунта", "success")
-    return redirect(url_for('main.home'))
 
 
 @auth_bp.route('/debug-users')
@@ -95,3 +92,10 @@ def debug_users():
         for u in users:
             output += f"<p>ID: {u.id_user}, Email: {u.email}, Имя: {u.first_name}, Фамилия: {u.last_name}</p>"
     return output
+
+@auth_bp.route('/logout')
+def logout():
+    # Не удаляем user_id из сессии!
+    # Можно ставить флаг, чтобы показывать уведомление
+    session['logged_out'] = True
+    return redirect(url_for('main.home'))
