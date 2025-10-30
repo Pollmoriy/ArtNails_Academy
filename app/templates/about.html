@@ -71,4 +71,75 @@
     </div>
 </section>
 
+<!-- Блок "Наши ценности" -->
+<section class="values-block">
+    <div class="container">
+        <h2 class="values-title">Наши ценности</h2>
+        <p class="values-subtext">
+            Принципы, которыми мы руководствуемся в работе и которые помогают нашим студентам достигать успеха.
+        </p>
+
+        <div class="values-cards">
+            <div class="values-card">
+                <div class="values-card-icon">
+                    <img src="{{ url_for('static', filename='icons/quality.svg') }}" alt="Качество образования">
+                </div>
+                <h3 class="values-card-title">Качество образования</h3>
+                <p class="values-card-desc">
+                    Мы предоставляем только актуальные знания и современные техники, которые востребованы в индустрии красоты.
+                </p>
+            </div>
+
+            <div class="values-card">
+                <div class="values-card-icon">
+                    <img src="{{ url_for('static', filename='icons/individual.svg') }}" alt="Индивидуальный подход">
+                </div>
+                <h3 class="values-card-title">Индивидуальный подход</h3>
+                <p class="values-card-desc">
+                    Каждый студент получает персональное внимание и поддержку на всех этапах обучения.
+                </p>
+            </div>
+
+            <div class="values-card">
+                <div class="values-card-icon">
+                    <img src="{{ url_for('static', filename='icons/practical.svg') }}" alt="Практический опыт">
+                </div>
+                <h3 class="values-card-title">Практический опыт</h3>
+                <p class="values-card-desc">
+                    Большая часть обучения посвящена практике на реальных клиентах под руководством экспертов.
+                </p>
+            </div>
+
+            <div class="values-card">
+                <div class="values-card-icon">
+                    <img src="{{ url_for('static', filename='icons/certification.svg') }}" alt="Сертификация">
+                </div>
+                <h3 class="values-card-title">Сертификация</h3>
+                <p class="values-card-desc">
+                    По окончании курсов выдаем официальные сертификаты, признанные в индустрии красоты.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Наша команда -->
+<section class="team-block">
+    <h2>Наша команда</h2>
+    <p>Опытные преподаватели и практикующие мастера, которые делятся своими знаниями и опытом</p>
+
+    <div class="team-cards">
+        {% for teacher in teachers %}
+        <div class="team-card">
+            <img src="{{ url_for('static', filename=teacher.photo) }}" alt="{{ teacher.first_name }} {{ teacher.last_name }}">
+            <h3>{{ teacher.first_name }} {{ teacher.last_name }}</h3>
+            <p class="position">{{ teacher.position }}</p>
+            <p class="experience">{{ teacher.experience_years }} лет опыта</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+
 {% endblock %}

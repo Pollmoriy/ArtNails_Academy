@@ -181,8 +181,11 @@ class Teacher(db.Model):
     id_teacher = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(100))
     last_name = db.Column(db.String(100))
+    position = db.Column(db.String(100))
+    experience_years = db.Column(db.Integer)
     bio = db.Column(db.Text)
     photo = db.Column(db.String(255))
 
     def __repr__(self):
         return f"<Teacher {self.first_name} {self.last_name}>"
+

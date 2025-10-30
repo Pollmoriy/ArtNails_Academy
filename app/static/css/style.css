@@ -1326,6 +1326,166 @@ margin-top: 83px;
     display: block; /* чтобы margin-bottom работал корректно */
 }
 
+/* Блок "Наши ценности" */
+.values-block {
+    width: 100%;
+    background-color: #F9FAFB;
+    padding: 51px 0 100px 0;
+    text-align: center;
+}
+
+.values-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: #000000;
+    margin: 0 auto;
+}
+
+.values-subtext {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: #4B5563;
+    margin-top: 37px;
+    max-width: 608px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Контейнер карточек */
+.values-cards {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+}
+
+/* Карточка */
+.values-card {
+    width: 255px;
+    height: 339px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 32px;
+    text-align: center;
+}
+
+/* Круг с иконкой */
+.values-card-icon {
+    width: 64px;
+    height: 64px;
+    background-color: #FCE7F3;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.values-card-icon img {
+    width: 32px;
+    height: 32px;
+}
+
+/* Заголовок карточки */
+.values-card-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 24px;
+    max-width: 200px;
+}
+
+/* Описание карточки */
+.values-card-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: #4B5563;
+    margin-top: 19px;
+    max-width: 190px;
+}
+
+/* --- Блок "Наша команда" --- */
+.team-block {
+    background-color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    padding-top: 43px;
+    padding-bottom: 50px;
+}
+
+.team-block h2 {
+    font-weight: 700;
+    font-size: 36px;
+    color: #111827;
+    margin-bottom: 41px;
+}
+
+.team-block p {
+    font-weight: 400; /* regular */
+    font-size: 18px;
+    color: #374151;
+    max-width: 642px;
+    margin: 0 auto 76px auto; /* 76px вниз до карточек */
+}
+
+/* Контейнер карточек */
+.team-cards {
+    display: flex;
+    justify-content: center;
+    gap: 87px; /* расстояние между карточками */
+    flex-wrap: wrap; /* чтобы на маленьких экранах переносились */
+}
+
+/* Карточка преподавателя */
+.team-card {
+    width: 351px;
+    height: 490px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+/* Картинка */
+.team-card img {
+    width: 351px;
+    height: 320px;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* Текст под картинкой */
+.team-card h3 {
+    font-weight: 600; /* semi-bold */
+    font-size: 20px;
+    color: #111827;
+    margin: 24px 0 8px 24px;
+}
+
+.team-card .position {
+    font-weight: 500; /* medium */
+    font-size: 16px;
+    color: #DB2777;
+    margin: 0 0 8px 24px;
+}
+
+.team-card .experience {
+    font-weight: 400; /* regular */
+    font-size: 16px;
+    color: #4B5563;
+    margin: 0 0 0 24px;
+}
 
 
 
