@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
 
@@ -30,5 +30,12 @@ def create_app():
     app.register_blueprint(main_bp)
     app.register_blueprint(profile_bp)
     app.register_blueprint(about_bp)
+
+    @app.context_processor
+    def inject_user_status():
+        user_id = session.get('user_id')
+        return {
+            'user_logged_in': bool(user_id)
+        }
 
     return app

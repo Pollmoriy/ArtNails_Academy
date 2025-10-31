@@ -39,4 +39,4 @@ def home():
             "price": "1200 BYN"
         }
     ]
-    return render_template('home.html', popular_courses=popular_courses, user_logged_in=user_logged_in)
+    return render_template('home.html', popular_courses=popular_courses)
