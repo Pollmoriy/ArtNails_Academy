@@ -975,6 +975,7 @@ margin-top: 83px;
     padding-right: 395px;
     box-sizing: border-box;
     position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .profile-header-text h1 {
@@ -1648,6 +1649,7 @@ margin-top: 83px;
     display: flex;
     align-items: center;
     margin-top: 80px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .catalog-header-content {
@@ -1676,13 +1678,13 @@ margin-top: 83px;
 
 .filter-container {
     width: 1157px;
-    height: 114px;
     background-color: #FFFFFF;
     border-radius: 8px;
     display: flex;
     align-items: flex-start;
     padding: 24px;
     gap: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* Элементы фильтров */
