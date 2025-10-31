@@ -1487,5 +1487,78 @@ margin-top: 83px;
     margin: 0 0 0 24px;
 }
 
+/* --- Блок "Наша история" --- */
+.history-block {
+    background-color: #F9FAFB;
+    font-family: 'Inter', sans-serif;
+    height: 618px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 92px; /* расстояние между картинкой и текстом */
+    padding-top: 91px;
+}
+
+.history-block .history-image {
+    width: 535px;
+    height: 450px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    margin-left: 383px;
+}
+
+.history-block .history-content {
+    width: 522px;
+    height: 444px;
+    text-align: left;
+}
+
+.history-block h2 {
+    font-weight: 700;
+    font-size: 36px;
+    color: #111827;
+    margin-bottom: 33px; /* отступ до первого кружочка */
+}
+
+/* Список истории */
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 21px; /* расстояние между пунктами */
+}
+
+/* Один пункт */
+.history-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 32px; /* чтобы освободить место для кружка */
+}
+
+.history-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px; /* чтобы кружок был посередине относительно текста года */
+    width: 16px;
+    height: 16px;
+    background-color: #DB2777;
+    border-radius: 50%;
+}
+
+.history-item .year {
+    font-weight: 600; /* semi-bold */
+    font-size: 16px;
+    color: #111827;
+    margin-bottom: 7px;
+}
+
+.history-item .description {
+    font-weight: 400; /* regular */
+    font-size: 16px;
+    color: #374151;
+}
+
 
 

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}О нас — ArtNails Academy{% endblock %}
+{% block title %}ArtNails Academy{% endblock %}
 
 {% block content %}
 
@@ -140,6 +140,35 @@
     </div>
 </section>
 
+<!-- Блок "Наша история" -->
+<section class="history-block">
+    <img src="{{ url_for('static', filename='img/history.jpg') }}" alt="Наша история" class="history-image">
 
+    <div class="history-content">
+        <h2>Наша история</h2>
+
+        <div class="history-list">
+            <div class="history-item">
+                <div class="year">2008 год</div>
+                <div class="description">Основание академии Анной Петровой. Первые курсы классического маникюра.</div>
+            </div>
+
+            <div class="history-item">
+                <div class="year">2012 год</div>
+                <div class="description">Расширение программы обучения. Добавление курсов nail-арта и дизайна.</div>
+            </div>
+
+            <div class="history-item">
+                <div class="year">2018 год</div>
+                <div class="description">Запуск онлайн-платформы. Возможность дистанционного обучения.</div>
+            </div>
+
+            <div class="history-item">
+                <div class="year">2023 год</div>
+                <div class="description">Более 5000 выпускников. Признание как ведущей школы nail-индустрии.</div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
