@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="catalog-page">
+
+    <!-- Верхний белый прямоугольник -->
+    <section class="catalog-header">
+        <div class="catalog-header-content">
+            <h1 class="catalog-title">Каталог курсов</h1>
+            <p class="catalog-subtitle">Выберите курс, который подходит вашему уровню и целям</p>
+        </div>
+    </section>
+
+    <!-- Блок фильтров -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <!-- Поиск -->
+            <div class="filter-item search-filter">
+                <label for="search" class="filter-label">Поиск по названию</label>
+                <input type="text" id="search" class="filter-input" placeholder="Введите название курса...">
+            </div>
+
+            <!-- Фильтр уровня -->
+            <div class="filter-item">
+                <label class="filter-label">Уровень</label>
+                <select class="filter-select">
+                    <option value="">Все уровни</option>
+                    <option value="Начинающий">Начинающий</option>
+                    <option value="Средний">Средний</option>
+                    <option value="Продвинутый">Продвинутый</option>
+                </select>
+            </div>
+
+            <!-- Фильтр цены -->
+            <div class="filter-item">
+                <label class="filter-label">Цена</label>
+                <select class="filter-select">
+                    <option value="">Все</option>
+                    <option value="low">До 1000 BYN</option>
+                    <option value="medium">1000–2000 BYN</option>
+                    <option value="high">От 2000 BYN</option>
+                </select>
+            </div>
+
+            <!-- Фильтр длительности -->
+            <div class="filter-item">
+                <label class="filter-label">Длительность</label>
+                <select class="filter-select">
+                    <option value="">Все</option>
+                    <option value="short">1–2 недели</option>
+                    <option value="medium">3–4 недели</option>
+                    <option value="long">5+ недель</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+</main>
+{% endblock %}

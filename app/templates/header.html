@@ -3,7 +3,7 @@
         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="ArtNails" class="logo">
         <nav class="nav">
             <a href="{{ url_for('main.home') }}">Главная</a>
-            <a href="#">Курсы</a>
+            <a href="{{ url_for('catalog.catalog') }}">Курсы</a>
             <a href="#">Отзывы</a>
             <a href="{{ url_for('about.about') }}">О нас</a>
             {% if user_logged_in %}
