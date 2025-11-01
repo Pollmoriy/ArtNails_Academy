@@ -204,6 +204,7 @@ header {
     color: #FFFFFF;
     border: none;
     font-weight: 400;
+    text-decoration: none;
 }
 
 .btn-catalog:hover {
@@ -468,6 +469,7 @@ header {
     font-size: 18px;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .btn-all-courses:hover {
@@ -1596,34 +1598,37 @@ margin-top: 83px;
     gap: 84px;
 }
 
-.cta-btn-primary {
+.cta-btn-primary,
+.cta-btn-outline {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     width: 215px;
     height: 64px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none; /* убирает подчёркивание */
+    transition: background-color 0.3s ease;
+}
+
+/* Стиль для основной кнопки */
+.cta-btn-primary {
     background-color: #FFFFFF;
     color: #000000;
     border: none;
-    border-radius: 8px;
-    font-weight: 600; /* semi bold */
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+}
+
+/* Стиль для кнопки с обводкой */
+.cta-btn-outline {
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
 }
 
 .cta-btn-primary:hover {
     background-color: #E5E5E5;
-}
-
-.cta-btn-outline {
-    width: 240px;
-    height: 64px;
-    background-color: transparent;
-    color: #FFFFFF;
-    border: 2px solid #FFFFFF;
-    border-radius: 8px;
-    font-weight: 600; /* semi bold */
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .cta-btn-outline:hover {

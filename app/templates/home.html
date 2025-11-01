@@ -16,11 +16,10 @@
                 Изучите искусство маникюра с лучшими инструкторами. Получите сертификат и начните успешную карьеру в индустрии красоты.
             </p>
             <div class="hero-buttons">
-                <button class="btn-hero btn-catalog">
+                <a href="{{ url_for('catalog.catalog') }}" class="btn-hero btn-catalog">
                     <img src="{{ url_for('static', filename='icons/catalog-icon.svg') }}" alt="" class="btn-icon">
                     Каталог курсов
-                </button>
-
+                </a>
                 <button class="btn-hero btn-register-hero">
                     <img src="{{ url_for('static', filename='icons/register-icon.svg') }}" alt="" class="btn-icon">
                     Записаться
@@ -80,7 +79,7 @@
         </div>
 
         <div class="all-courses-container">
-            <button class="btn-all-courses">Все курсы →</button>
+            <a href="{{ url_for('catalog.catalog') }}" class="btn-all-courses">Все курсы →</a>
         </div>
     </section>
 
@@ -96,10 +95,10 @@
                 <img src="{{ url_for('static', filename='icons/icon-apply.svg') }}" alt="icon" class="btn-icon">
                 Записаться на курс
             </button>
-            <button class="btn-choose">
-                <img src="{{ url_for('static', filename='icons/catalog-icon.svg') }}" alt="icon" class="btn-icon">
-                Выбрать курс
-            </button>
+            <a href="{{ url_for('catalog.catalog') }}" class="btn-choose btn-catalog">
+                <img src="{{ url_for('static', filename='icons/catalog-icon.svg') }}" alt="" class="btn-icon">
+                    Выбрать курс
+            </a>
         </div>
     </section>
 

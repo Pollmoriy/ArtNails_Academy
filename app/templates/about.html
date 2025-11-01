@@ -15,10 +15,10 @@
             ArtNails Academy — ведущая школа nail-индустрии, где мы готовим профессиональных мастеров маникюра и nail-арта уже более 15 лет
         </p>
         <div class="hero-buttons">
-                <button class="btn-hero btn-catalog">
+                <a href="{{ url_for('catalog.catalog') }}" class="btn-hero btn-catalog">
                     <img src="{{ url_for('static', filename='icons/catalog-icon.svg') }}" alt="" class="btn-icon">
                     Наши курсы
-                </button>
+                </a>
 
                 <button class="btn-hero btn-register-hero-about">
                     <img src="{{ url_for('static', filename='icons/register-icon.svg') }}" alt="" class="btn-icon">
@@ -177,8 +177,8 @@
     <p>Присоединяйтесь к тысячам успешных выпускников ArtNails Academy и станьте востребованным специалистом.</p>
 
     <div class="cta-buttons">
-        <button class="cta-btn-primary">Выбрать курс</button>
-        <button class="cta-btn-outline">Записаться на курс</button>
+        <a href="{{ url_for('catalog.catalog') }}" class="cta-btn-primary">Выбрать курс</a>
+         <a href="#" class="cta-btn-outline">Записаться на курс</a>
     </div>
 </section>
 
