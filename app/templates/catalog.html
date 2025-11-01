@@ -61,7 +61,7 @@
             <div class="course-card">
                 <img src="{{ url_for('static', filename=course.image) }}" alt="{{ course.title }}" class="course-img">
                 <div class="course-top-info">
-                    <span class="course-level">{{ course.level }}</span>
+                    <span class="course-level">{{ course.difficulty }}</span>
                     <span class="course-duration">{{ course.duration_weeks }} недели</span>
                 </div>
                 <h3 class="course-name">{{ course.title }}</h3>
