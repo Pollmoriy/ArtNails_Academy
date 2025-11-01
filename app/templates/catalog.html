@@ -10,7 +10,7 @@
         </div>
     </section>
 
-    <!-- Блок фильтров -->
+    <!-- Фильтры -->
     <section class="filter-section">
         <div class="filter-container">
             <!-- Поиск -->
@@ -35,9 +35,9 @@
                 <label class="filter-label">Цена</label>
                 <select class="filter-select">
                     <option value="">Все</option>
-                    <option value="low">До 1000 BYN</option>
-                    <option value="medium">1000–2000 BYN</option>
-                    <option value="high">От 2000 BYN</option>
+                    <option value="low">До 800 BYN</option>
+                    <option value="medium">801–1200 BYN</option>
+                    <option value="high">От 1201 BYN</option>
                 </select>
             </div>
 
@@ -51,6 +51,25 @@
                     <option value="long">5+ недель</option>
                 </select>
             </div>
+        </div>
+    </section>
+
+    <!-- Карточки курсов -->
+    <section class="courses-block">
+        <div class="courses-container-catalog">
+            {% for course in courses %}
+            <div class="course-card">
+                <img src="{{ url_for('static', filename=course.image) }}" alt="{{ course.title }}" class="course-img">
+                <div class="course-top-info">
+                    <span class="course-level">{{ course.level }}</span>
+                    <span class="course-duration">{{ course.duration_weeks }} недели</span>
+                </div>
+                <h3 class="course-name">{{ course.title }}</h3>
+                <p class="course-desc">{{ course.short_description }}</p>
+                <span class="course-price">{{ course.price }} BYN</span>
+                <button class="btn-course-details">Подробнее</button>
+            </div>
+            {% endfor %}
         </div>
     </section>
 

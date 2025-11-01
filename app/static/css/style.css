@@ -1724,3 +1724,12 @@ margin-top: 83px;
     background-color: #fff;
     cursor: pointer;
 }
+
+.courses-container-catalog {
+    display: flex;
+    flex-wrap: wrap; /* чтобы переходили на новую строку */
+    justify-content: center; /* центрируем по горизонтали */
+    gap: 57px; /* расстояние между карточками и по вертикали и по горизонтали */
+    margin: 61px auto; /* отступ сверху и снизу */
+    max-width: calc(3 * 351px + 2 * 57px); /* чтобы помещалось ровно 3 карточки в ряд */
+}
