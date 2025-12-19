@@ -6,7 +6,7 @@
         <h1 class="login-title">Войти в аккаунт</h1>
         <p class="login-subtitle">
             <span class="login-subtitle-grey">Или </span>
-            <a href="{{ url_for('auth.register') }}" class="login-subtitle-pink">Создайте новый аккаунт</a>
+            <a href="{{ url_for('auth.register') }}" class="login-subtitle-pink">создайте новый аккаунт</a>
         </p>
 
         <form class="login-form" method="POST">
@@ -20,11 +20,15 @@
             <button type="submit" class="btn-login-main">Войти</button>
         </form>
 
-        <p class="login-divider">Или войдите через</p>
+        <div class="login-divider-wrapper">
+            <span class="login-divider-line"></span>
+            <span class="login-divider-text">Или войдите через</span>
+            <span class="login-divider-line"></span>
+        </div>
 
         <div class="login-social">
-            <button type="button" class="social-btn">Google</button>
-            <button type="button" class="social-btn">Facebook</button>
+            <button type="button" class="social-btn social-google">Google</button>
+            <button type="button" class="social-btn social-facebook">Facebook</button>
         </div>
     </div>
 </main>

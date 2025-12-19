@@ -1,58 +1,47 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 {% include 'header.html' %}
 
-<section class="register-section" style="margin-top: 77px;"> <!-- учитываем хедер -->
-    <form class="register-content" method="POST">
-        <h1 class="register-title">Создать аккаунт</h1>
-        <p class="register-subtitle">
-            <span class="subtitle-gray">Или</span>
-            <a href="{{ url_for('auth.login') }}" class="subtitle-pink">Уже есть аккаунт</a>
+<main class="login-page"> <!-- используем тот же контейнер, что и для входа -->
+    <div class="login-container">
+        <h1 class="login-title">Создать аккаунт</h1>
+        <p class="login-subtitle">
+            <span class="login-subtitle-grey">Или </span>
+            <a href="{{ url_for('auth.login') }}" class="login-subtitle-pink">Уже есть аккаунт</a>
         </p>
 
-        <!-- Имя и Фамилия -->
-        <div class="name-row">
-            <div class="name-field">
-                <label>Имя</label>
-                <input type="text" name="first_name" placeholder="Имя" required>
+        <form class="login-form" method="POST">
+            <label>Имя</label>
+            <input type="text" name="first_name" placeholder="Имя" required>
+
+            <label>Фамилия</label>
+            <input type="text" name="last_name" placeholder="Фамилия" required>
+
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Email" required>
+
+            <label>Пароль</label>
+            <input type="password" name="password" placeholder="Пароль" required>
+
+            <label>Подтвердите пароль</label>
+            <input type="password" name="confirm_password" placeholder="Повторите пароль" required>
+
+            <div class="checkbox-row">
+                <input type="checkbox" name="terms" id="agreement" required>
+                <label for="agreement">
+                    Я согласен(а) с <a href="#">пользовательским соглашением</a> и <a href="#">политикой конфиденциальности</a>
+                </label>
             </div>
-            <div class="name-field">
-                <label>Фамилия</label>
-                <input type="text" name="last_name" placeholder="Фамилия" required>
-            </div>
-        </div>
 
-        <!-- Email -->
-        <label>Email адрес</label>
-        <input type="email" name="email" placeholder="Введите email" class="full-width-input" required>
+            <button type="submit" class="btn-login-main">Создать аккаунт</button>
+        </form>
 
-        <!-- Пароль -->
-        <label>Пароль</label>
-        <input type="password" name="password" placeholder="Введите пароль" class="full-width-input" required>
+        <p class="login-divider">Или зарегистрируйтесь через</p>
 
-        <!-- Подтвердите пароль -->
-        <label>Подтвердите пароль</label>
-        <input type="password" name="confirm_password" placeholder="Повторите пароль" class="full-width-input" required>
-
-        <!-- Чекбокс -->
-        <div class="checkbox-row">
-            <input type="checkbox" name="terms" id="agreement" required>
-            <label for="agreement">
-                Я согласен(а) с <a href="#">пользовательским соглашением</a> и <a href="#">политикой конфиденциальности</a>
-            </label>
-        </div>
-
-        <!-- Кнопка Создать аккаунт -->
-        <button type="submit" class="btn-register">Создать аккаунт</button>
-
-        <!-- Или зарегистрируйтесь через -->
-        <p class="register-or">Или зарегистрируйтесь через</p>
-
-        <!-- Google / Facebook -->
         <div class="login-social">
             <button type="button" class="social-btn">Google</button>
             <button type="button" class="social-btn">Facebook</button>
         </div>
-    </form>
-</section>
+    </div>
+</main>
 
 {% include 'footer.html' %}

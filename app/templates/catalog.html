@@ -22,7 +22,7 @@
             <!-- Фильтр уровня -->
             <div class="filter-item">
                 <label class="filter-label">Уровень</label>
-                <select class="filter-select">
+                <select id="level" class="filter-select">
                     <option value="">Все уровни</option>
                     <option value="Начинающий">Начинающий</option>
                     <option value="Средний">Средний</option>
@@ -33,7 +33,7 @@
             <!-- Фильтр цены -->
             <div class="filter-item">
                 <label class="filter-label">Цена</label>
-                <select class="filter-select">
+                <select id="price" class="filter-select">
                     <option value="">Все</option>
                     <option value="low">До 800 BYN</option>
                     <option value="medium">801–1200 BYN</option>
@@ -44,7 +44,7 @@
             <!-- Фильтр длительности -->
             <div class="filter-item">
                 <label class="filter-label">Длительность</label>
-                <select class="filter-select">
+                <select id="duration" class="filter-select">
                     <option value="">Все</option>
                     <option value="short">1–2 недели</option>
                     <option value="medium">3–4 недели</option>
@@ -56,7 +56,7 @@
 
     <!-- Карточки курсов -->
     <section class="courses-block">
-        <div class="courses-container-catalog">
+        <div class="courses-container-catalog" id="courses-container">
             {% for course in courses %}
             <div class="course-card">
                 <img src="{{ url_for('static', filename=course.image) }}" alt="{{ course.title }}" class="course-img">
@@ -74,4 +74,8 @@
     </section>
 
 </main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/catalog_filter.js') }}"></script>
 {% endblock %}

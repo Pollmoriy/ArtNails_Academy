@@ -695,24 +695,187 @@ header {
 
 /* ===== LOGIN PAGE ===== */
 .login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    font-family: 'Inter', sans-serif;
+}
+
+.login-container {
+    width: 420px;
+    padding: 48px 32px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* Заголовки */
+.login-title {
+    font-weight: 800;
+    font-size: 32px;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.login-subtitle {
+    font-size: 14px;
+    margin-bottom: 32px;
+}
+
+.login-subtitle-grey {
+    color: #6B7280;
+    font-weight: 400;
+}
+
+.login-subtitle-pink {
+    color: #DB2777;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-subtitle-pink:hover {
+    color: #c61f6a;
+}
+
+/* Поля ввода */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.login-form input {
+    width: 100%;
+    height: 44px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 0 14px;
+    font-size: 14px;
+    color: #111827;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form input:focus {
+    border-color: #DB2777;
+    box-shadow: 0 0 8px rgba(219,39,119,0.2);
+}
+
+/* Забыли пароль */
+.forgot-password {
+    text-align: right;
+}
+
+.forgot-password a {
+    font-size: 13px;
+    color: #DB2777;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+    color: #c61f6a;
+}
+
+/* Кнопка Войти */
+.btn-login-main {
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(90deg, #DB2777 0%, #FF5CA2 100%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-login-main:hover {
+    background: linear-gradient(90deg, #c61f6a 0%, #ff4391 100%);
+    transform: translateY(-2px);
+}
+
+/* Разделитель */
+.login-divider-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 32px 0;
+    gap: 12px;
+}
+
+.login-divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: #E5E7EB;
+}
+
+.login-divider-text {
+    font-size: 14px;
+    color: #6B7280;
+    font-weight: 300;
+}
+
+/* Соцсети */
+.login-social {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.social-btn {
+    flex: 1;
+    height: 44px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+}
+
+.soci
+
+/* ===== LOGIN / REGISTER PAGE ===== */
+.login-page {
     min-height: 1023px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     background-color: #FFFFFF;
+    padding-top: 120px; /* отступ от хедера */
+    padding-bottom: 80px; /* отступ от футера */
 }
 
 .login-container {
     width: 448px;
-    height: 396px;
-    margin-top: 240px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 32px;
     text-align: center;
     font-family: 'Inter', sans-serif;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
 /* Заголовки */
 .login-title {
-    font-weight: 800; /* Extra Bold */
+    font-weight: 800;
     font-size: 30px;
     color: #111827;
     margin-bottom: 7px;
@@ -720,7 +883,7 @@ header {
 
 .login-subtitle {
     font-size: 14px;
-    margin: 0;
+    margin: 0 0 24px 0;
 }
 
 .login-subtitle-grey {
@@ -738,13 +901,19 @@ header {
 .login-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 36px;
-    gap: 8px; /* поля сливаются, но немного воздуха */
+    align-items: stretch;
+    gap: 12px;
+}
+
+.login-form label {
+    font-size: 14px;
+    color: #374151;
+    font-weight: 400;
+    text-align: left;
 }
 
 .login-form input {
-    width: 448px;
+    width: 100%;
     height: 38px;
     border: 1px solid #D1D5DB;
     border-radius: 4px;
@@ -754,27 +923,34 @@ header {
     outline: none;
 }
 
-.login-form input::placeholder {
-    color: #9CA3AF;
-}
-
-/* Забыли пароль */
-.forgot-password {
-    width: 448px;
-    text-align: right;
-    margin-top: 24px;
-}
-
-.forgot-password a {
+/* Чекбокс */
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
     font-size: 14px;
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 16px;   /* уменьшенный размер */
+    height: 16px;  /* уменьшенный размер */
+    margin-right: 6px; /* чуть меньше отступ между чекбоксом и текстом */
+    cursor: pointer;
+}
+
+.checkbox-row a {
     color: #DB2777;
     text-decoration: none;
-    font-weight: 300;
 }
 
-/* Кнопка Войти */
+.checkbox-row a:hover {
+    color: #c61f6a;
+}
+
+
+/* Кнопка */
 .btn-login-main {
-    width: 448px;
+    width: 100%;
     height: 48px;
     background-color: #DB2777;
     color: #FFFFFF;
@@ -782,7 +958,7 @@ header {
     font-size: 16px;
     border: none;
     border-radius: 4px;
-    margin-top: 24px;
+    margin-top: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -804,11 +980,11 @@ header {
     display: flex;
     justify-content: center;
     gap: 12px;
-    margin-top: 24px;
+    margin-top: 16px;
 }
 
 .social-btn {
-    width: 218px;
+    flex: 1;
     height: 38px;
     background-color: #FFFFFF;
     border: 1px solid #D1D5DB;
@@ -822,139 +998,6 @@ header {
 .social-btn:hover {
     background-color: #F9FAFB;
 }
-
-/* ===== REGISTER PAGE ===== */
-.register-content {
-    width: 456px;
-    height: 619px;
-    background: #fff;
-    border-radius: 8px;
-    margin-top: 140px;
-    margin-left: 732px;
-    margin-bottom: 80px;
-    box-sizing: border-box;
-}
-
-.register-title {
-    font-family: 'Inter', sans-serif;
-    font-weight: 800; /* Extra Bold */
-    font-size: 30px;
-    color: #111827;
-    text-align: center;
-}
-
-.register-subtitle {
-    font-size: 14px;
-    text-align: center;
-    font-weight: 400;
-    margin-top: 22px;
-}
-
-.subtitle-gray {
-    font-weight: 400;
-    color: #4B5563;
-}
-
-.subtitle-pink {
-    font-weight: 600; /* Semi Bold */
-    color: #DB2777;
-    text-decoration: none;
-}
-
-.register-content label {
-    font-size: 14px;
-    color: #374151;
-    font-weight: 400;
-    margin-bottom: 8px; /* расстояние между надписью и полем */
-}
-
-
-.name-row {
-    display: flex;
-    gap: 16px; /* расстояние между полями Имя и Фамилия */
-    margin-top: 21px; /* отступ сверху блока */
-}
-
-.name-row { margin-bottom: 16px; }
-.full-width-input { margin-bottom: 16px; }
-.checkbox-row { margin-top: 22px; }
-.btn-register { margin-top: 20px; }
-.register-or { margin-top: 20px; }
-.social-buttons { margin-top: 20px; }
-
-
-.name-field input,
-.full-width-input {
-    margin-bottom: 16px; /* отступ после поля */
-}
-
-.name-field label {
-    font-size: 14px;
-    color: #374151;
-    font-weight: 400;
-    margin-bottom: 4px;
-}
-
-.name-field input {
-    width: 216px;
-    height: 38px;
-    border: 1px solid #D1D5DB;
-    border-radius: 8px;
-    padding: 0 12px;
-    box-sizing: border-box;
-}
-
-.full-width-input {
-    width: 456px;
-    height: 38px;
-    margin-bottom: 16px;
-    border: 1px solid #D1D5DB;
-    border-radius: 8px;
-    padding: 0 12px;
-    box-sizing: border-box;
-}
-
-.checkbox-row {
-    display: flex;
-    align-items: center;
-    margin-top: 22px;
-    font-size: 14px;
-    color: #374151;
-}
-
-.checkbox-row input {
-    margin-right: 8px;
-}
-
-.checkbox-row a {
-    color: #DB2777;
-    text-decoration: none;
-}
-
-.btn-register {
-    width: 448px;
-    height: 48px;
-    background: #DB2777;
-    color: #fff;
-    font-weight: 700;
-    font-size: 16px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.btn-register:hover {
-    background: #b12562;
-}
-
-.register-or {
-    text-align: center;
-    font-size: 14px;
-    color: #374151;
-    margin-top: 20px;
-}
-
 
 /* ==========================
   Личный кабинет
