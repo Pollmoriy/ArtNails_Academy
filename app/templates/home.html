@@ -8,20 +8,17 @@
         <img src="{{ url_for('static', filename='img/hero-bg.jpg') }}" alt="Фон" class="hero-bg">
 
         <div class="hero-content">
-            <h1>
-                <span class="white-text">Станьте профессиональным</span>
-                <span class="pink-text"> мастером маникюра</span>
+            <h1 class="hero-title">
+                <span class="white-text">Become a professional</span> <span class="pink-text">nail artist</span>
             </h1>
             <p class="hero-subtext">
-                Изучите искусство маникюра с лучшими инструкторами. Получите сертификат и начните успешную карьеру в индустрии красоты.
+                Learn the art of manicure with top instructors. Get certified and start a successful career in beauty industry.
             </p>
             <div class="hero-buttons">
                 <a href="{{ url_for('catalog.catalog') }}" class="btn-hero btn-catalog">
-                    <img src="{{ url_for('static', filename='icons/catalog-icon.svg') }}" alt="" class="btn-icon">
                     Каталог курсов
                 </a>
                 <button class="btn-hero btn-register-hero">
-                    <img src="{{ url_for('static', filename='icons/register-icon.svg') }}" alt="" class="btn-icon">
                     Записаться
                 </button>
             </div>

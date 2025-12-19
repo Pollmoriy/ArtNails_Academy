@@ -9,9 +9,7 @@ main_bp = Blueprint(
 
 @main_bp.route('/')
 def home():
-    # Проверка, вошёл ли пользователь
-    user_id = session.get('user_id')
-    user_logged_in = bool(user_id)
+
 
     popular_courses = [
         {

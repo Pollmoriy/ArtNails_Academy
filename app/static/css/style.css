@@ -117,115 +117,98 @@ header {
 /* ==========================
    Блок "Hero"
 =========================== */
+/* Hero Block */
 .hero-block {
   position: relative;
   width: 100%;
+  height: 700px;
   overflow: hidden;
 }
 
-/* картинка как элемент потока — задаёт высоту секции */
+/* Картинка как элемент потока */
 .hero-bg {
-  display: block;       /* важно */
   width: 100%;
-  height: auto;         /* сохраняет пропорции */
-  object-fit: cover;    /* обрезает, если нужно */
-  vertical-align: middle;
+  height: 100%;
+  object-fit: cover;  /* сохраняет пропорции, не расплющивает */
+  filter: brightness(0.6);
+  display: block;
   z-index: 0;
 }
 
-/* контент поверх картинки */
+/* Контент поверх картинки */
 .hero-content {
-  position: absolute;   /* позиционируем поверх <img> */
-  top: 260px;           /* подними/опусти по нужде — это смещение от верхней границы hero-block */
+  position: absolute;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  max-width: 1427px;
-  width: 100%;
+  transform: translate(-50%, -50%);
+  max-width: 1200px;
   text-align: center;
+  color: #fff;
+  z-index: 1;
   padding: 0 20px;
 }
 
-
-/* Заголовок */
-.hero-content h1 {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 700;
-    font-size: 96px;
-    line-height: 1.1;
+.hero-title {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 1.1;
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 0 20px rgba(255,255,255,0.4); /* лёгкое свечение */
 }
 
 .white-text { color: #FFFFFF; }
-.pink-text { color: #FF7DB7; }
+.pink-text { color: #FF7DB7; text-shadow: 0 0 20px rgba(255,125,183,0.6); }
 
-/* Подзаголовок */
 .hero-subtext {
-    font-family: 'Inter', sans-serif;
-    font-size: 28px;
-    color: #FFFFFF;
-    margin-top: 60px;
-    text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  margin-top: 30px;
 }
 
-
-/* Кнопки */
 .hero-buttons {
-    margin-top: 60px;
-    display: flex;
-    justify-content: center;
-    gap: 32px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
 }
 
 .btn-hero {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 25px;
-    border-radius: 8px;
-    padding: 0 24px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 400;
-}
-
-.btn-icon {
-    margin-right: 12px;
-    width: 27px;
-    height: 27px;
-    transition: fill 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 8px;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 56px;
 }
 
 .btn-catalog {
-    width: 290px;
-    height: 64px;
-    background-color: #DB2777;
-    color: #FFFFFF;
-    border: none;
-    font-weight: 400;
-    text-decoration: none;
+  background-color: #DB2777;
+  color: #fff;
+  text-decoration: none;
+  border: none;
 }
 
 .btn-catalog:hover {
-    background-color: #A4205B;
+  background-color: #A4205B;
 }
 
 .btn-register-hero {
-    width: 228px;
-    height: 64px;
-    background: transparent;
-    color: #FFFFFF;
-    border: 2px solid #FFFFFF;
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
 }
 
 .btn-register-hero:hover {
-    background-color: #FFFFFF;
-    color: #DB2777;
-}
-
-.btn-register-hero:hover .btn-icon {
-    filter: invert(44%) sepia(73%) saturate(6629%) hue-rotate(316deg) brightness(97%) contrast(94%);
+  background-color: #fff;
+  color: #DB2777;
 }
 
 
