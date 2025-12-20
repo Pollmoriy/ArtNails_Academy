@@ -1,76 +1,71 @@
-// catalog_filter.js
+const searchInput = document.getElementById('search');
+const levelSelect = document.getElementById('level');
+const priceSelect = document.getElementById('price');
+const durationSelect = document.getElementById('duration');
+const container = document.getElementById('courses-container');
+const suggestions = document.getElementById('search-suggestions');
 
-document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('search');
-    const levelSelect = document.getElementById('level');
-    const priceSelect = document.getElementById('price');
-    const durationSelect = document.getElementById('duration');
-    const coursesContainer = document.getElementById('courses-container');
+let timeout = null;
 
-    // DEBUG: функция для логирования текущих параметров
-    function debugParams(params) {
-        console.log("DEBUG: Параметры фильтров", params);
+function fetchCourses() {
+    const params = new URLSearchParams({
+        search: searchInput.value,
+        level: levelSelect.value,
+        price: priceSelect.value,
+        duration: durationSelect.value
+    });
+
+    fetch(`/catalog?${params.toString()}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(res => res.json())
+    .then(data => {
+        renderCourses(data);
+        updateSuggestions(data);
+    });
+}
+
+function renderCourses(courses) {
+    container.innerHTML = '';
+
+    if (courses.length === 0) {
+        container.innerHTML = '<p>Курсы не найдены</p>';
+        return;
     }
 
-    function fetchCourses() {
-        // Получаем значения фильтров
-        let search = searchInput.value || '';
-        let level = levelSelect.value || null;  // null вместо пустой строки
-        let price = priceSelect.value || '';
-        let duration = durationSelect.value || '';
+    courses.forEach(course => {
+        container.innerHTML += `
+            <div class="course-card">
+                <img src="/static/${course.image}">
+                <div class="course-top-info">
+                    <span>${course.difficulty}</span>
+                    <span>${course.duration_weeks} нед.</span>
+                </div>
+                <h3>${course.title}</h3>
+                <p>${course.short_description}</p>
+                <span>${course.price} BYN</span>
+                <button class="btn-course-details">Подробнее</button>
+            </div>
+        `;
+    });
+}
 
-        // Преобразуем price в диапазоны
-        let price_min = 0, price_max = 999999;
-        if (price === 'low') price_max = 800;
-        else if (price === 'medium') { price_min = 801; price_max = 1200; }
-        else if (price === 'high') price_min = 1201;
+function updateSuggestions(courses) {
+    suggestions.innerHTML = '';
+    const titles = [...new Set(courses.map(c => c.title))];
+    titles.forEach(title => {
+        suggestions.innerHTML += `<option value="${title}">`;
+    });
+}
 
-        // Преобразуем duration в диапазоны
-        let duration_min = 0, duration_max = 100;
-        if (duration === 'short') duration_max = 2;
-        else if (duration === 'medium') { duration_min = 3; duration_max = 4; }
-        else if (duration === 'long') duration_min = 5;
+// debounce
+function delayedFetch() {
+    clearTimeout(timeout);
+    timeout = setTimeout(fetchCourses, 300);
+}
 
-        // DEBUG: выводим все параметры
-        debugParams({search, level, price_min, price_max, duration_min, duration_max});
-
-        // AJAX запрос
-        fetch(`/catalog?ajax=1&search=${encodeURIComponent(search)}&level=${encodeURIComponent(level || '')}&price_min=${price_min}&price_max=${price_max}&duration_min=${duration_min}&duration_max=${duration_max}`)
-        .then(response => response.json())
-        .then(data => {
-            // DEBUG: выводим результат
-            console.log("DEBUG: Полученные курсы", data);
-
-            // Обновляем карточки
-            coursesContainer.innerHTML = '';
-            if (data.length === 0) {
-                coursesContainer.innerHTML = '<p>Курсы не найдены.</p>';
-                return;
-            }
-
-            data.forEach(course => {
-                const card = document.createElement('div');
-                card.classList.add('course-card');
-                card.innerHTML = `
-                    <img src="/static/${course.image}" alt="${course.title}" class="course-img">
-                    <div class="course-top-info">
-                        <span class="course-level">${course.difficulty}</span>
-                        <span class="course-duration">${course.duration_weeks} недели</span>
-                    </div>
-                    <h3 class="course-name">${course.title}</h3>
-                    <p class="course-desc">${course.short_description}</p>
-                    <span class="course-price">${course.price} BYN</span>
-                    <button class="btn-course-details">Подробнее</button>
-                `;
-                coursesContainer.appendChild(card);
-            });
-        })
-        .catch(err => console.error("DEBUG: Ошибка при fetch", err));
-    }
-
-    // Вешаем обработчики событий
-    searchInput.addEventListener('input', fetchCourses);
-    levelSelect.addEventListener('change', fetchCourses);
-    priceSelect.addEventListener('change', fetchCourses);
-    durationSelect.addEventListener('change', fetchCourses);
-});
+// listeners
+searchInput.addEventListener('input', delayedFetch);
+levelSelect.addEventListener('change', fetchCourses);
+priceSelect.addEventListener('change', fetchCourses);
+durationSelect.addEventListener('change', fetchCourses);

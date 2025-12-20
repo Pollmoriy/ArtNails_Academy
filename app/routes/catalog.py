@@ -7,30 +7,43 @@ catalog_bp = Blueprint('catalog', __name__)
 @catalog_bp.route('/catalog')
 def catalog():
     search = request.args.get('search', '')
-    level = request.args.get('level')
-    if not level:
-        level = None
-    price_min = request.args.get('price_min', 0, type=float)
-    price_max = request.args.get('price_max', 999999, type=float)
-    duration_min = request.args.get('duration_min', 0, type=int)
-    duration_max = request.args.get('duration_max', 100, type=int)
+    level = request.args.get('level') or None
 
-    # DEBUG: параметры перед SQL
-    print("DEBUG: Параметры для SQL", {
-        "search_term": search,
-        "level_filter": level,
-        "price_min": price_min,
-        "price_max": price_max,
-        "duration_min": duration_min,
-        "duration_max": duration_max
-    })
+    price = request.args.get('price')
+    duration = request.args.get('duration')
+
+    # ---- цена ----
+    price_min, price_max = 0, 999999
+    if price == 'low':
+        price_max = 800
+    elif price == 'medium':
+        price_min, price_max = 801, 1200
+    elif price == 'high':
+        price_min = 1201
+
+    # ---- длительность ----
+    duration_min, duration_max = 0, 100
+    if duration == 'short':
+        duration_max = 2
+    elif duration == 'medium':
+        duration_min, duration_max = 3, 4
+    elif duration == 'long':
+        duration_min = 5
 
     sql = text("""
-        CALL SearchCourses(:search_term, :level_filter, :price_min, :price_max, :duration_min, :duration_max)
+        CALL SearchCourses(
+            :search,
+            :level,
+            :price_min,
+            :price_max,
+            :duration_min,
+            :duration_max
+        )
     """)
+
     params = {
-        "search_term": search,
-        "level_filter": level,
+        "search": search,
+        "level": level,
         "price_min": price_min,
         "price_max": price_max,
         "duration_min": duration_min,
@@ -39,13 +52,10 @@ def catalog():
 
     with db.engine.connect() as conn:
         result = conn.execute(sql, params)
-        # Важно: используем .mappings() для преобразования в словари
         courses = [dict(row) for row in result.mappings()]
 
-    # DEBUG: сколько курсов получено
-    print("DEBUG: Получено курсов", len(courses))
-
-    if request.args.get('ajax'):
+    # AJAX-запрос
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return jsonify(courses)
 
     return render_template("catalog.html", courses=courses)

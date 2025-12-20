@@ -1764,3 +1764,25 @@ margin-top: 83px;
     margin: 61px auto; /* отступ сверху и снизу */
     max-width: calc(3 * 351px + 2 * 57px); /* чтобы помещалось ровно 3 карточки в ряд */
 }
+
+.search-input-wrapper {
+    position: relative;
+}
+
+.clear-search-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #9CA3AF;
+    cursor: pointer;
+    padding: 0;
+    display: none;
+}
+
+.clear-search-btn:hover {
+    color: #111827;
+}

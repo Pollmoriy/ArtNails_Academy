@@ -1,27 +1,40 @@
 {% extends 'base.html' %}
+
+{% block title %}Каталог курсов — ArtNails Academy{% endblock %}
+
 {% block content %}
 <main class="catalog-page">
 
-    <!-- Верхний белый прямоугольник -->
+    <!-- Верхний белый блок -->
     <section class="catalog-header">
         <div class="catalog-header-content">
             <h1 class="catalog-title">Каталог курсов</h1>
-            <p class="catalog-subtitle">Выберите курс, который подходит вашему уровню и целям</p>
+            <p class="catalog-subtitle">
+                Выберите курс, который подходит вашему уровню и целям
+            </p>
         </div>
     </section>
 
     <!-- Фильтры -->
     <section class="filter-section">
         <div class="filter-container">
+
             <!-- Поиск -->
-            <div class="filter-item search-filter">
+            <div class="filter-item">
                 <label for="search" class="filter-label">Поиск по названию</label>
-                <input type="text" id="search" class="filter-input" placeholder="Введите название курса...">
+                <input
+                    type="text"
+                    id="search"
+                    class="filter-input"
+                    placeholder="Введите название курса..."
+                    list="search-suggestions"
+                >
+                <datalist id="search-suggestions"></datalist>
             </div>
 
-            <!-- Фильтр уровня -->
+            <!-- Уровень -->
             <div class="filter-item">
-                <label class="filter-label">Уровень</label>
+                <label for="level" class="filter-label">Уровень</label>
                 <select id="level" class="filter-select">
                     <option value="">Все уровни</option>
                     <option value="Начинающий">Начинающий</option>
@@ -30,9 +43,9 @@
                 </select>
             </div>
 
-            <!-- Фильтр цены -->
+            <!-- Цена -->
             <div class="filter-item">
-                <label class="filter-label">Цена</label>
+                <label for="price" class="filter-label">Цена</label>
                 <select id="price" class="filter-select">
                     <option value="">Все</option>
                     <option value="low">До 800 BYN</option>
@@ -41,9 +54,9 @@
                 </select>
             </div>
 
-            <!-- Фильтр длительности -->
+            <!-- Длительность -->
             <div class="filter-item">
-                <label class="filter-label">Длительность</label>
+                <label for="duration" class="filter-label">Длительность</label>
                 <select id="duration" class="filter-select">
                     <option value="">Все</option>
                     <option value="short">1–2 недели</option>
@@ -51,31 +64,49 @@
                     <option value="long">5+ недель</option>
                 </select>
             </div>
+
         </div>
     </section>
 
     <!-- Карточки курсов -->
     <section class="courses-block">
         <div class="courses-container-catalog" id="courses-container">
+
             {% for course in courses %}
             <div class="course-card">
-                <img src="{{ url_for('static', filename=course.image) }}" alt="{{ course.title }}" class="course-img">
+
+                <img
+                    src="{{ url_for('static', filename=course.image) }}"
+                    alt="{{ course.title }}"
+                    class="course-img"
+                >
+
                 <div class="course-top-info">
                     <span class="course-level">{{ course.difficulty }}</span>
                     <span class="course-duration">{{ course.duration_weeks }} недели</span>
                 </div>
+
                 <h3 class="course-name">{{ course.title }}</h3>
-                <p class="course-desc">{{ course.short_description }}</p>
-                <span class="course-price">{{ course.price }} BYN</span>
-                <button class="btn-course-details">Подробнее</button>
+
+                <p class="course-desc">
+                    {{ course.short_description }}
+                </p>
+
+                <span class="course-price">
+                    {{ course.price }} BYN
+                </span>
+
+                <button class="btn-course-details">
+                    Подробнее
+                </button>
+
             </div>
             {% endfor %}
+
         </div>
     </section>
 
 </main>
-{% endblock %}
 
-{% block scripts %}
 <script src="{{ url_for('static', filename='js/catalog_filter.js') }}"></script>
 {% endblock %}
