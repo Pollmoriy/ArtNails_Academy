@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section style="padding: 80px">
+
+    <h1>{{ course.title }}</h1>
+
+    <img src="{{ url_for('static', filename=course.image) }}"
+         style="max-width: 400px">
+
+    <p>{{ course.short_description }}</p>
+
+    <p><strong>Цена:</strong> {{ course.price }} BYN</p>
+    <p><strong>Длительность:</strong> {{ course.duration_weeks }} недель</p>
+    <p><strong>Уровень:</strong> {{ course.difficulty }}</p>
+
+    <hr>
+
+    <p>⭐ {{ rating }} ({{ reviews_count }} отзывов)</p>
+    <p>🎬 Видео-уроков: {{ video_count }}</p>
+
+</section>
+{% endblock %}

@@ -3,101 +3,138 @@
 {% block title %}ArtNails Academy{% endblock %}
 
 {% block content %}
-    <!-- Блок с фоном и текстом -->
-    <section class="hero-block" style="margin-top: 83px;">
-        <img src="{{ url_for('static', filename='img/hero-bg.jpg') }}" alt="Фон" class="hero-bg">
 
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="white-text">Become a professional</span> <span class="pink-text">nail artist</span>
-            </h1>
-            <p class="hero-subtext">
-                Learn the art of manicure with top instructors. Get certified and start a successful career in beauty industry.
-            </p>
-            <div class="hero-buttons">
-                <a href="{{ url_for('catalog.catalog') }}" class="btn-hero btn-catalog">
-                    Каталог курсов
-                </a>
-                <button class="btn-hero btn-register-hero">
-                    Записаться
-                </button>
-            </div>
-        </div>
-    </section>
+<!-- HERO -->
+<section class="hero-block" style="margin-top: 83px;">
+    <img src="{{ url_for('static', filename='img/hero-bg.jpg') }}" alt="Фон" class="hero-bg">
 
-   <!-- Блок "Почему выбирают нас" -->
-    <section class="why-us-block">
-        <div class="container">
-            <h2 class="why-us-title">Почему выбирают нас?</h2>
-            <p class="why-us-subtext"> Мы предлагаем качественное образование с практическим подходом и поддержкой на каждом этапе обучения </p>
-            <div class="why-us-cards">
-                <div class="card">
-                    <div class="card-icon"> <img src="{{ url_for('static', filename='icons/icon1.svg') }}" alt="Icon 1"> </div>
-                    <h3 class="card-title">Гибкий доступ</h3>
-                    <p class="card-desc">Учитесь в удобное время в онлайн-формате</p>
-                </div> <div class="card">
-                <div class="card-icon"> <img src="{{ url_for('static', filename='icons/icon2.svg') }}" alt="Icon 2"> </div>
-                <h3 class="card-title">Поддержка сообщества</h3>
-                <p class="card-desc">Общение с единомышленниками и наставниками</p> </div>
-                <div class="card">
-                    <div class="card-icon"> <img src="{{ url_for('static', filename='icons/icon3.svg') }}" alt="Icon 3"> </div>
-                    <h3 class="card-title">Эксперты-инструкторы</h3>
-                    <p class="card-desc">Обучение у лучших мастеров индустрии с многолетним опытом</p> </div>
-                <div class="card">
-                    <div class="card-icon"> <img src="{{ url_for('static', filename='icons/icon4.svg') }}" alt="Icon 4"> </div>
-                    <h3 class="card-title">Сертификация</h3>
-                    <p class="card-desc">Получите официальный сертификат после завершения курса</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Блок "Популярные курсы" -->
-    <section class="popular-courses-block">
-        <h2 class="popular-title">Популярные курсы</h2>
-        <p class="popular-subtitle">
-            Выберите курс, который подходит вашему уровню подготовки
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <span class="white-text">Become a professional</span>
+            <span class="pink-text">nail artist</span>
+        </h1>
+        <p class="hero-subtext">
+            Learn the art of manicure with top instructors. Get certified and start a successful career in beauty industry.
         </p>
-
-        <div class="courses-container">
-            {% for course in popular_courses %}
-            <div class="course-card">
-                <img src="{{ url_for('static', filename=course.image) }}" alt="{{ course.title }}" class="course-img">
-                <div class="course-top-info">
-                    <span class="course-level">{{ course.level }}</span>
-                    <span class="course-duration">{{ course.weeks }} недели</span>
-                </div>
-                <h3 class="course-name">{{ course.title }}</h3>
-                <p class="course-desc">{{ course.description }}</p>
-                <span class="course-price">{{ course.price }}</span>
-                <button class="btn-course-details">Подробнее</button>
-            </div>
-            {% endfor %}
-        </div>
-
-        <div class="all-courses-container">
-            <a href="{{ url_for('catalog.catalog') }}" class="btn-all-courses">Все курсы →</a>
-        </div>
-    </section>
-
-    <!-- Блок "Запись на курсы" -->
-    <section class="start-learning-block">
-        <h2 class="start-title">Готовы начать обучение?</h2>
-        <p class="start-subtitle">
-            Присоединяйтесь к тысячам успешных мастеров, которые начали свою карьеру с нами
-        </p>
-
-        <div class="start-buttons">
-            <button class="btn-start">
-                <img src="{{ url_for('static', filename='icons/icon-apply.svg') }}" alt="icon" class="btn-icon">
-                Записаться на курс
-            </button>
-            <a href="{{ url_for('catalog.catalog') }}" class="btn-choose btn-catalog">
-                <img src="{{ url_for('static', filename='icons/catalog-icon.svg') }}" alt="" class="btn-icon">
-                    Выбрать курс
+        <div class="hero-buttons">
+            <a href="{{ url_for('catalog.catalog') }}" class="btn-hero btn-catalog">
+                Каталог курсов
             </a>
+            <button class="btn-hero btn-register-hero">
+                Записаться
+            </button>
         </div>
-    </section>
+    </div>
+</section>
 
+<!-- ПОЧЕМУ МЫ -->
+<section class="why-us-block">
+    <div class="container">
+        <h2 class="why-us-title">Почему выбирают нас?</h2>
+        <p class="why-us-subtext">
+            Мы предлагаем качественное образование с практическим подходом и поддержкой на каждом этапе обучения
+        </p>
+
+        <div class="why-us-cards">
+            <div class="card">
+                <div class="card-icon">
+                    <img src="{{ url_for('static', filename='icons/icon1.svg') }}">
+                </div>
+                <h3 class="card-title">Гибкий доступ</h3>
+                <p class="card-desc">Учитесь в удобное время в онлайн-формате</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <img src="{{ url_for('static', filename='icons/icon2.svg') }}">
+                </div>
+                <h3 class="card-title">Поддержка сообщества</h3>
+                <p class="card-desc">Общение с единомышленниками и наставниками</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <img src="{{ url_for('static', filename='icons/icon3.svg') }}">
+                </div>
+                <h3 class="card-title">Эксперты-инструкторы</h3>
+                <p class="card-desc">Обучение у лучших мастеров индустрии</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <img src="{{ url_for('static', filename='icons/icon4.svg') }}">
+                </div>
+                <h3 class="card-title">Сертификация</h3>
+                <p class="card-desc">Официальный сертификат после курса</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ПОПУЛЯРНЫЕ КУРСЫ -->
+<section class="popular-courses-block">
+    <h2 class="popular-title">Популярные курсы</h2>
+    <p class="popular-subtitle">
+        Выберите курс, который подходит вашему уровню подготовки
+    </p>
+
+    <div class="courses-container">
+        {% for course in popular_courses %}
+        <div class="course-card">
+
+            <img src="{{ url_for('static', filename=course.image) }}"
+                 alt="{{ course.title }}"
+                 class="course-img">
+
+            <div class="course-top-info">
+                <span class="course-level">{{ course.difficulty }}</span>
+                <span class="course-duration">{{ course.duration_weeks }} недели</span>
+            </div>
+
+            <h3 class="course-name">{{ course.title }}</h3>
+
+            <p class="course-desc">
+                {{ course.short_description }}
+            </p>
+
+            <span class="course-price">
+                {{ course.price }} BYN
+            </span>
+
+            <a href="{{ url_for('course.course_page', id_course=course.id_course) }}"
+               class="btn-course-details">
+                Подробнее
+            </a>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="all-courses-container">
+        <a href="{{ url_for('catalog.catalog') }}" class="btn-all-courses">
+            Все курсы →
+        </a>
+    </div>
+</section>
+
+<!-- ЗАПИСЬ -->
+<section class="start-learning-block">
+    <h2 class="start-title">Готовы начать обучение?</h2>
+    <p class="start-subtitle">
+        Присоединяйтесь к тысячам успешных мастеров
+    </p>
+
+    <div class="start-buttons">
+        <button class="btn-start">
+            <img src="{{ url_for('static', filename='icons/icon-apply.svg') }}" class="btn-icon">
+            Записаться на курс
+        </button>
+
+        <a href="{{ url_for('catalog.catalog') }}" class="btn-choose btn-catalog">
+            <img src="{{ url_for('static', filename='icons/catalog-icon.svg') }}" class="btn-icon">
+            Выбрать курс
+        </a>
+    </div>
+</section>
 
 {% endblock %}

@@ -415,7 +415,6 @@ header {
 }
 
 .btn-course-details {
-    border: none;
     position: absolute;
     bottom: 26px;
     right: 24px;
@@ -423,10 +422,17 @@ header {
     height: 36px;
     background-color: #DB2777;
     border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
     font-family: 'Inter', sans-serif;
-    font-weight: 400;
+    font-weight: 600; /* semi-bold */
     font-size: 14px;
     color: #ffffff;
+    text-decoration: none; /* убираем подчеркивание */
+
     cursor: pointer;
     transition: background 0.3s ease;
 }
@@ -435,8 +441,17 @@ header {
     background-color: #9D174D;
 }
 
+
 .all-courses-container {
     margin-top: 34px; /* отступ от карточек */
+    .btn-course-details:link,
+.btn-course-details:visited,
+.btn-course-details:active,
+.btn-course-details:focus {
+    border: none;
+    outline: none;
+    text-decoration: none;
+}
     text-align: left; /* выравнивание по первой карточке */
     padding-left: 303px; /* отступ слева для выравнивания с первой карточкой */
 }

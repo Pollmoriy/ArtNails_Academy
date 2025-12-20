@@ -109,10 +109,9 @@
                 </span>
 
                 <!-- Кнопка -->
-                <button class="btn-course-details">
+                <a href="{{ url_for('course.course_page', id_course=course.id_course) }}" class="btn-course-details">
                     Подробнее
-                </button>
-
+                </a>
             </div>
             {% endfor %}
 
