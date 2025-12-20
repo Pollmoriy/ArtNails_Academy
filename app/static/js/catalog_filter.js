@@ -103,6 +103,14 @@ function delayedFetch() {
     timeout = setTimeout(fetchCourses, 300);
 }
 
+const clearSearchBtn = document.getElementById('clear-search');
+
+clearSearchBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    fetchCourses(); // обновляем список курсов после очистки
+});
+
+
 // listeners
 searchInput.addEventListener('input', delayedFetch);
 levelSelect.addEventListener('change', fetchCourses);

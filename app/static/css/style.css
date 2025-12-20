@@ -1767,22 +1767,23 @@ margin-top: 83px;
 
 .search-input-wrapper {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .clear-search-btn {
     position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
+    right: 10px;
+    background: transparent;
     border: none;
     font-size: 16px;
-    color: #9CA3AF;
     cursor: pointer;
+    color: #6B7280; /* мягкий серый, гармонирует с фильтром */
     padding: 0;
-    display: none;
+    line-height: 1;
 }
 
 .clear-search-btn:hover {
-    color: #111827;
+    color: #111827; /* чуть темнее при наведении */
 }
+

@@ -20,17 +20,22 @@
         <div class="filter-container">
 
             <!-- Поиск -->
-            <div class="filter-item">
+            <div class="filter-item search-filter">
                 <label for="search" class="filter-label">Поиск по названию</label>
-                <input
-                    type="text"
-                    id="search"
-                    class="filter-input"
-                    placeholder="Введите название курса..."
-                    list="search-suggestions"
-                >
+                <div class="search-input-wrapper">
+                    <input
+                        type="text"
+                        id="search"
+                        class="filter-input"
+                        placeholder="Введите название курса..."
+                        list="search-suggestions"
+                        autocomplete="off"
+                    >
+                    <button type="button" id="clear-search" class="clear-search-btn">✕</button>
+                </div>
                 <datalist id="search-suggestions"></datalist>
             </div>
+
 
             <!-- Уровень -->
             <div class="filter-item">
