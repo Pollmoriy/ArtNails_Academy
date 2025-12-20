@@ -78,15 +78,17 @@ function renderCourses(courses) {
         price.textContent = `${course.price} BYN`;
         card.appendChild(price);
 
-        // Кнопка
-        const btn = document.createElement('button');
+        // Кнопка "Подробнее" как ссылка
+        const btn = document.createElement('a');
         btn.className = 'btn-course-details';
+        btn.href = `/course/${course.id_course}`; // <-- ссылка на страницу курса
         btn.textContent = 'Подробнее';
         card.appendChild(btn);
 
         container.appendChild(card);
     });
 }
+
 
 
 function updateSuggestions(courses) {
