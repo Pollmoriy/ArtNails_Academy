@@ -69,33 +69,41 @@
     </section>
 
     <!-- Карточки курсов -->
-    <section class="courses-block">
+     <section class="courses-block">
         <div class="courses-container-catalog" id="courses-container">
 
             {% for course in courses %}
             <div class="course-card">
 
+                <!-- Изображение -->
                 <img
                     src="{{ url_for('static', filename=course.image) }}"
                     alt="{{ course.title }}"
                     class="course-img"
                 >
 
+                <!-- Верхняя информация -->
                 <div class="course-top-info">
                     <span class="course-level">{{ course.difficulty }}</span>
                     <span class="course-duration">{{ course.duration_weeks }} недели</span>
                 </div>
 
-                <h3 class="course-name">{{ course.title }}</h3>
+                <!-- Название -->
+                <h3 class="course-name">
+                    {{ course.title }}
+                </h3>
 
+                <!-- Описание -->
                 <p class="course-desc">
                     {{ course.short_description }}
                 </p>
 
+                <!-- Цена -->
                 <span class="course-price">
                     {{ course.price }} BYN
                 </span>
 
+                <!-- Кнопка -->
                 <button class="btn-course-details">
                     Подробнее
                 </button>

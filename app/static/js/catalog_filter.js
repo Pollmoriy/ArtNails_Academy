@@ -34,21 +34,60 @@ function renderCourses(courses) {
     }
 
     courses.forEach(course => {
-        container.innerHTML += `
-            <div class="course-card">
-                <img src="/static/${course.image}">
-                <div class="course-top-info">
-                    <span>${course.difficulty}</span>
-                    <span>${course.duration_weeks} нед.</span>
-                </div>
-                <h3>${course.title}</h3>
-                <p>${course.short_description}</p>
-                <span>${course.price} BYN</span>
-                <button class="btn-course-details">Подробнее</button>
-            </div>
-        `;
+        const card = document.createElement('div');
+        card.className = 'course-card';
+
+        // Изображение
+        const img = document.createElement('img');
+        img.src = `/static/${course.image}`;
+        img.alt = course.title;
+        img.className = 'course-img';
+        card.appendChild(img);
+
+        // Верхняя информация
+        const topInfo = document.createElement('div');
+        topInfo.className = 'course-top-info';
+
+        const levelSpan = document.createElement('span');
+        levelSpan.className = 'course-level';
+        levelSpan.textContent = course.difficulty;
+
+        const durationSpan = document.createElement('span');
+        durationSpan.className = 'course-duration';
+        durationSpan.textContent = `${course.duration_weeks} недели`;
+
+        topInfo.appendChild(levelSpan);
+        topInfo.appendChild(durationSpan);
+        card.appendChild(topInfo);
+
+        // Название
+        const title = document.createElement('h3');
+        title.className = 'course-name';
+        title.textContent = course.title;
+        card.appendChild(title);
+
+        // Описание
+        const desc = document.createElement('p');
+        desc.className = 'course-desc';
+        desc.textContent = course.short_description;
+        card.appendChild(desc);
+
+        // Цена
+        const price = document.createElement('span');
+        price.className = 'course-price';
+        price.textContent = `${course.price} BYN`;
+        card.appendChild(price);
+
+        // Кнопка
+        const btn = document.createElement('button');
+        btn.className = 'btn-course-details';
+        btn.textContent = 'Подробнее';
+        card.appendChild(btn);
+
+        container.appendChild(card);
     });
 }
+
 
 function updateSuggestions(courses) {
     suggestions.innerHTML = '';
