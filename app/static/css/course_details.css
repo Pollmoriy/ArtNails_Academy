@@ -319,7 +319,7 @@
 /* Линия под вкладками на всю ширину страницы */
 .tabs-line {
     position: absolute;
-    top: 24px; /* расстояние от верха блока до линии */
+    top: 24px;
     left: 60px;
     width: calc(100% - 120px);
     height: 2px;
@@ -332,7 +332,7 @@
 .tabs-header {
     display: flex;
     gap: 36px;
-    padding-left: 441px; /* отступ от левого края страницы */
+    padding-left: 441px;
     position: relative;
     z-index: 1;
 }
@@ -373,5 +373,194 @@
 
 .tab-content.active {
     display: block;
+}
+
+/* Заголовки и текст */
+.tab-section-title {
+    font-weight: 700;
+    font-size: 24px;
+    color: #111827;
+    margin-bottom: 20px;
+}
+
+.tab-section-text {
+    font-weight: 400;
+    font-size: 16px;
+    color: #374151;
+    width: 724px;
+    margin-bottom: 20px;
+}
+
+/* Два столбца "Чему вы научитесь" */
+.learning-outcomes {
+    display: flex;
+    gap: 48px;
+    margin-bottom: 32px;
+}
+
+.learning-outcomes .column p {
+    font-weight: 400;
+    font-size: 16px;
+    color: #374151;
+    margin-bottom: 12px;
+}
+
+/* Требования */
+.requirements p {
+    font-weight: 400;
+    font-size: 16px;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+/* Промо-блок */
+.course-promo {
+    position: absolute;
+    top: 66px;
+    right: 70px;
+    width: 351px;
+    height: 232px;
+    border-radius: 8px;
+    background: #4B5563;
+    padding: 24px;
+    color: #4B5563;
+}
+
+.course-promo h3 {
+    font-weight: 600;
+    font-size: 16px;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+.course-promo p {
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.course-promo p span {
+    font-weight: 600;
+    color: #111827;
+}
+
+/* =========================
+   Вкладки курса — контент
+   ========================= */
+
+.tabs-content-wrapper {
+    background: #FFFFFF;
+    padding-bottom: 55px; /* отступ до футера */
+    font-family: 'Inter', sans-serif;
+    position: relative;
+}
+
+/* Блок статистики курса */
+.course-stats-card {
+    width: 351px;
+    height: 232px;
+    background: #F9FAFB;
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+    margin-top: 0; /* убрали */
+}
+
+
+.course-stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-stats-row .label {
+    font-weight: 400; /* regular */
+    font-size: 16px;
+    color: #4B5563;
+}
+
+.course-stats-row .value {
+    font-weight: 600; /* semi-bold */
+    font-size: 16px;
+    color: #111827;
+}
+
+.tabs-content-wrapper {
+    background: #FFFFFF;
+    padding-bottom: 55px; /* отступ до футера */
+    font-family: 'Inter', sans-serif;
+    position: relative;
+}
+
+/* Внутренний flex-контейнер для левой колонки и блока статистики */
+.tabs-content-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* выравнивание по верхнему краю */
+    gap: 48px; /* расстояние между колонками */
+    padding-left: 441px; /* отступ от начала страницы под заголовки */
+}
+
+/* Левая колонка текста */
+.tabs-left-content {
+    max-width: 724px;
+}
+
+/* Блок статистики курса */
+.course-stats-card {
+    width: 351px;
+    height: auto; /* теперь подстраивается под контент */
+    background: #F9FAFB;
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+    margin-top: 75px;
+}
+
+/* Строки внутри блока статистики */
+.course-stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-stats-row .label {
+    font-weight: 400; /* regular */
+    font-size: 16px;
+    color: #4B5563;
+}
+
+.course-stats-row .value {
+    font-weight: 600; /* semi-bold */
+    font-size: 16px;
+    color: #111827;
+}
+
+/* Чему вы научитесь */
+.learning-outcomes {
+    display: flex;
+    gap: 48px;
+    margin-bottom: 32px;
+}
+
+.learning-outcomes .column p {
+    font-weight: 400;
+    font-size: 16px;
+    color: #374151;
+    margin-bottom: 12px;
+}
+
+/* Требования */
+.requirements p {
+    font-weight: 400;
+    font-size: 16px;
+    color: #374151;
+    margin-bottom: 8px;
 }
 

@@ -112,12 +112,11 @@
 
 </section>
 
+
 <!-- =========================
      Вкладки курса
-     ========================= -->
+   ========================= -->
 <section class="course-tabs-section">
-    <!-- Линия фона -->
-    <div class="tabs-line"></div>
 
     <!-- Вкладки -->
     <div class="tabs-header">
@@ -125,25 +124,97 @@
         <div class="tab" data-tab="program">Программа</div>
         <div class="tab" data-tab="teacher">Преподаватель</div>
         <div class="tab" data-tab="reviews">Отзывы</div>
-
-        <!-- Линия активной вкладки -->
         <div class="active-line"></div>
     </div>
 
-    <!-- Контент вкладок -->
-    <div id="overview-content" class="tab-content active">
-        Контент Обзора
-    </div>
-    <div id="program-content" class="tab-content">
-        Контент Программы
-    </div>
-    <div id="teacher-content" class="tab-content">
-        Контент Преподавателя
-    </div>
-    <div id="reviews-content" class="tab-content">
-        Контент Отзывов
-    </div>
+    <!-- Линия под вкладками на всю ширину -->
+    <div class="tabs-line"></div>
+
+    <!-- Контент всех вкладок -->
+    <div class="tabs-content-wrapper">
+
+        <!-- ===== Обзор ===== -->
+        <div id="overview-content" class="tab-content active">
+
+            <div class="overview-wrapper" style="display: flex; gap: 32px; align-items: flex-start;">
+
+                <!-- Левая часть: текст -->
+                <div class="overview-text">
+
+                    <h2 class="tab-section-title">О курсе</h2>
+                    <p class="tab-section-text">{{ course.details.full_description }}</p>
+
+                    <h2 class="tab-section-title">Чему вы научитесь</h2>
+                    <div class="learning-outcomes">
+                        {% set outcomes = course.details.learning_outcomes.split(';') %}
+                        <div class="column">
+                            {% for item in outcomes[:(outcomes|length // 2 + outcomes|length % 2)] %}
+                                <p>• {{ item }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="column">
+                            {% for item in outcomes[(outcomes|length // 2 + outcomes|length % 2):] %}
+                                <p>• {{ item }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <h2 class="tab-section-title">Требования</h2>
+                    <div class="requirements">
+                        {% for req in course.details.requirements.split(';') %}
+                            <p>{{ req }}</p>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+                <!-- Правая часть: блок статистики -->
+                <div class="course-stats-card">
+                    <div class="course-stats-row">
+                        <span class="label">Студентов:</span>
+                        <span class="value">{{ students_count }}</span>
+                    </div>
+                    <div class="course-stats-row">
+                        <span class="label">Рейтинг:</span>
+                        <span class="value">
+                            {{ avg_rating }}
+                            <img src="{{ url_for('static', filename='icons/star.svg') }}" alt="star" style="width:24px; height:24px; vertical-align:middle;">
+                        </span>
+                    </div>
+                    <div class="course-stats-row">
+                        <span class="label">Отзывов:</span>
+                        <span class="value">{{ reviews_count }}</span>
+                    </div>
+                    <div class="course-stats-row">
+                        <span class="label">Длительность:</span>
+                        <span class="value">{{ course.duration_weeks }} недель</span>
+                    </div>
+                </div>
+
+            </div> <!-- .overview-wrapper -->
+
+        </div> <!-- #overview-content -->
+
+        <!-- ===== Программа ===== -->
+        <div id="program-content" class="tab-content">
+            Контент Программы
+        </div>
+
+        <!-- ===== Преподаватель ===== -->
+        <div id="teacher-content" class="tab-content">
+            Контент Преподавателя
+        </div>
+
+        <!-- ===== Отзывы ===== -->
+        <div id="reviews-content" class="tab-content">
+            Контент Отзывов
+        </div>
+
+    </div> <!-- .tabs-content-wrapper -->
+
 </section>
+
+
 
 
 
