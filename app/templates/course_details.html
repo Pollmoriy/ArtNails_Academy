@@ -1,89 +1,81 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}{{ course.title }}{% endblock %}
+{% block title %}{{ course.title }} | ArtNails Academy{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/course_details.css') }}">
-
 <section class="course-hero">
-    <div class="course-hero__inner">
 
-        <!-- ===== ЛЕВЫЙ ТЕКСТОВЫЙ БЛОК ===== -->
-        <div class="course-hero__text">
+    <div class="course-hero__container">
+
+        <!-- ЛЕВЫЙ ТЕКСТОВЫЙ БЛОК -->
+        <div class="course-hero__info">
 
             <!-- рейтинг -->
-            <div class="course-rating">
-                <img src="{{ url_for('static', filename='icons/star.svg') }}" alt="star">
-                <span class="course-rating__value">
-                    {{ course.rating }} ({{ course.reviews_count }} отзывов)
-                </span>
+            <div class="course-hero__rating">
+                <img src="{{ url_for('static', filename='icons/star.svg') }}" alt="rating">
+                <span>{{ avg_rating|round(1) }}</span>
+                <span>({{ reviews_count }} отзывов)</span>
             </div>
 
             <!-- название -->
-            <h1 class="course-title">
+            <h1 class="course-hero__title">
                 {{ course.title }}
             </h1>
 
             <!-- краткое описание -->
-            <p class="course-short-description">
+            <p class="course-hero__description">
                 {{ course.short_description }}
             </p>
 
-            <!-- инфо -->
-            <div class="course-meta">
-                <div class="course-meta__item">
-                    <img src="{{ url_for('static', filename='icons/time.svg') }}">
+            <!-- данные курса -->
+            <div class="course-hero__meta">
+                <div class="meta-item">
+                    <img src="{{ url_for('static', filename='icons/clock.svg') }}" alt="">
                     <span>{{ course.duration_weeks }} недель</span>
                 </div>
 
-                <div class="course-meta__item">
-                    <img src="{{ url_for('static', filename='icons/level.svg') }}">
-                    <span>{{ course.level }}</span>
+                <div class="meta-item">
+                    <img src="{{ url_for('static', filename='icons/level.svg') }}" alt="">
+                    <span>{{ course.difficulty }}</span>
                 </div>
             </div>
 
             <!-- преподаватель -->
-            <div class="course-teacher">
-                <img src="{{ course.teacher_photo }}" alt="teacher">
+            <div class="course-hero__teacher">
+                <img src="{{ course.teacher.photo }}" alt="teacher">
                 <div>
-                    <div class="course-teacher__name">
-                        {{ course.teacher_name }}
+                    <div class="teacher-name">
+                        {{ course.teacher.first_name }} {{ course.teacher.last_name }}
                     </div>
-                    <div class="course-teacher__position">
-                        {{ course.teacher_position }}
+                    <div class="teacher-position">
+                        {{ course.teacher.position }}
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- ===== ПРАВАЯ КАРТОЧКА ===== -->
-        <div class="course-card">
+        <!-- ПРАВАЯ КАРТОЧКА -->
+        <div class="course-hero__card">
 
             <img class="course-card__image"
-                 src="{{ course.image_url }}"
+                 src="{{ course.image }}"
                  alt="{{ course.title }}">
 
-            <!-- цены -->
             <div class="course-card__prices">
-                <span class="course-card__price">
-                    {{ course.price }} ₽
-                </span>
+                <span class="price-current">{{ course.price }} BYN</span>
 
-                {% if course.old_price %}
-                <span class="course-card__old-price">
-                    {{ course.old_price }} ₽
-                </span>
+                {% if old_price %}
+                    <span class="price-old">{{ old_price }} BYNs</span>
                 {% endif %}
 
-                {% if course.discount %}
-                <div class="course-card__discount">
-                    Скидка {{ course.discount }}%
-                </div>
+                {% if discount %}
+                    <div class="price-discount">
+                        Скидка {{ discount }}%
+                    </div>
                 {% endif %}
             </div>
 
-            <!-- кнопка -->
             <button class="course-card__btn">
                 Записаться на курс
             </button>
@@ -94,13 +86,12 @@
 
             <div class="course-card__divider"></div>
 
-            <!-- список -->
             <div class="course-card__includes">
-                <div class="course-card__includes-title">
+                <div class="includes-title">
                     Этот курс включает:
                 </div>
                 <ul>
-                    <li>{{ lessons_count }} видео уроков в HD качестве</li>
+                    <li>{{ video_count }} видео уроков в HD качестве</li>
                     <li>Практические задания с проверкой</li>
                     <li>Сертификат о прохождении курса</li>
                     <li>Доступ к материалам на 1 год</li>
@@ -112,5 +103,6 @@
         </div>
 
     </div>
+
 </section>
 {% endblock %}

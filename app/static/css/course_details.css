@@ -1,56 +1,66 @@
-/* ===== ОБЩЕЕ ===== */
+/* =========================
+   COURSE DETAILS PAGE ONLY
+   ========================= */
+
 .course-hero {
-    margin-top: 80px; /* хедер */
+    margin-top: 80px; /* учитываем хедер */
     width: 100%;
     height: 846px;
-    background: linear-gradient(90deg, #FAF5FF 0%, #FDF2F8 100%);
+    background: linear-gradient(to right, #FAF5FF, #FDF2F8);
     font-family: 'Inter', sans-serif;
 }
 
-.course-hero__inner {
+.course-hero__container {
     max-width: 1920px;
     height: 100%;
     margin: 0 auto;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     gap: 304px;
 }
 
-/* ===== ТЕКСТ ===== */
-.course-hero__text {
-    max-width: 520px;
+/* -------- ТЕКСТ -------- */
+
+.course-hero__info {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
 }
 
-.course-rating {
+.course-hero__rating {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #4B5563;
     font-size: 24px;
-    font-weight: 400;
+    color: #4B5563;
 }
 
-.course-title {
+.course-hero__rating img {
+    width: 24px;
+    height: 24px;
+}
+
+.course-hero__title {
     margin: 16px 0;
     font-size: 36px;
     font-weight: 700;
     color: #111827;
 }
 
-.course-short-description {
+.course-hero__description {
     font-size: 20px;
     color: #4B5563;
     margin-bottom: 24px;
 }
 
-.course-meta {
+.course-hero__meta {
     display: flex;
-    gap: 24px;
+    gap: 32px;
     margin-bottom: 24px;
 }
 
-.course-meta__item {
+.meta-item {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -58,41 +68,50 @@
     color: #4B5563;
 }
 
-.course-teacher {
+.meta-item img {
+    width: 27px;
+    height: 27px;
+}
+
+/* -------- ПРЕПОД -------- */
+
+.course-hero__teacher {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.course-teacher img {
+.course-hero__teacher img {
     width: 48px;
     height: 48px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
-.course-teacher__name {
-    font-weight: 600;
+.teacher-name {
     font-size: 16px;
+    font-weight: 600;
     color: #111827;
 }
 
-.course-teacher__position {
+.teacher-position {
     font-size: 14px;
     color: #4B5563;
 }
 
-/* ===== КАРТОЧКА ===== */
-.course-card {
+/* -------- КАРТОЧКА -------- */
+
+.course-hero__card {
     width: 503px;
     height: 665px;
     background: #FFFFFF;
     border-radius: 24px;
     padding: 32px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.course-card:hover {
+.course-hero__card:hover {
     transform: translateY(-6px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.12);
 }
@@ -102,44 +121,44 @@
     height: 192px;
     border-radius: 16px;
     object-fit: cover;
-    margin-bottom: 24px;
 }
+
+/* -------- ЦЕНЫ -------- */
 
 .course-card__prices {
     display: flex;
     align-items: center;
-    gap: 34px;
+    margin-top: 24px;
 }
 
-.course-card__price {
+.price-current {
     font-size: 30px;
     font-weight: 700;
     color: #111827;
 }
 
-.course-card__old-price {
+.price-old {
+    margin-left: 34px;
     font-size: 18px;
     color: #6B7280;
     text-decoration: line-through;
 }
 
-.course-card__discount {
-    width: 105px;
-    height: 28px;
+.price-discount {
+    margin-left: 146px;
     background: #FEE2E2;
     border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 6px 12px;
     font-size: 14px;
     font-weight: 600;
     color: #991B1B;
 }
 
-/* кнопка */
+/* -------- КНОПКА -------- */
+
 .course-card__btn {
     margin-top: 24px;
-    width: 439px;
+    width: 100%;
     height: 60px;
     background: #DB2777;
     border-radius: 8px;
@@ -148,12 +167,14 @@
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
 }
 
 .course-card__btn:hover {
     background: #BE185D;
 }
+
+/* -------- ПРОЧЕЕ -------- */
 
 .course-card__guarantee {
     margin-top: 16px;
@@ -164,25 +185,26 @@
 
 .course-card__divider {
     margin: 16px 0;
-    width: 439px;
+    width: 100%;
     height: 1px;
     background: #000000;
+    opacity: 0.1;
 }
 
-/* список */
-.course-card__includes-title {
+.includes-title {
     font-size: 16px;
     font-weight: 600;
     color: #111827;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .course-card__includes ul {
-    padding-left: 18px;
+    list-style: disc;
+    padding-left: 20px;
 }
 
 .course-card__includes li {
     font-size: 14px;
     color: #374151;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
