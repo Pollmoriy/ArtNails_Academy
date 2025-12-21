@@ -117,8 +117,8 @@
 }
 
 .course-card__image {
-    width: 439px;
-    height: 192px;
+    width: 490px;
+    height: 270px;
     border-radius: 16px;
     object-fit: cover;
 }
@@ -207,4 +207,84 @@
     font-size: 14px;
     color: #374151;
     margin-bottom: 6px;
+}
+
+/* 🔹 Ряд с ценами и скидкой */
+.course-price-row {
+    display: flex;
+    align-items: center;
+    margin-top: 32px; /* ⬅ больше отступ от картинки */
+}
+
+/* 💰 Текущая цена */
+.course-price {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700; /* bold */
+    font-size: 30px;
+    color: #111827;
+}
+
+/* 💸 Старая цена */
+.course-old-price {
+    margin-left: 34px; /* строго по ТЗ */
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #6B7280;
+    text-decoration: line-through;
+}
+
+/* 🔥 Скидка */
+.course-discount {
+    margin-left: 146px; /* строго по ТЗ */
+    width: 105px;
+    height: 28px;
+
+    background-color: #FEE2E2;
+    border-radius: 9999px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* semi-bold */
+    font-size: 14px;
+    color: #991B1B;
+
+    white-space: nowrap;
+}
+.course-card__prices {
+    display: flex;
+    align-items: center;
+    margin-top: 32px; /* расстояние от картинки */
+}
+
+.price-current {
+    font-weight: 700;
+    font-size: 30px;
+    color: #111827;
+}
+
+.price-old {
+    margin-left: 34px;
+    font-weight: 400;
+    font-size: 18px;
+    color: #6B7280;
+    text-decoration: line-through;
+}
+
+.price-discount {
+    margin-left: 146px; /* расстояние от старой цены */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 105px;
+    height: 28px;
+    background-color: #FEE2E2;
+    border-radius: 9999px;
+    font-weight: 600; /* semi-bold */
+    font-size: 14px;
+    color: #991B1B;
+    white-space: nowrap;
 }

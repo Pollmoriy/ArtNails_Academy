@@ -42,7 +42,7 @@
 
             <!-- преподаватель -->
             <div class="course-hero__teacher">
-                <img src="{{ course.teacher.photo }}" alt="teacher">
+                <img src="{{ url_for('static', filename=course.teacher.photo) }}" alt="teacher">
                 <div>
                     <div class="teacher-name">
                         {{ course.teacher.first_name }} {{ course.teacher.last_name }}
@@ -58,23 +58,26 @@
         <!-- ПРАВАЯ КАРТОЧКА -->
         <div class="course-hero__card">
 
-            <img class="course-card__image"
-                 src="{{ course.image }}"
-                 alt="{{ course.title }}">
+                    <img class="course-card__image"
+             src="{{ url_for('static', filename=course.image) }}"
+             alt="{{ course.title }}">
+
 
             <div class="course-card__prices">
                 <span class="price-current">{{ course.price }} BYN</span>
 
                 {% if old_price %}
-                    <span class="price-old">{{ old_price }} BYNs</span>
+                    <span class="price-old">{{ old_price }} BYN</span>
                 {% endif %}
 
                 {% if discount %}
-                    <div class="price-discount">
+                    <span class="price-discount">
                         Скидка {{ discount }}%
-                    </div>
+                    </span>
                 {% endif %}
             </div>
+
+
 
             <button class="course-card__btn">
                 Записаться на курс

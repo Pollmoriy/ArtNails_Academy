@@ -1,10 +1,15 @@
-from flask import Blueprint, render_template, abort
-from sqlalchemy import func
+from flask import Blueprint, render_template
+from sqlalchemy.sql import func
 
 from app import db
-from app.models import Course, Teacher, Review, Module
+from app.models import (
+    Course,
+    Teacher,
+    Review,
+    Module
+)
 
-# ❗ имя blueprint = course_desk
+# 🔹 Blueprint
 course_desk_bp = Blueprint(
     'course_desk',
     __name__,
@@ -14,45 +19,43 @@ course_desk_bp = Blueprint(
 
 @course_desk_bp.route('/course/<int:id_course>')
 def course_page(id_course):
-    # курс + преподаватель
-    course = (
-        db.session.query(Course)
-        .join(Teacher)
-        .filter(Course.id_course == id_course)
-        .first()
-    )
+    # 🎓 Курс
+    course = Course.query.get_or_404(id_course)
 
-    if not course:
-        abort(404)
+    # 👩‍🏫 Преподаватель (через relationship)
+    teacher = course.teacher
 
-    # рейтинг и количество отзывов
-    rating_data = (
-        db.session.query(
-            func.avg(Review.rating),
-            func.count(Review.id_review)
-        )
+    # ⭐ Средний рейтинг
+    avg_rating = (
+        db.session.query(func.avg(Review.rating))
         .filter(Review.id_course == id_course)
-        .first()
+        .scalar()
     )
+    avg_rating = round(float(avg_rating), 1) if avg_rating else 0
 
-    avg_rating = round(rating_data[0], 1) if rating_data[0] else 0
-    reviews_count = rating_data[1]
+    # 📝 Количество отзывов
+    reviews_count = Review.query.filter_by(id_course=id_course).count()
 
-    # количество видео (модули с видео)
-    videos_count = (
-        db.session.query(Module)
-        .filter(
-            Module.id_course == id_course,
-            Module.video_link.isnot(None)
-        )
-        .count()
-    )
+    # 🎥 Количество видеоуроков (теория)
+    video_count = Module.query.filter_by(
+        id_course=id_course,
+        type='theory'
+    ).count()
+
+    # 💸 СКИДКА (пока временная логика)
+    discount_percent = 25  # можно потом вынести в БД
+    old_price = None
+
+    if discount_percent:
+        old_price = course.price + 200
 
     return render_template(
         'course_details.html',
         course=course,
-        teacher=course.teacher,
+        teacher=teacher,
         avg_rating=avg_rating,
         reviews_count=reviews_count,
-        videos_count=videos_count
+        video_count=video_count,
+        discount_percent=discount_percent,
+        old_price=old_price
     )
