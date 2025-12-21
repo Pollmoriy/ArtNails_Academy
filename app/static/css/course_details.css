@@ -306,3 +306,72 @@
     width: 29px; /* по твоему ТЗ */
     height: 29px;
 }
+
+/* =========================
+   Вкладки курса
+   ========================= */
+.course-tabs-section {
+    margin-top: 48px;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+}
+
+/* Линия под вкладками на всю ширину страницы */
+.tabs-line {
+    position: absolute;
+    top: 24px; /* расстояние от верха блока до линии */
+    left: 60px;
+    width: calc(100% - 120px);
+    height: 2px;
+    background: #000000;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+/* Вкладки */
+.tabs-header {
+    display: flex;
+    gap: 36px;
+    padding-left: 441px; /* отступ от левого края страницы */
+    position: relative;
+    z-index: 1;
+}
+
+.tab {
+    font-weight: 700; /* жирнее */
+    font-size: 14px;
+    color: #6B7280;
+    cursor: pointer;
+    padding-bottom: 8px;
+    position: relative;
+}
+
+.tab:hover {
+    color: #DB2777;
+}
+
+.tab.active {
+    color: #DB2777;
+}
+
+/* Линия активной вкладки */
+.active-line {
+    position: absolute;
+    bottom: -2px; /* прямо под надписью */
+    height: 2px;
+    background: #DB2777;
+    transition: left 0.3s ease, width 0.3s ease;
+    z-index: 2;
+}
+
+/* Контент вкладок */
+.tab-content {
+    display: none;
+    margin-top: 21px; /* от линии вниз */
+    padding-left: 441px; /* начинаем под надписями */
+}
+
+.tab-content.active {
+    display: block;
+}
+

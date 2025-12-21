@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block title %}{{ course.title }} | ArtNails Academy{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/course_tabs.js') }}"></script>
+{% endblock %}
 
 {% block content %}
 <section class="course-hero">
@@ -108,4 +111,40 @@
     </div>
 
 </section>
+
+<!-- =========================
+     Вкладки курса
+     ========================= -->
+<section class="course-tabs-section">
+    <!-- Линия фона -->
+    <div class="tabs-line"></div>
+
+    <!-- Вкладки -->
+    <div class="tabs-header">
+        <div class="tab active" data-tab="overview">Обзор</div>
+        <div class="tab" data-tab="program">Программа</div>
+        <div class="tab" data-tab="teacher">Преподаватель</div>
+        <div class="tab" data-tab="reviews">Отзывы</div>
+
+        <!-- Линия активной вкладки -->
+        <div class="active-line"></div>
+    </div>
+
+    <!-- Контент вкладок -->
+    <div id="overview-content" class="tab-content active">
+        Контент Обзора
+    </div>
+    <div id="program-content" class="tab-content">
+        Контент Программы
+    </div>
+    <div id="teacher-content" class="tab-content">
+        Контент Преподавателя
+    </div>
+    <div id="reviews-content" class="tab-content">
+        Контент Отзывов
+    </div>
+</section>
+
+
+
 {% endblock %}
