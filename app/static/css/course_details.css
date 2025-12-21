@@ -288,3 +288,21 @@
     color: #991B1B;
     white-space: nowrap;
 }
+
+.icon-small {
+    display: inline-block;
+    width: 24px; /* для звездочки */
+    height: 24px;
+}
+
+/* если нужно для часов */
+.meta-item img {
+    width: 27px; /* по твоему ТЗ */
+    height: 27px;
+}
+
+/* если нужно для уровня */
+.meta-item img {
+    width: 29px; /* по твоему ТЗ */
+    height: 29px;
+}
