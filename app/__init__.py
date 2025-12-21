@@ -24,14 +24,14 @@ def create_app():
     from app.routes.profile import profile_bp
     from app.routes.about import about_bp
     from app.routes.catalog import catalog_bp
-    from app.routes.course_desk import course_bp
+    from app.routes.course_desk import course_desk_bp
 
+    app.register_blueprint(course_desk_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
     app.register_blueprint(profile_bp)
     app.register_blueprint(about_bp)
     app.register_blueprint(catalog_bp)
-    app.register_blueprint(course_bp)
 
     @app.context_processor
     def inject_user_status():

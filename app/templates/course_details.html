@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/course_details.css') }}">
+
+<section class="course-hero">
+    <div class="course-hero__inner">
+
+        <!-- ===== ЛЕВЫЙ ТЕКСТОВЫЙ БЛОК ===== -->
+        <div class="course-hero__text">
+
+            <!-- рейтинг -->
+            <div class="course-rating">
+                <img src="{{ url_for('static', filename='icons/star.svg') }}" alt="star">
+                <span class="course-rating__value">
+                    {{ course.rating }} ({{ course.reviews_count }} отзывов)
+                </span>
+            </div>
+
+            <!-- название -->
+            <h1 class="course-title">
+                {{ course.title }}
+            </h1>
+
+            <!-- краткое описание -->
+            <p class="course-short-description">
+                {{ course.short_description }}
+            </p>
+
+            <!-- инфо -->
+            <div class="course-meta">
+                <div class="course-meta__item">
+                    <img src="{{ url_for('static', filename='icons/time.svg') }}">
+                    <span>{{ course.duration_weeks }} недель</span>
+                </div>
+
+                <div class="course-meta__item">
+                    <img src="{{ url_for('static', filename='icons/level.svg') }}">
+                    <span>{{ course.level }}</span>
+                </div>
+            </div>
+
+            <!-- преподаватель -->
+            <div class="course-teacher">
+                <img src="{{ course.teacher_photo }}" alt="teacher">
+                <div>
+                    <div class="course-teacher__name">
+                        {{ course.teacher_name }}
+                    </div>
+                    <div class="course-teacher__position">
+                        {{ course.teacher_position }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== ПРАВАЯ КАРТОЧКА ===== -->
+        <div class="course-card">
+
+            <img class="course-card__image"
+                 src="{{ course.image_url }}"
+                 alt="{{ course.title }}">
+
+            <!-- цены -->
+            <div class="course-card__prices">
+                <span class="course-card__price">
+                    {{ course.price }} ₽
+                </span>
+
+                {% if course.old_price %}
+                <span class="course-card__old-price">
+                    {{ course.old_price }} ₽
+                </span>
+                {% endif %}
+
+                {% if course.discount %}
+                <div class="course-card__discount">
+                    Скидка {{ course.discount }}%
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- кнопка -->
+            <button class="course-card__btn">
+                Записаться на курс
+            </button>
+
+            <div class="course-card__guarantee">
+                30-дневная гарантия возврата денег
+            </div>
+
+            <div class="course-card__divider"></div>
+
+            <!-- список -->
+            <div class="course-card__includes">
+                <div class="course-card__includes-title">
+                    Этот курс включает:
+                </div>
+                <ul>
+                    <li>{{ lessons_count }} видео уроков в HD качестве</li>
+                    <li>Практические задания с проверкой</li>
+                    <li>Сертификат о прохождении курса</li>
+                    <li>Доступ к материалам на 1 год</li>
+                    <li>Поддержка преподавателя</li>
+                    <li>Закрытое сообщество студентов</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}

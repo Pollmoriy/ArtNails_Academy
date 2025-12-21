@@ -2,9 +2,20 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+
     <title>{% block title %}ArtNails Academy{% endblock %}</title>
+
+    <!-- 🔹 Основные стили проекта -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 🔹 Дополнительные стили страницы -->
+    {% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/course_details.css') }}">
+    {% endblock %}
+
+
+    <!-- 🔹 Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
@@ -17,7 +28,7 @@
 
     {% include 'footer.html' %}
 
+    <!-- 🔹 Скрипты страницы -->
     {% block scripts %}{% endblock %}
 </body>
-
 </html>

@@ -1,69 +1,58 @@
 from flask import Blueprint, render_template, abort
-from app import db
-from sqlalchemy import text
+from sqlalchemy import func
 
-course_bp = Blueprint(
-    'course',                 # ← ВАЖНО: это имя для url_for
+from app import db
+from app.models import Course, Teacher, Review, Module
+
+# ❗ имя blueprint = course_desk
+course_desk_bp = Blueprint(
+    'course_desk',
     __name__,
-    url_prefix=''              # без префикса, будет /course/1
+    template_folder='../templates'
 )
 
 
-@course_bp.route('/course/<int:id_course>')
+@course_desk_bp.route('/course/<int:id_course>')
 def course_page(id_course):
-    """
-    Страница подробностей курса
-    """
-
-    # 1️⃣ Основная информация о курсе
-    course_query = text("""
-        SELECT 
-            c.id_course,
-            c.title,
-            c.short_description,
-            c.image,
-            c.price,
-            c.duration_weeks,
-            c.difficulty
-        FROM courses c
-        WHERE c.id_course = :id_course
-    """)
-
-    course = db.session.execute(
-        course_query,
-        {"id_course": id_course}
-    ).mappings().first()
+    # курс + преподаватель
+    course = (
+        db.session.query(Course)
+        .join(Teacher)
+        .filter(Course.id_course == id_course)
+        .first()
+    )
 
     if not course:
         abort(404)
 
-    # 2️⃣ Количество видео (модули с video_link)
-    video_count_query = text("""
-        SELECT COUNT(*) AS video_count
-        FROM modules
-        WHERE id_course = :id_course
-          AND video_link IS NOT NULL
-    """)
+    # рейтинг и количество отзывов
+    rating_data = (
+        db.session.query(
+            func.avg(Review.rating),
+            func.count(Review.id_review)
+        )
+        .filter(Review.id_course == id_course)
+        .first()
+    )
 
-    video_count = db.session.execute(
-        video_count_query,
-        {"id_course": id_course}
-    ).scalar()
+    avg_rating = round(rating_data[0], 1) if rating_data[0] else 0
+    reviews_count = rating_data[1]
 
-    # 3️⃣ (пока заглушки — потом легко подключим)
-    rating = 4.5
-    reviews_count = 26
-    teacher = {
-        "name": "Анна Иванова",
-        "position": "Ведущий преподаватель",
-        "avatar": "images/teacher.jpg"
-    }
+    # количество видео (модули с видео)
+    videos_count = (
+        db.session.query(Module)
+        .filter(
+            Module.id_course == id_course,
+            Module.video_link.isnot(None)
+        )
+        .count()
+    )
 
     return render_template(
-        'course_detail.html',
+        'course_details.html',
         course=course,
-        video_count=video_count,
-        rating=rating,
+        teacher=course.teacher,
+        avg_rating=avg_rating,
         reviews_count=reviews_count,
-        teacher=teacher
+        videos_count=videos_count
     )
