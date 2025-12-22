@@ -1,0 +1,224 @@
+/* =========================
+   Общие стили
+   ========================= */
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #F9FAFB;
+}
+
+/* =========================
+   Верхний блок
+   ========================= */
+
+.enroll-header {
+    background: #FFFFFF;
+    height: 109px;
+    display: flex;
+    margin-top: 80px;
+    align-items: center;
+}
+
+.enroll-header-inner {
+    margin-left: 401px;
+}
+
+.enroll-header h1 {
+    font-weight: 700;
+    font-size: 30px;
+    color: #111827;
+    margin: 0 0 16px 0;
+}
+
+.enroll-header p {
+    font-size: 16px;
+    color: #4B5563;
+    margin: 0;
+}
+
+/* =========================
+   Основная сетка
+   ========================= */
+
+.enroll-page {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 60px 0 70px;
+}
+
+/* =========================
+   Форма
+   ========================= */
+
+.enroll-form {
+    width: 680px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.enroll-form h2 {
+    font-weight: 700;
+    font-size: 24px;
+    color: #111827;
+    margin-bottom: 32px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    font-size: 14px;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.enroll-form input,
+.enroll-form select {
+    width: 100%;
+    height: 44px;
+    padding: 0 16px;
+    font-size: 14px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.enroll-form input:focus,
+.enroll-form select:focus {
+    outline: none;
+    border-color: #DB2777;
+    box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.15);
+}
+
+/* =========================
+   Радио-кнопки
+   ========================= */
+
+.option-row {
+    display: flex;
+    align-items: center; /* ВАЖНО: центрирование */
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.option-row input {
+    width: 16px;
+    height: 16px;
+    accent-color: #DB2777;
+    margin: 0;
+}
+
+.option-row label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin: 0;
+    cursor: pointer;
+}
+
+/* =========================
+   Чекбокс
+   ========================= */
+
+.agreement {
+    display: flex;
+    align-items: center; /* ровно по центру */
+    gap: 10px;
+    margin: 24px 0;
+}
+
+.agreement input {
+    width: 16px;
+    height: 16px;
+    accent-color: #DB2777;
+    margin: 0;
+}
+
+.agreement label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.agreement a {
+    color: #DB2777;
+    text-decoration: none;
+}
+
+.agreement a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   Кнопка
+   ========================= */
+
+.submit-btn {
+    width: 100%;
+    height: 52px;
+    background: #DB2777;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.25s ease;
+}
+
+.submit-btn:hover {
+    background: #BE185D;
+}
+
+/* =========================
+   Сводка заказа
+   ========================= */
+
+.order-summary {
+    width: 360px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 24px;
+    height: fit-content;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.order-summary h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+.summary-placeholder {
+    font-size: 14px;
+    color: #6B7280;
+    margin-bottom: 24px;
+}
+
+/* Гарантия */
+.guarantee-box {
+    background: #FEE2E2;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.guarantee-box strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #991B1B;
+    margin-bottom: 6px;
+}
+
+.guarantee-box span {
+    font-size: 14px;
+    color: #991B1B;
+}

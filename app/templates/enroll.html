@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Запись на курсы | ArtNails Academy{% endblock %}
+
+{% block content %}
+
+<!-- Верхний белый блок -->
+<section class="enroll-header">
+    <div class="enroll-header-inner">
+        <h1>Запись на курсы</h1>
+        <p>Заполните форму для записи на выбранный курс</p>
+    </div>
+</section>
+
+<!-- Основной контент -->
+<section class="enroll-page">
+
+    <!-- Форма -->
+    <form class="enroll-form">
+
+        <h2>Регистрационная форма</h2>
+
+        <div class="form-group">
+            <label>Имя и фамилия</label>
+            <input type="text" placeholder="Введите имя и фамилию">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="example@mail.com">
+        </div>
+
+        <div class="form-group">
+            <label>Телефон</label>
+            <input type="tel" placeholder="+375 (__) ___-__-__">
+        </div>
+
+        <div class="form-group">
+            <label>Курс</label>
+            <select>
+                <option selected disabled>Выберите курс</option>
+                {% for course in courses %}
+                    <option>{{ course.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Способ оплаты</label>
+
+            <div class="option-row">
+                <input type="radio" name="payment" id="card">
+                <label for="card">Банковская карта</label>
+            </div>
+
+            <div class="option-row">
+                <input type="radio" name="payment" id="installment">
+                <label for="installment">Рассрочка</label>
+            </div>
+
+            <div class="option-row">
+                <input type="radio" name="payment" id="transfer">
+                <label for="transfer">Банковский перевод</label>
+            </div>
+        </div>
+
+        <div class="agreement">
+            <input type="checkbox" id="agree">
+            <label for="agree">
+                Я согласен(а) с
+                <a href="#">условиями обучения</a>
+                и
+                <a href="#">политикой конфиденциальности</a>
+            </label>
+        </div>
+
+        <button type="submit" class="submit-btn">
+            Записаться на курс
+        </button>
+
+    </form>
+
+    <!-- Сводка заказа -->
+    <aside class="order-summary">
+
+        <h2>Сводка заказа</h2>
+
+        <p class="summary-placeholder">
+            Выберите курс для отображения информации
+        </p>
+
+        <div class="guarantee-box">
+            <strong>Гарантия качества</strong>
+            <span>
+                Возврат средств в течение 14 дней, если курс не подошёл
+            </span>
+        </div>
+
+    </aside>
+
+</section>
+
+
+
+<script src="{{ url_for('static', filename='js/enroll.js') }}"></script>
+
+{% endblock %}
