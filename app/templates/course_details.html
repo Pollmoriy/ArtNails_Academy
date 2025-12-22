@@ -168,11 +168,15 @@
 
                 </div>
 
-                <!-- Правая часть: блок статистики -->
+        <!-- Правая часть: блок статистики -->
                 <div class="course-stats-card">
                     <div class="course-stats-row">
+                        <div class="value">Статистика курса</div>
+                        <div class="value"></div>
+                    </div>
+                    <div class="course-stats-row">
                         <span class="label">Студентов:</span>
-                        <span class="value">{{ students_count }}</span>
+                        <span class="value">{{ student_count }}</span>
                     </div>
                     <div class="course-stats-row">
                         <span class="label">Рейтинг:</span>
@@ -197,7 +201,21 @@
 
         <!-- ===== Программа ===== -->
         <div id="program-content" class="tab-content">
-            Контент Программы
+
+            <h2 class="tab-section-title">Программа курса</h2>
+
+            <div class="modules-wrapper">
+                {% for module in course.modules|sort(attribute='order_index') %}
+                    <div class="module-card">
+                        <img class="module-icon"
+                             src="{{ url_for('static', filename='icons/' + ('book.svg' if module.type=='theory' else 'tools.svg' if module.type=='practice' else 'question.svg')) }}"
+                             alt="{{ module.type }}">
+                        <div class="module-title">{{ module.title }}</div>
+                        <img class="module-lock" src="{{ url_for('static', filename='icons/lock.svg') }}" alt="lock">
+                    </div>
+                {% endfor %}
+            </div>
+
         </div>
 
         <!-- ===== Преподаватель ===== -->
