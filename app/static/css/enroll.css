@@ -222,3 +222,55 @@ body {
     font-size: 14px;
     color: #991B1B;
 }
+
+/* Ошибки валидации */
+.error-text {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #DC2626;
+}
+
+input.error,
+select.error {
+    border-color: #DC2626;
+}
+
+input.error:focus,
+select.error:focus {
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.summary-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* JS работает ТОЛЬКО с этим блоком */
+.summary-content {
+    margin-top: 16px;
+}
+
+.mini-summary-block {
+    background-color: #FEE2E7;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 16px;
+    width: fit-content; /* чтобы блок подгонялся по тексту */
+}
+
+.mini-summary-block .bold-text {
+    font-weight: 600;
+    font-size: 14px;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.mini-summary-block p {
+    font-weight: 400;
+    font-size: 14px;
+    color: #374151;
+    margin: 0;
+}
+
