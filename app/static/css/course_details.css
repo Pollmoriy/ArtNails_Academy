@@ -670,3 +670,79 @@
     margin-top: 135px; /* немного ниже фото */
     width: calc(100% - 41px - 24px); /* растягиваем почти до правого края */
 }
+
+/* Вкладка Отзывы */
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    margin-top: 60px;
+}
+
+.review-card {
+    width: 1117px;
+    min-height: 183px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 24px;
+    position: relative;
+}
+
+.review-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    position: absolute;
+    top: 24px;
+    left: 24px;
+}
+
+.review-header {
+    margin-left: 104px; /* чтобы справа от аватара */
+    margin-top: 24px;
+}
+
+.review-name {
+    font-weight: 600;
+    font-size: 24px;
+    color: #111827;
+}
+
+.review-course {
+    font-weight: 400;
+    font-size: 14px;
+    color: #DB2777;
+    margin-top: 5px;
+}
+
+.review-stars {
+    position: absolute;
+    top: 12px;
+    right: 21px;
+    display: flex;
+    gap: 4px;
+}
+
+.star-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.review-date {
+    position: absolute;
+    top: 42px;
+    right: 21px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #4B5563;
+}
+
+.review-text {
+    margin-left: 104px;
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #4B5563;
+    margin-right: 54px;
+}

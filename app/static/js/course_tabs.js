@@ -25,3 +25,40 @@ document.addEventListener('DOMContentLoaded', () => {
     activeLine.style.width = initialTab.offsetWidth + 'px';
     activeLine.style.left = initialTab.offsetLeft + 'px';
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const reviewCards = document.querySelectorAll('.review-card');
+
+    reviewCards.forEach(card => {
+        const rating = parseInt(card.dataset.rating); // фактический рейтинг
+        const stars = card.querySelectorAll('.review-rating .star');
+
+        // Инициализация: подсветка звезд согласно рейтингу
+        stars.forEach((star, index) => {
+            star.src = index < rating
+                ? star.dataset.yellow || '/static/icons/star-yellow.svg'
+                : star.dataset.gray || '/static/icons/star-gray.svg';
+        });
+
+        // Анимация при наведении
+        stars.forEach((star, index) => {
+            star.addEventListener('mouseenter', () => {
+                stars.forEach((s, i) => {
+                    s.src = i <= index
+                        ? s.dataset.yellow || '/static/icons/star-yellow.svg'
+                        : s.dataset.gray || '/static/icons/star-gray.svg';
+                    s.style.transform = 'scale(1.2)';
+                });
+            });
+
+            star.addEventListener('mouseleave', () => {
+                stars.forEach((s, i) => {
+                    s.src = i < rating
+                        ? s.dataset.yellow || '/static/icons/star-yellow.svg'
+                        : s.dataset.gray || '/static/icons/star-gray.svg';
+                    s.style.transform = 'scale(1)';
+                });
+            });
+        });
+    });
+});

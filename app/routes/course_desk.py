@@ -38,5 +38,6 @@ def course_page(id_course):
         video_count=video_count,
         discount_percent=discount_percent,
         old_price=old_price,
-        student_count=student_count
+        student_count=student_count,
+        reviews=course.reviews  # передаём все отзывы для вкладки
     )
