@@ -20,7 +20,7 @@
                     Наши курсы
                 </a>
 
-                <button class="btn-hero btn-register-hero-about">
+                <button class="btn-hero btn-register-hero-about" onclick="window.location.href='{{ url_for('enroll.enroll_page') }}'">>
                     <img src="{{ url_for('static', filename='icons/register-icon.svg') }}" alt="" class="btn-icon">
                     Записаться
                 </button>
@@ -178,7 +178,7 @@
 
     <div class="cta-buttons">
         <a href="{{ url_for('catalog.catalog') }}" class="cta-btn-primary">Выбрать курс</a>
-         <a href="#" class="cta-btn-outline">Записаться на курс</a>
+         <a href="{{ url_for('enroll.enroll_page') }}" class="cta-btn-outline">Записаться на курс</a>
     </div>
 </section>
 

@@ -27,9 +27,23 @@
         </div>
 
         <div class="login-social">
-            <button type="button" class="social-btn social-google">Google</button>
-            <button type="button" class="social-btn social-facebook">Facebook</button>
+            <a href="{{ url_for('auth.login_google') }}"
+               class="social-btn social-google">
+               Google
+            </a>
+            <a href="#" class="social-btn social-facebook">
+               Facebook
+            </a>
         </div>
+
+        <!-- Отображение ошибок от Google OAuth -->
+       {% if session.get('oauth_error') %}
+            <div class="flash-message flash-error">
+                {{ session.pop('oauth_error') }}
+            </div>
+        {% endif %}
+
+
     </div>
 </main>
 

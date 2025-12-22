@@ -991,6 +991,10 @@ header {
     color: #4B5563;
     font-weight: 300;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+     display: flex;
 }
 
 .social-btn:hover {
@@ -1800,5 +1804,31 @@ margin-top: 83px;
 
 .clear-search-btn:hover {
     color: #111827; /* чуть темнее при наведении */
+}
+
+.flash-message {
+    max-width: 400px;
+    margin: 20px auto; /* по центру страницы */
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 1000;
+    animation: fadeInOut 5s forwards; /* исчезновение через 5 секунд */
+}
+
+.flash-error {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+/* Анимация исчезновения */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
 }
 
