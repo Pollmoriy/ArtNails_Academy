@@ -179,17 +179,43 @@ class Progress(db.Model):
 
 
 # ===================== Покупки =====================
+from datetime import datetime
+
 class Purchase(db.Model):
     __tablename__ = 'purchases'
-
     id_purchase = db.Column(db.Integer, primary_key=True)
-    id_user = db.Column(db.Integer, db.ForeignKey('users.id_user'))
-    id_course = db.Column(db.Integer, db.ForeignKey('courses.id_course'))
-    purchase_date = db.Column(db.DateTime, default=datetime.utcnow)
-    payment_link = db.Column(db.String(50))
-
+    id_user = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id_user'),
+        nullable=False
+    )
+    id_course = db.Column(
+        db.Integer,
+        db.ForeignKey('courses.id_course'),
+        nullable=False
+    )
+    price_byn = db.Column(
+        db.Integer,
+        nullable=False
+    )
+    status = db.Column(
+        db.String(20),
+        nullable=False,
+        default='pending'
+    )
+    stripe_session_id = db.Column(
+        db.String(255),
+        unique=True,
+        nullable=True
+    )
+    payment_link = db.Column(db.Text)
+    purchase_date = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
     user = db.relationship('User', back_populates='purchases')
     course = db.relationship('Course', back_populates='purchases')
+
 
 
 # ===================== Сертификаты =====================

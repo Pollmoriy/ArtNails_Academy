@@ -17,7 +17,7 @@
                     <li><a href="{{ url_for('catalog.catalog') }}">Записаться на курс</a></li>
                     <li><a href="{{ url_for('profile.profile_page') }}">Личный кабинет</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('auth.login') }}">Записаться на курс</a></li>
+                    <li><a href="{{ url_for('enroll.enroll_page') }}">Записаться на курс</a></li>
                     <li><a href="{{ url_for('auth.login') }}">Личный кабинет</a></li>
                 {% endif %}
 

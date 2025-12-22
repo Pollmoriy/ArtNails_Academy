@@ -18,7 +18,7 @@
         <div class="header-buttons">
             {% if 'user_id' in session %}
                 <button class="btn-signup"
-                        onclick="window.location.href='{{ url_for('catalog.catalog') }}'">
+                        onclick="window.location.href='{{ url_for('enroll.enroll_page') }}'">
                     Записаться
                 </button>
 
@@ -27,7 +27,7 @@
                 </a>
             {% else %}
                 <button class="btn-signup"
-                        onclick="window.location.href='{{ url_for('auth.login') }}'">
+                        onclick="window.location.href='{{ url_for('enroll.enroll_page') }}'">
                     Записаться
                 </button>
 
@@ -36,6 +36,7 @@
                 </a>
             {% endif %}
         </div>
+
 
     </div>
 </header>

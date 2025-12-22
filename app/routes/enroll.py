@@ -1,51 +1,75 @@
-from flask import Blueprint, render_template, request, redirect, flash
-from app.models import Course
-
-enroll_bp = Blueprint(
-    'enroll',
-    __name__,
-    template_folder='../templates'
+from flask import (
+    Blueprint, render_template, request,
+    jsonify, session, url_for, current_app
 )
+from app import db
+from app.models import Course, Purchase
+import stripe
 
-@enroll_bp.route('/enroll', methods=['GET', 'POST'])
-def enroll():
+enroll_bp = Blueprint('enroll', __name__, url_prefix='/enroll')
+
+EUR_RATE = 0.30  # временно, конвертация BYN -> EUR
+
+# ---------- СТРАНИЦА ЗАПИСИ НА КУРС ----------
+@enroll_bp.route('/', methods=['GET'])
+def enroll_page():
     courses = Course.query.all()
+    return render_template(
+        'enroll.html',
+        courses=courses,
+        stripe_public_key=current_app.config['STRIPE_PUBLISHABLE_KEY']
+    )
 
-    if request.method == 'POST':
-        full_name = request.form.get('full_name', '').strip()
-        email = request.form.get('email', '').strip()
-        phone = request.form.get('phone', '').strip()
-        course_id = request.form.get('course')
-        payment = request.form.get('payment')
-        agree = request.form.get('agree')
+# ---------- СОЗДАНИЕ STRIPE SESSION ----------
+@enroll_bp.route('/create-stripe-session', methods=['POST'])
+def create_stripe_session():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
 
-        errors = []
+    data = request.json
+    course_id = data.get('course_id')
 
-        if len(full_name) < 3:
-            errors.append('Некорректное имя')
+    course = Course.query.get_or_404(course_id)
 
-        if '@' not in email:
-            errors.append('Некорректный email')
+    # Цена в BYN
+    price_byn = float(course.price)
 
-        if len(phone) < 7:
-            errors.append('Некорректный телефон')
+    # Конвертация в EUR (Stripe принимает цену в центах)
+    price_eur = int(price_byn * EUR_RATE * 100)
 
-        if not course_id:
-            errors.append('Курс не выбран')
+    # 1️⃣ Создаем запись о покупке (pending)
+    purchase = Purchase(
+        id_user=session['user_id'],
+        id_course=course.id_course,
+        price_byn=price_byn,
+        status='pending'
+    )
+    db.session.add(purchase)
+    db.session.commit()
 
-        if not payment:
-            errors.append('Не выбран способ оплаты')
+    # 2️⃣ Создаем Stripe Checkout Session
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            mode='payment',
+            line_items=[{
+                'price_data': {
+                    'currency': 'eur',
+                    'product_data': {'name': course.title},
+                    'unit_amount': price_eur,
+                },
+                'quantity': 1,
+            }],
+            success_url=url_for("main.home", _external=True) + "?payment=success",
+            cancel_url=url_for("main.home", _external=True) + "?payment=cancel"
+        )
+    except stripe.error.StripeError as e:
+        # Ошибка при создании платежа
+        return jsonify({'error': str(e)}), 500
 
-        if not agree:
-            errors.append('Не принято соглашение')
+    # 3️⃣ Сохраняем Stripe session и ссылку
+    purchase.stripe_session_id = checkout_session.id
+    purchase.payment_link = checkout_session.url
+    db.session.commit()
 
-        if errors:
-            for err in errors:
-                flash(err, 'error')
-            return redirect('/enroll')
-
-        # TODO: сохранение записи в БД
-        flash('Вы успешно записались на курс!', 'success')
-        return redirect('/')
-
-    return render_template('enroll.html', courses=courses)
+    return jsonify({'url': checkout_session.url})

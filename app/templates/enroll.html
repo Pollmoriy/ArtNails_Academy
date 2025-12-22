@@ -22,28 +22,33 @@
 
         <div class="form-group">
             <label>Имя и фамилия</label>
-            <input type="text" name="full_name" required minlength="3" placeholder="Введите имя и фамилию">
+            <input type="text" name="full_name" minlength="3" required>
             <span class="error-text"></span>
         </div>
 
         <div class="form-group">
             <label>Email</label>
-            <input type="email" name="email" required placeholder="example@mail.com">
+            <input type="email" name="email" required>
             <span class="error-text"></span>
         </div>
 
         <div class="form-group">
             <label>Телефон</label>
-            <input type="tel" name="phone" required placeholder="+375 (__) ___-__-__">
+            <input type="tel" name="phone" required>
             <span class="error-text"></span>
         </div>
 
         <div class="form-group">
             <label>Курс</label>
-            <select name="course" required>
+            <select name="course" id="courseSelect" required>
                 <option value="">Выберите курс</option>
                 {% for course in courses %}
-                    <option value="{{ course.id_course }}">{{ course.title }}</option>
+                    <option
+                        value="{{ course.id_course }}"
+                        data-price="{{ course.price }}"
+                    >
+                        {{ course.title }}
+                    </option>
                 {% endfor %}
             </select>
             <span class="error-text"></span>
@@ -88,9 +93,9 @@
 
     </form>
 
-
     <!-- Сводка заказа -->
     <div class="order-summary">
+
         <h2 class="summary-title">Сводка заказа</h2>
 
         <div class="summary-content" id="summaryContent">
@@ -106,10 +111,7 @@
 
     </div>
 
-
 </section>
-
-
 
 <script src="{{ url_for('static', filename='js/enroll.js') }}"></script>
 

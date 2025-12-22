@@ -1,95 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const courseSelect = document.querySelector('.enroll-form select');
-    const summaryBlock = document.querySelector('.order-summary');
+
+    const form = document.getElementById('enrollForm');
+    const courseSelect = document.getElementById('courseSelect');
+    const summaryContent = document.getElementById('summaryContent');
 
     courseSelect.addEventListener('change', () => {
-        const selectedCourse = courseSelect.value;
+        const selectedOption = courseSelect.options[courseSelect.selectedIndex];
 
-        summaryBlock.innerHTML = `
-            <h3 class="summary-title">Сводка заказа</h3>
+        if (!selectedOption.value) {
+            summaryContent.innerHTML = `
+                <p class="summary-placeholder">
+                    Выберите курс для отображения информации
+                </p>
+            `;
+            return;
+        }
 
-            <div class="summary-item">
-                <span class="summary-label">Курс:</span>
-                <span class="summary-value">${selectedCourse}</span>
-            </div>
+        const title = selectedOption.text;
+        const price = selectedOption.dataset.price;
 
-            <div class="summary-item">
-                <span class="summary-label">Стоимость:</span>
-                <span class="summary-value">500 BYN</span>
-            </div>
-
-            <div class="order-guarantee">
-                <strong>Гарантия качества</strong>
-                <p>Возврат средств в течение 14 дней, если курс не подошёл</p>
-            </div>
+        summaryContent.innerHTML = `
+            <p><strong>Курс:</strong> ${title}</p>
+            <p><strong>Цена:</strong> ${price} BYN</p>
         `;
     });
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('enrollForm');
+    // ---------- SUBMIT ----------
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    form.addEventListener('submit', (e) => {
-        let valid = true;
-
-        // очистка ошибок
-        form.querySelectorAll('.error-text').forEach(el => el.textContent = '');
-        form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
-
-        // Имя
-        const name = form.full_name;
-        if (name.value.trim().length < 3) {
-            showError(name, 'Введите имя и фамилию');
-            valid = false;
+        const courseId = courseSelect.value;
+        if (!courseId) {
+            alert('Выберите курс');
+            return;
         }
 
-        // Email
-        const email = form.email;
-        if (!email.value.includes('@')) {
-            showError(email, 'Введите корректный email');
-            valid = false;
-        }
+        try {
+            const response = await fetch('/enroll/create-stripe-session', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    course_id: courseId
+                })
+            });
 
-        // Телефон
-        const phone = form.phone;
-        if (phone.value.trim().length < 7) {
-            showError(phone, 'Введите номер телефона');
-            valid = false;
-        }
+            if (!response.ok) {
+                throw new Error('Ошибка сервера');
+            }
 
-        // Курс
-        const course = form.course;
-        if (!course.value) {
-            showError(course, 'Выберите курс');
-            valid = false;
-        }
+            const data = await response.json();
+            window.location.href = data.url;
 
-        // Оплата
-        const payment = form.querySelector('input[name="payment"]:checked');
-        if (!payment) {
-            showError(
-                form.querySelector('.form-group:last-of-type'),
-                'Выберите способ оплаты'
-            );
-            valid = false;
-        }
-
-        // Чекбокс
-        const agree = form.querySelector('input[name="agree"]');
-        if (!agree.checked) {
-            showError(agree, 'Необходимо согласие с условиями');
-            valid = false;
-        }
-
-        if (!valid) {
-            e.preventDefault();
+        } catch (err) {
+            alert('Ошибка при переходе к оплате');
+            console.error(err);
         }
     });
 
-    function showError(element, message) {
-        const container = element.closest('.form-group') || element.closest('.agreement');
-        const error = container.querySelector('.error-text');
-        if (error) error.textContent = message;
-        element.classList.add('error');
-    }
 });

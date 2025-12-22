@@ -1,20 +1,22 @@
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
-
+import stripe
+import os
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_pyfile('config.py')
 
-    # 🔹 Ключ для шифрования cookie
-    app.secret_key = "super_secret_key_123"
+    # ✅ Stripe
+    app.config['STRIPE_SECRET_KEY'] = 'sk_test_51Sh4Tc1jz8KwkjqINnBmQmRQEtR7gkKP09pb2qTbp18lOPxpxdEgu7ySaCjyUmgu2BUJbMS6wRn5opzpJduwdygo00TYAGFDjN'
+    app.config['STRIPE_PUBLISHABLE_KEY'] = 'pk_test_51Sh4Tc1jz8KwkjqIAOuq3v76o8Klf3EIZ8HXTkUMithm1REOx858elF2aHcpP75X5iINXgl5SAuk2uviiApwE5IL00VIyMkIqr'
 
-    # 🔹 Настройки сессии
+    stripe.api_key = app.config['STRIPE_SECRET_KEY']
+
+    app.secret_key = "super_secret_key_123"
     app.permanent_session_lifetime = timedelta(days=7)
-    app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-    app.config['SESSION_COOKIE_SECURE'] = False
 
     db.init_app(app)
 

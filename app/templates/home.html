@@ -20,9 +20,11 @@
             <a href="{{ url_for('catalog.catalog') }}" class="btn-hero btn-catalog">
                 Каталог курсов
             </a>
-            <button class="btn-hero btn-register-hero">
+            <button class="btn-hero btn-register-hero"
+                    onclick="window.location.href='{{ url_for('enroll.enroll_page') }}'">
                 Записаться
             </button>
+
         </div>
     </div>
 </section>
@@ -136,5 +138,15 @@
         </a>
     </div>
 </section>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("payment") === "success") {
+        alert("Оплата прошла успешно!");
+    } else if (params.get("payment") === "cancel") {
+        alert("Оплата не была завершена или произошла ошибка.");
+    }
+});
+</script>
 
 {% endblock %}
