@@ -220,8 +220,31 @@
 
         <!-- ===== Преподаватель ===== -->
         <div id="teacher-content" class="tab-content">
-            Контент Преподавателя
+            <h2 class="tab-section-title">Ваш преподаватель</h2>
+
+            <div class="teacher-card">
+                <!-- Фото -->
+                <img class="teacher-photo" src="{{ url_for('static', filename=course.teacher.photo) }}" alt="Преподаватель">
+
+                <!-- Правая часть с именем и опытом -->
+                <div class="teacher-info">
+                    <div class="teacher-name">
+                        {{ course.teacher.first_name }} {{ course.teacher.last_name }}
+                    </div>
+                    <div class="teacher-experience">
+                        <span>Опыт работы</span><br>
+                        <span class="experience-years">{{ course.teacher.experience_years }} лет</span>
+                    </div>
+                </div>
+
+                <!-- Био под фото -->
+                <div class="teacher-bio">
+                    {{ course.teacher.bio }}
+                </div>
+            </div>
         </div>
+
+
 
         <!-- ===== Отзывы ===== -->
         <div id="reviews-content" class="tab-content">

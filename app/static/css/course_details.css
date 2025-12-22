@@ -607,3 +607,66 @@
 }
 
 
+/* Вкладка Преподаватель */
+.teacher-card {
+    width: 1200px;
+    min-height: 261px; /* если био длинное, карточка растянется */
+    background: #F9FAFB;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    position: relative;
+    padding: 0;
+    margin-top: 48px;
+}
+
+/* Фото */
+.teacher-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 21px 0 0 41px;
+}
+
+/* Правая часть (Имя + Опыт) */
+.teacher-info {
+    margin-left: 63px;
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Имя и фамилия */
+.teacher-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* semi-bold */
+    font-size: 24px;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+/* Опыт работы */
+.teacher-experience span {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400; /* regular */
+    font-size: 20px;
+    color: #4B5563;
+}
+
+.teacher-experience .experience-years {
+    font-weight: 700; /* bold */
+}
+
+/* Био под фото */
+.teacher-bio {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400; /* regular */
+    font-size: 20px;
+    color: #4B5563;
+    position: absolute;
+    top: 21px; /* выравниваем по верхнему краю карточки */
+    left: 41px; /* отступ слева как у фото */
+    margin-top: 135px; /* немного ниже фото */
+    width: calc(100% - 41px - 24px); /* растягиваем почти до правого края */
+}
