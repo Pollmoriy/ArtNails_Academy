@@ -10,21 +10,25 @@
         <!-- Левый блок: список модулей -->
         <aside class="modules-list">
             <h2>Модули курса</h2>
+
+            <!-- Прогресс пользователя -->
+            <div class="modules-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ completed_modules }}/{{ total_modules }} * 100%;"></div>
+                </div>
+                <span class="progress-text">{{ completed_modules }}/{{ total_modules }}</span>
+            </div>
+
+            <!-- Список модулей -->
             <ul>
                 {% for module in modules %}
                 <li class="module-item {% if loop.first %}active{% endif %}" data-module-id="{{ module.id }}">
                     {{ module.title }}
-                    {% if module.type == 'theory' %}
-                        <span class="module-type">Теория</span>
-                    {% elif module.type == 'practice' %}
-                        <span class="module-type">Практика</span>
-                    {% elif module.type == 'test' %}
-                        <span class="module-type">Тест</span>
-                    {% endif %}
                 </li>
                 {% endfor %}
             </ul>
         </aside>
+
 
         <!-- Правый блок: контент выбранного модуля -->
         <section class="module-content">

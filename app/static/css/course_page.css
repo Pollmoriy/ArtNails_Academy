@@ -162,3 +162,83 @@
 .module-test .btn-course-details:hover {
     background-color: #e03d54;
 }
+.modules-list {
+    width: 250px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+.modules-list h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+/* Прогресс */
+.modules-progress {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background-color: #F2F2F2;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #DB2777;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #333;
+}
+
+/* Список модулей */
+.modules-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.module-item {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.module-item:hover {
+    background-color: #f0f0f0;
+}
+
+.module-item.active {
+    background-color: #FDF2F8;
+    font-weight: bold;
+}
+
+.module-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: #DB2777;
+    border-radius: 2px;
+}
