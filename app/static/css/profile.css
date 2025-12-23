@@ -684,3 +684,156 @@ margin-top: 83px;
     fill: currentColor;
     transition: fill 0.3s ease;
 }
+
+/* =========================
+   МОДАЛЬНОЕ ОКНО
+========================= */
+.avatar-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* =========================
+   КОНТЕНТ
+========================= */
+.avatar-modal-content {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* =========================
+   МОДАЛЬНОЕ ОКНО
+========================= */
+.avatar-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* =========================
+   КОНТЕНТ
+========================= */
+.avatar-modal-content {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* =========================
+   ЗАГОЛОВОК
+========================= */
+.avatar-modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    text-align: center;
+}
+
+/* =========================
+   ОБЛАСТЬ ОБРЕЗКИ
+========================= */
+.avatar-crop-area {
+    display: flex;
+    justify-content: center;
+}
+
+/* круг-обёртка */
+.avatar-crop-wrapper {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+}
+
+/* затемнение вокруг круга */
+.avatar-crop-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 0 0 9999px rgba(0,0,0,0.55);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* сетка как в Instagram */
+.crop-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background-image:
+        linear-gradient(to right, rgba(255,255,255,0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.35) 1px, transparent 1px);
+    background-size: 33.33% 33.33%;
+}
+
+/* изображение */
+.avatar-crop-wrapper img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    user-select: none;
+    will-change: transform;
+}
+
+/* =========================
+   КНОПКИ
+========================= */
+.avatar-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-save {
+    background: #DB2777;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-save:hover {
+    background: #A4205B;
+}
+
+.btn-cancel {
+    background: #fff;
+    color: #DB2777;
+    border: 1px solid #DB2777;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background: #DB2777;
+    color: #fff;
+}
