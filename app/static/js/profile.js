@@ -16,23 +16,5 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-
-    // Обновление прогресса на каждой карточке
-    const courseCards = document.querySelectorAll('.course-card');
-    courseCards.forEach(card => {
-        const completedModules = parseInt(card.dataset.completedModules || 0);
-        const totalModules = parseInt(card.dataset.totalModules || 0);
-        const progressFill = card.querySelector('.progress-fill');
-        const progressPercent = card.querySelector('.progress-percent');
-
-        // Вычисляем процент прогресса
-        let progress = 0;
-        if (totalModules > 0) {
-            progress = Math.round((completedModules / totalModules) * 100);
-        }
-
-        // Устанавливаем ширину и текст
-        if (progressFill) progressFill.style.width = `${progress}%`;
-        if (progressPercent) progressPercent.textContent = `${progress}%`;
-    });
 });
+

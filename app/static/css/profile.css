@@ -460,10 +460,10 @@ margin-top: 83px;
 .progress-fill {
     height: 100%;
     background-color: #DB2777;
-    width: 0%; /* через inline style ставится динамически */
     border-radius: 4px 0 0 4px;
-    transition: width 0.3s ease;
+    transition: width 0.6s ease; /* плавное заполнение */
 }
+
 
 .progress-percent {
     font-size: 14px;
