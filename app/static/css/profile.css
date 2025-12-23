@@ -495,13 +495,13 @@ margin-top: 83px;
 }
 
 .btn-continue { width: 100%; background-color: #DB2777; color: #fff; }
-.btn-continue:hover { background-color: #A4205B; }
+.btn-continue:hover { background-color: #A4205B; transition: all 0.3s ease;}
 
 .course-buttons { display: flex; gap: 10px; }
 .btn-view { width: 50%; background-color: #DB2777; color: #fff; }
 .btn-certificate { width: 50%; background-color: #fff; color: #DB2777; border: 1px solid #DB2777; }
-.btn-view:hover { background-color: #A4205B; }
-.btn-certificate:hover { background-color: #DB2777; color: #fff; }
+.btn-view:hover { background-color: #A4205B;transition: all 0.3s ease; }
+.btn-certificate:hover { background-color: #DB2777; color: #fff; transition: all 0.3s ease;}
 
 .course-title {
      margin-top: 8px; /* ⬅️ минимальный отступ */
@@ -524,5 +524,31 @@ margin-top: 83px;
     margin-left: 0;
     padding-left: 0;
 }
+.btn-icon {
+    margin-right: 8px;
+    vertical-align: middle;
+    fill: currentColor; /* цвет иконки наследуется от текста кнопки */
+}
 
+/* Для белой кнопки при наведении меняем цвет иконки на белый */
+.btn-certificate {
+    color: #DB2777;
+    border: 1px solid #DB2777;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-certificate:hover {
+    background-color: #DB2777;
+    color: #fff; /* текст и SVG станут белыми */
+    transition: all 0.3s ease;
+}
+
+.btn-continue,
+.btn-view {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
 
