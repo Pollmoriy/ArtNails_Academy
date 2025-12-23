@@ -445,7 +445,6 @@ margin-top: 83px;
 .course-progress-info {
     display: flex;
     justify-content: space-between;
-    margin-top: 14px;
     font-size: 14px;
     color: #4B5563;
 }
@@ -455,22 +454,22 @@ margin-top: 83px;
     height: 8px;
     background-color: #E5E7EB;
     border-radius: 4px;
-    margin-top: 8px;
+    overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
     background-color: #DB2777;
+    width: 0%; /* через inline style ставится динамически */
     border-radius: 4px 0 0 4px;
+    transition: width 0.3s ease;
 }
 
 .progress-percent {
     font-size: 14px;
     color: #4B5563;
     text-align: right;
-    margin-top: 5px;
 }
-
 /* Преподаватель и дата покупки */
 .course-meta {
     display: flex;

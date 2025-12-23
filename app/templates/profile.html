@@ -104,19 +104,15 @@
                         </div>
 
                         <div class="progress-bar">
-                            <div class="progress-fill"
-                                 style="width: {{ course.progress }}%;"></div>
+                            <div class="progress-fill" style="width: {{ course.progress }}%;"></div>
                         </div>
 
-                        <div class="progress-percent">
-                            {{ course.progress }}%
-                        </div>
+                        <div class="progress-percent">{{ course.progress }}%</div>
 
                         <!-- МЕТА -->
                         <div class="course-meta">
                             <span>
-                                Преподаватель:
-                                {{ course.teacher.first_name }} {{ course.teacher.last_name }}
+                                Преподаватель: {{ course.teacher }}
                             </span>
                             <span>
                                 {{ course.purchase_date.strftime('%d.%m.%Y') }}

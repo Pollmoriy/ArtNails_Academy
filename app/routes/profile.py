@@ -36,17 +36,20 @@ def profile_page():
         if not course:
             continue
 
-        # все модули курса
         total_modules = len(course.modules)
 
-        # пройденные модули пользователя по этому курсу
-        completed_modules = Progress.query.filter_by(
-            id_user=user.id_user,
-            id_course=course.id_course,
-            is_completed=True
-        ).count()
+        # ----------------------------
+        # Считаем завершённые модули по этому курсу
+        # Если Progress хранит is_completed для всего курса, а не для модуля
+        completed_modules = total_modules if purchase.status == 'completed' else 0
 
         progress = int((completed_modules / total_modules) * 100) if total_modules else 0
+
+        # ФИО преподавателя сразу строкой
+        teacher_name = (
+            f"{course.teacher.first_name} {course.teacher.last_name}"
+            if course.teacher else "Имя Фамилия"
+        )
 
         courses.append({
             "id": course.id_course,
@@ -58,7 +61,7 @@ def profile_page():
             "completed_modules": completed_modules,
             "total_modules": total_modules,
             "progress": progress,
-            "teacher": course.teacher,
+            "teacher": teacher_name,
             "purchase_date": purchase.purchase_date
         })
 
