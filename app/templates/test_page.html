@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ test.title }} — ArtNails Academy{% endblock %}
+
+{% block content %}
+<main style="margin-top: 80px;">  <!-- отступ из-за хедера -->
+
+    <section class="test-page">
+        <h1>{{ test.title }}</h1>
+
+        <form action="" method="post">  <!-- можно потом добавить route для POST -->
+            {% for q in questions %}
+            <div class="question-block">
+                <p><strong>Вопрос {{ loop.index }}:</strong> {{ q.text }}</p>
+
+                {% for a in q.answers %}
+                <div class="answer-option">
+                    <input type="radio" name="question_{{ q.id }}" value="{{ a.id }}">
+                    <label>{{ a.text }}</label>
+                </div>
+                {% endfor %}
+            </div>
+            <hr>
+            {% endfor %}
+
+            <button type="submit">Отправить ответы</button>
+        </form>
+    </section>
+
+</main>
+{% endblock %}

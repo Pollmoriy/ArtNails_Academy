@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }} — ArtNails Academy{% endblock %}
+
+{% block content %}
+<main class="course-page" style="margin-top: 80px;"> <!-- отступ из-за хедера -->
+
+    <div class="course-container">
+
+        <!-- Левый блок: список модулей -->
+        <aside class="modules-list">
+            <h2>Модули курса</h2>
+            <ul>
+                {% for module in modules %}
+                <li class="module-item {% if loop.first %}active{% endif %}" data-module-id="{{ module.id }}">
+                    {{ module.title }}
+                    {% if module.type == 'theory' %}
+                        <span class="module-type">Теория</span>
+                    {% elif module.type == 'practice' %}
+                        <span class="module-type">Практика</span>
+                    {% elif module.type == 'test' %}
+                        <span class="module-type">Тест</span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <!-- Правый блок: контент выбранного модуля -->
+        <section class="module-content">
+            {% for module in modules %}
+            <div class="module-detail {% if not loop.first %}hidden{% endif %}" data-module-id="{{ module.id }}">
+
+                <h2>{{ module.title }}</h2>
+                <p>{{ module.description }}</p>
+
+                {% if module.type == 'theory' %}
+                    {% if module.video_link %}
+                    <video width="100%" controls>
+                        <source src="{{ module.video_link }}" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                    {% endif %}
+
+                    {% if module.materials %}
+                    <div class="materials">
+                        <h3>Материалы для скачивания:</h3>
+                        <ul>
+                            {% for m in module.materials %}
+                            <li>
+                                <a href="{{ m.file_link }}" download>{{ m.file_name }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                {% elif module.type == 'practice' %}
+                    {% if module.practice_stages %}
+                    <div class="practice-stages">
+                        {% for stage in module.practice_stages %}
+                        <div class="stage">
+                            <h4>Этап {{ stage.step_number }}</h4>
+                            <p>{{ stage.step_description }}</p>
+                            {% if stage.image %}
+                            <img src="{{ url_for('static', filename=stage.image) }}" alt="Этап {{ stage.step_number }}">
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Кнопка отметки выполнения модуля -->
+                    <button class="btn-mark-completed">Отметить как выполнено</button>
+                    {% endif %}
+
+                {% elif module.type == 'test' %}
+                    <div class="module-test">
+                        {% for test in module.tests %}
+                        <a href="{{ url_for('test.test_page', test_id=test.id_test) }}" class="btn-course-details">{{ test.title }}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </section>
+
+    </div>
+
+</main>
+
+<script>
+    // Простая логика переключения модулей
+    const moduleItems = document.querySelectorAll('.module-item');
+    const moduleDetails = document.querySelectorAll('.module-detail');
+
+    moduleItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const id = item.dataset.moduleId;
+
+            moduleItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+
+            moduleDetails.forEach(detail => {
+                if(detail.dataset.moduleId === id){
+                    detail.classList.remove('hidden');
+                } else {
+                    detail.classList.add('hidden');
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

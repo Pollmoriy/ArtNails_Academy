@@ -1,0 +1,164 @@
+/* Отступ из-за хедера */
+.course-page {
+    margin-top: 80px;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Контейнер всей страницы курса */
+.course-container {
+    display: flex;
+    gap: 30px;
+}
+
+/* Список модулей слева */
+.modules-list {
+    width: 250px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    height: fit-content;
+}
+
+.modules-list h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.modules-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.module-item {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.module-item:hover {
+    background-color: #f0f0f0;
+}
+
+.module-item.active {
+    background-color: #ffdce0;
+    font-weight: bold;
+}
+
+.module-type {
+    font-size: 12px;
+    color: #666;
+    background-color: #eee;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Контент модуля справа */
+.module-content {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.module-detail.hidden {
+    display: none;
+}
+
+.module-detail h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.module-detail p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+/* Видео */
+.module-detail video {
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Материалы для скачивания */
+.materials h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.materials ul {
+    list-style: none;
+    padding: 0;
+}
+
+.materials li {
+    margin-bottom: 5px;
+}
+
+.materials a {
+    text-decoration: none;
+    color: #ff4c61;
+    transition: all 0.2s;
+}
+
+.materials a:hover {
+    text-decoration: underline;
+}
+
+/* Практика */
+.practice-stages .stage {
+    margin-bottom: 20px;
+}
+
+.practice-stages .stage h4 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.practice-stages .stage img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+/* Кнопка отметки выполнения */
+.btn-mark-completed {
+    background-color: #ff4c61;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-mark-completed:hover {
+    background-color: #e03d54;
+}
+
+/* Тесты */
+.module-test .btn-course-details {
+    display: inline-block;
+    background-color: #ff4c61;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+.module-test .btn-course-details:hover {
+    background-color: #e03d54;
+}

@@ -121,7 +121,7 @@
 
                         <!-- КНОПКИ -->
                         {% if course.status != 'completed' %}
-                            <button class="btn-continue">
+                            <button class="btn-continue" onclick="window.location.href='{{ url_for('course.course_page', course_id=course.id) }}'">
                                 <svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <!-- Пример иконки: стрелка вправо -->
                                     <path d="M4 2L12 8L4 14V2Z"/>
@@ -130,7 +130,7 @@
                             </button>
                         {% else %}
                             <div class="course-buttons">
-                                <button class="btn-view">
+                                <button class="btn-view" onclick="window.location.href='{{ url_for('course.course_page', course_id=course.id) }}'">
                                     <svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <!-- Иконка глаза -->
                                         <path d="M8 3C4 3 1.333 8 8 13C14.667 8 12 3 8 3ZM8 11C6.343 11 5 9.657 5 8C5 6.343 6.343 5 8 5C9.657 5 11 6.343 11 8C11 9.657 9.657 11 8 11ZM8 6C7.447 6 7 6.447 7 7C7 7.553 7.447 8 8 8C8.553 8 9 7.553 9 7C9 6.447 8.553 6 8 6Z"/>
