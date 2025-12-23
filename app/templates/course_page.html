@@ -14,10 +14,13 @@
             <!-- Прогресс пользователя -->
             <div class="modules-progress">
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: {{ completed_modules }}/{{ total_modules }} * 100%;"></div>
+                    <div class="progress-fill" id="modules-progress-fill"
+                         data-completed="{{ completed_modules }}"
+                         data-total="{{ total_modules }}"></div>
                 </div>
                 <span class="progress-text">{{ completed_modules }}/{{ total_modules }}</span>
             </div>
+
 
             <!-- Список модулей -->
             <ul>
@@ -115,5 +118,6 @@
         });
     });
 </script>
+<script src="{{ url_for('static', filename='js/course_page.js') }}"></script>
 
 {% endblock %}
