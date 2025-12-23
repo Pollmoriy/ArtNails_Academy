@@ -68,10 +68,16 @@ def course_page(course_id):
 
         modules_data.append(module_dict)
 
-    # Вычисляем общий прогресс пользователя по курсу
-    completed_modules = progress.completed_modules if progress else 0
+    # Вычисляем список id завершённых модулей
+    completed_modules_count = progress.completed_modules if progress else 0
+    completed_modules_ids = [module.id_module for module in modules[:completed_modules_count]] if modules else []
+
+    # Общее количество модулей
     total_modules = len(modules)
-    progress_percent = int((completed_modules / total_modules) * 100) if total_modules else 0
+
+    # Процент завершения
+    completed_count = len(completed_modules_ids)
+    progress_percent = int((completed_count / total_modules) * 100) if total_modules else 0
 
     # Рендерим страницу курса
     return render_template(
@@ -79,6 +85,7 @@ def course_page(course_id):
         course=course,
         modules=modules_data,
         progress_percent=progress_percent,
-        completed_modules=completed_modules,
+        completed_modules=completed_count,
+        completed_modules_ids=completed_modules_ids,
         total_modules=total_modules
     )

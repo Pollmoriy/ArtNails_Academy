@@ -25,11 +25,17 @@
             <!-- Список модулей -->
             <ul>
                 {% for module in modules %}
-                <li class="module-item {% if loop.first %}active{% endif %}" data-module-id="{{ module.id }}">
-                    {{ module.title }}
-                </li>
+                    <li class="module-item
+                               {% if module.id in completed_modules_ids %}completed{% endif %}
+                               {% if loop.first %}active{% endif %}"
+                        data-module-id="{{ module.id }}">
+                        {{ module.title }}
+                        {% if module.type == 'theory' %}<span class="module-type">Теория</span>{% endif %}
+                        {% if module.type == 'practice' %}<span class="module-type">Практика</span>{% endif %}
+                        {% if module.type == 'test' %}<span class="module-type">Тест</span>{% endif %}
+                    </li>
                 {% endfor %}
-            </ul>
+                </ul>
         </aside>
 
 

@@ -248,3 +248,9 @@
     font-size: 12px;
     color: #333;
 }
+
+/* Завершённые модули */
+.module-item.completed {
+    background-color: #F0FDF4; /* светло-зелёный/мятный */
+}
+
