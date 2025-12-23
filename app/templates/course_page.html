@@ -52,7 +52,7 @@
                     {% if module.video_link %}
                     <div class="theory-video-wrapper">
                         <video controls>
-                            <source src="{{ module.video_link }}" type="video/mp4">
+                            <source src="{{ url_for('static', filename=module.video_link) }}" type="video/mp4">
                             Ваш браузер не поддерживает видео.
                         </video>
                     </div>
