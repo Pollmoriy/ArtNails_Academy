@@ -48,27 +48,48 @@
                 <p>{{ module.description }}</p>
 
                 {% if module.type == 'theory' %}
-                    {% if module.video_link %}
-                    <video width="100%" controls>
-                        <source src="{{ module.video_link }}" type="video/mp4">
-                        Ваш браузер не поддерживает видео.
-                    </video>
-                    {% endif %}
 
-                    {% if module.materials %}
-                    <div class="materials">
-                        <h3>Материалы для скачивания:</h3>
-                        <ul>
-                            {% for m in module.materials %}
-                            <li>
-                                <a href="{{ m.file_link }}" download>{{ m.file_name }}</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
+                    {% if module.video_link %}
+                    <div class="theory-video-wrapper">
+                        <video controls>
+                            <source src="{{ module.video_link }}" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
                     </div>
                     {% endif %}
 
-                {% elif module.type == 'practice' %}
+                    <div class="theory-text">
+                        <p><strong>Теоретический материал</strong><br>
+                        В этом модуле вы изучите основные принципы и теоретические аспекты темы. Материал структурирован для лучшего понимания и включает практические примеры.</p>
+                        <ul>
+                            <li>Основные понятия и определения</li>
+                            <li>Практическое применение знаний</li>
+                            <li>Типичные ошибки и способы их избежать</li>
+                            <li>Рекомендации экспертов</li>
+                        </ul>
+                    </div>
+
+                    <hr class="theory-divider">
+
+                    <h3>Дополнительные материалы</h3>
+                    <div class="additional-materials">
+                        {% for m in module.materials %}
+                        <div class="material-card">
+                            <div class="material-img">
+                                <img src="{{ url_for('static', filename='img/file_icon.png') }}" alt="иконка файла">
+                            </div>
+                            <div class="material-info">
+                                <span class="material-title">{{ m.file_name }}</span>
+                            </div>
+                            <a href="{{ m.file_link }}" download class="material-download-btn">
+                                <span>⬇</span> Скачать
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if module.type == 'practice' %}
                     {% if module.practice_stages %}
                     <div class="practice-stages">
                         {% for stage in module.practice_stages %}
@@ -81,12 +102,11 @@
                         </div>
                         {% endfor %}
                     </div>
-
-                    <!-- Кнопка отметки выполнения модуля -->
                     <button class="btn-mark-completed">Отметить как выполнено</button>
                     {% endif %}
+                {% endif %}
 
-                {% elif module.type == 'test' %}
+                {% if module.type == 'test' %}
                     <div class="module-test">
                         {% for test in module.tests %}
                         <a href="{{ url_for('test.test_page', test_id=test.id_test) }}" class="btn-course-details">{{ test.title }}</a>
@@ -97,6 +117,7 @@
             </div>
             {% endfor %}
         </section>
+
 
     </div>
 
