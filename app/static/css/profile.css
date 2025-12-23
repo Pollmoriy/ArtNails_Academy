@@ -355,7 +355,11 @@ margin-top: 83px;
 /* ==========================
    Карточки курсов
 =========================== */
-.courses-grid {
+/* ==========================
+   МОИ КУРСЫ (ПРОФИЛЬ)
+=========================== */
+
+.my-courses .courses-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 32px;
@@ -363,7 +367,8 @@ margin-top: 83px;
     padding-bottom: 70px;
 }
 
-.course-card {
+/* Карточка */
+.my-courses .course-card {
     width: 450px;
     height: 560px;
     background-color: #fff;
@@ -375,23 +380,35 @@ margin-top: 83px;
     transition: box-shadow 0.3s ease;
 }
 
-.course-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+.my-courses .course-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
 
-.course-image {
+/* Картинка */
+.my-courses .course-image {
     width: 100%;
     height: 192px;
     object-fit: cover;
     border-radius: 8px;
 }
 
-.course-level-row {
+/* Контент */
+.my-courses .course-info {
+    padding: 16px 24px 0 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    box-sizing: border-box;
+}
+
+/* Уровень */
+.my-courses .course-level-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-
-.course-level {
+.my-courses .course-level {
     height: 24px;
     line-height: 24px;
     padding: 0 8px;
@@ -400,11 +417,22 @@ margin-top: 83px;
     font-weight: 400;
 }
 
-.course-level.начинающий { background-color: #DCFCE7; color: #166534; }
-.course-level.средний { background-color: #FEF9C3; color: #854D0E; }
-.course-level.продвинутый { background-color: #FEE2E2; color: #991B1B; }
+.my-courses .course-level.начинающий {
+    background-color: #DCFCE7;
+    color: #166534;
+}
 
-.course-certificate {
+.my-courses .course-level.средний {
+    background-color: #FEF9C3;
+    color: #854D0E;
+}
+
+.my-courses .course-level.продвинутый {
+    background-color: #FEE2E2;
+    color: #991B1B;
+}
+
+.my-courses .course-certificate {
     height: 24px;
     line-height: 24px;
     padding: 0 8px;
@@ -415,41 +443,34 @@ margin-top: 83px;
     font-weight: 500;
 }
 
-.course-name {
+/* Название */
+.my-courses .course-title {
+    margin-top: 8px;
     font-weight: 600;
     font-size: 18px;
     color: #111827;
-    margin-top: 12px;
-    overflow-wrap: break-word;
+    line-height: 1.3;
 }
 
-.course-desc {
-    font-weight: 400;
-    font-size: 14px;
-    color: #4B5563;
-    margin-top: 4px;
-}
-
-.course-desc {
-    font-weight: 400;
+/* Описание */
+.my-courses .course-desc {
     font-size: 14px;
     color: #4B5563;
     margin-top: 6px;
-    width: calc(100% - 16px); /* растягиваем на всю ширину с учетом отступов */
-    min-height: 38px; /* чтобы все карточки были одинаковой высоты */
+    min-height: 38px;
     line-height: 1.5;
     word-wrap: break-word;
 }
 
 /* Прогресс */
-.course-progress-info {
+.my-courses .course-progress-info {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
     color: #4B5563;
 }
 
-.progress-bar {
+.my-courses .progress-bar {
     width: 100%;
     height: 8px;
     background-color: #E5E7EB;
@@ -457,21 +478,21 @@ margin-top: 83px;
     overflow: hidden;
 }
 
-.progress-fill {
+.my-courses .progress-fill {
     height: 100%;
     background-color: #DB2777;
     border-radius: 4px 0 0 4px;
-    transition: width 0.6s ease; /* плавное заполнение */
+    transition: width 0.6s ease;
 }
 
-
-.progress-percent {
+.my-courses .progress-percent {
     font-size: 14px;
     color: #4B5563;
     text-align: right;
 }
-/* Преподаватель и дата покупки */
-.course-meta {
+
+/* Мета */
+.my-courses .course-meta {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
@@ -480,77 +501,65 @@ margin-top: 83px;
 }
 
 /* Кнопки */
-.btn-continue, .btn-view, .btn-certificate {
+.my-courses .btn-continue,
+.my-courses .btn-view,
+.my-courses .btn-certificate {
     height: 40px;
     border-radius: 8px;
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
-    margin-top: 10px;
     border: none;
-}
-.course-actions {
-    margin-top: auto;       /* ← МАГИЯ */
-    padding: 16px 24px 24px 24px;
-}
-
-.btn-continue { width: 100%; background-color: #DB2777; color: #fff; }
-.btn-continue:hover { background-color: #A4205B; transition: all 0.3s ease;}
-
-.course-buttons { display: flex; gap: 10px; }
-.btn-view { width: 50%; background-color: #DB2777; color: #fff; }
-.btn-certificate { width: 50%; background-color: #fff; color: #DB2777; border: 1px solid #DB2777; }
-.btn-view:hover { background-color: #A4205B;transition: all 0.3s ease; }
-.btn-certificate:hover { background-color: #DB2777; color: #fff; transition: all 0.3s ease;}
-
-.course-title {
-     margin-top: 8px; /* ⬅️ минимальный отступ */
-    font-weight: 600;
-    font-size: 18px;
-    color: #111827;
-    line-height: 1.3;
-}
-.course-info {
-    padding: 16px 24px 0 0px; /* ← ГЛАВНОЕ */
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    flex-grow: 1;
-}
-
-.course-level-row,
-.course-title,
-.course-desc {
-    margin-left: 0;
-    padding-left: 0;
-}
-.btn-icon {
-    margin-right: 8px;
-    vertical-align: middle;
-    fill: currentColor; /* цвет иконки наследуется от текста кнопки */
-}
-
-/* Для белой кнопки при наведении меняем цвет иконки на белый */
-.btn-certificate {
-    color: #DB2777;
-    border: 1px solid #DB2777;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
 }
 
-.btn-certificate:hover {
+.my-courses .btn-continue {
+    width: 100%;
     background-color: #DB2777;
-    color: #fff; /* текст и SVG станут белыми */
+    color: #fff;
+}
+
+.my-courses .btn-continue:hover,
+.my-courses .btn-view:hover {
+    background-color: #A4205B;
     transition: all 0.3s ease;
 }
 
-.btn-continue,
-.btn-view {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.my-courses .course-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
 }
+
+.my-courses .btn-view {
+    width: 50%;
+    background-color: #DB2777;
+    color: #fff;
+}
+
+.my-courses .btn-certificate {
+    width: 50%;
+    background-color: #fff;
+    color: #DB2777;
+    border: 1px solid #DB2777;
+}
+
+.my-courses .btn-certificate:hover {
+    background-color: #DB2777;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+/* Иконки */
+.my-courses .btn-icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
 
 /* ==========================
    Вкладка Профиль
@@ -836,4 +845,56 @@ margin-top: 83px;
 .btn-cancel:hover {
     background: #DB2777;
     color: #fff;
+}
+/* ==========================
+   КУРСЫ: КАТАЛОГ + ПОПУЛЯРНЫЕ
+=========================== */
+
+.public-course-card {
+    width: 351px;
+    height: 480px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.public-course-card .course-img {
+    width: 100%;
+    height: 192px;
+    object-fit: cover;
+}
+
+.public-course-card .course-top-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px;
+}
+
+.public-course-card .course-name {
+    font-size: 20px;
+    font-weight: 600;
+    padding-left: 24px;
+}
+
+.public-course-card .course-desc {
+    font-size: 14px;
+    padding: 0 24px;
+}
+/* ==========================
+   КУРСЫ: ПРОФИЛЬ
+=========================== */
+
+.profile-course-card {
+    width: 450px;
+    height: 560px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
 }

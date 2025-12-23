@@ -82,7 +82,7 @@
 
     <div class="courses-container">
         {% for course in popular_courses %}
-        <div class="course-card">
+        <div class="course-card public-course-card">
 
             <img src="{{ url_for('static', filename=course.image) }}"
                  alt="{{ course.title }}"

@@ -22,7 +22,7 @@
             <h1>Личный кабинет</h1>
             <p>Управляйте своим обучением</p>
         </div>
-        <button class="btn-buy-course">+ Купить курс</button>
+        <button class="btn-buy-course" onclick="window.location.href='{{ url_for('enroll.enroll_page') }}'">+ Купить курс</button>
     </div>
 
     <!-- Основной контент -->
@@ -69,7 +69,7 @@
 
                 <div class="courses-grid">
                     {% for course in courses %}
-                    <div class="course-card">
+                    <div class="course-card profile-course-card">
                         <!-- Картинка -->
                         <img src="{{ url_for('static', filename=course.image) }}"
                              alt="Курс"

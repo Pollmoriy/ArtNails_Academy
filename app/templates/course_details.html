@@ -253,7 +253,11 @@
             <div class="reviews-list">
                 {% for review in course.reviews %}
                 <div class="review-card">
-                    <img class="review-avatar" src="{{ review.user.avatar }}" alt="avatar">
+                    <img
+                        class="review-avatar"
+                        src="{{ url_for('static', filename=review.user.avatar) if review.user.avatar else url_for('static', filename='img/default_avatar.png') }}"
+                        alt="avatar"
+                    >
                     <div class="review-header">
                         <div class="review-name">{{ review.user.first_name }} {{ review.user.last_name }}</div>
                         <div class="review-course">{{ course.title }}</div>
