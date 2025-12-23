@@ -63,9 +63,81 @@
         </div>
 
         <!-- Блоки контента справа, меняются через JS -->
-        <div id="tab-content">
-            <!-- Здесь будет динамический контент через JS -->
+          <div id="tab-content">
+            <div class="my-courses" style="display:block;">
+                <h2 class="tab-title">Мои курсы</h2>
+
+                <div class="courses-grid">
+                    {% for course in courses %}
+                    <div class="course-card">
+                        <!-- Картинка -->
+                        <img src="{{ url_for('static', filename=course.image) }}"
+                             alt="Курс"
+                             class="course-image">
+
+                        <!-- Уровень -->
+                        <div class="course-info">
+                            <div class="course-level-row">
+                                <div class="course-level {{ course.difficulty|lower }}">
+                                    {{ course.difficulty }}
+                                </div>
+
+                                {% if course.status == 'completed' %}
+                                    <div class="course-certificate">Сертификат готов</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- НАЗВАНИЕ КУРСА (ВАЖНО) -->
+                            <div class="course-title">
+                                {{ course.title }}
+                            </div>
+
+                            <!-- КРАТКОЕ ОПИСАНИЕ -->
+                            <div class="course-desc">
+                                {{ course.short_description }}
+                            </div>
+                        </div>
+                        <!-- ПРОГРЕСС -->
+                        <div class="course-progress-info">
+                            <span>Прогресс</span>
+                            <span>{{ course.completed_modules }}/{{ course.total_modules }} модулей</span>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div class="progress-fill"
+                                 style="width: {{ course.progress }}%;"></div>
+                        </div>
+
+                        <div class="progress-percent">
+                            {{ course.progress }}%
+                        </div>
+
+                        <!-- МЕТА -->
+                        <div class="course-meta">
+                            <span>
+                                Преподаватель:
+                                {{ course.teacher.first_name }} {{ course.teacher.last_name }}
+                            </span>
+                            <span>
+                                {{ course.purchase_date.strftime('%d.%m.%Y') }}
+                            </span>
+                        </div>
+
+                        <!-- КНОПКИ -->
+                        {% if course.status != 'completed' %}
+                            <button class="btn-continue">Продолжить</button>
+                        {% else %}
+                            <div class="course-buttons">
+                                <button class="btn-view">Посмотреть</button>
+                                <button class="btn-certificate">Сертификат</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 

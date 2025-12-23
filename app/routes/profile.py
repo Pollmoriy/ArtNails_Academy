@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template, session, redirect, url_for, current_app, flash
-from app import db
-from sqlalchemy import text
+from flask import Blueprint, render_template, session, redirect, url_for, flash
+from app.models import User, Progress
 
 profile_bp = Blueprint('profile', __name__, template_folder='../templates')
 
@@ -8,46 +7,64 @@ profile_bp = Blueprint('profile', __name__, template_folder='../templates')
 @profile_bp.route('/profile')
 def profile_page():
     user_id = session.get('user_id')
-    current_app.logger.debug(f"[PROFILE] user_id в сессии: {user_id}")
 
     if not user_id:
         flash("Пожалуйста, войдите в систему", "warning")
         return redirect(url_for('auth.login'))
 
-    # Получаем данные пользователя
-    user = None
-    stats = {"courses": 0, "completed": 0, "certificates": 0}
-
-    try:
-        with db.engine.connect() as conn:
-            result = conn.execute(text("CALL GetUserProfile(:user_id)"), {"user_id": user_id})
-            user_row = result.mappings().first()
-            current_app.logger.debug(f"[PROFILE] user_row: {user_row}")
-
-            if not user_row:
-                flash("Пользователь не найден", "error")
-                return redirect(url_for('auth.login'))
-
-            user = dict(user_row)
-
-    except Exception as e:
-        current_app.logger.error(f"[PROFILE] Ошибка при вызове GetUserProfile: {e}")
-        flash("Ошибка загрузки профиля", "error")
+    user = User.query.get(user_id)
+    if not user:
+        flash("Пользователь не найден", "error")
         return redirect(url_for('auth.login'))
 
-    # Получаем статистику пользователя (не критично, ошибки игнорируем)
-    try:
-        with db.engine.connect() as conn:
-            res = conn.execute(text("CALL get_user_stats(:user_id)"), {"user_id": user_id})
-            stats_row = res.fetchone()
-            if stats_row:
-                stats = {
-                    "courses": stats_row[0] or 0,
-                    "completed": stats_row[1] or 0,
-                    "certificates": stats_row[2] or 0
-                }
-        current_app.logger.debug(f"[PROFILE] stats: {stats}")
-    except Exception as e:
-        current_app.logger.debug(f"[PROFILE] get_user_stats вызвал ошибку (игнорируется): {e}")
+    # -------------------------
+    # Статистика пользователя
+    # -------------------------
+    stats = {
+        "courses": len(user.purchases),
+        "completed": sum(1 for p in user.purchases if p.status == 'completed'),
+        "certificates": len(user.certificates)
+    }
 
-    return render_template('profile.html', user=user, stats=stats)
+    # -------------------------
+    # Курсы пользователя
+    # -------------------------
+    courses = []
+
+    for purchase in user.purchases:
+        course = purchase.course
+        if not course:
+            continue
+
+        # все модули курса
+        total_modules = len(course.modules)
+
+        # пройденные модули пользователя по этому курсу
+        completed_modules = Progress.query.filter_by(
+            id_user=user.id_user,
+            id_course=course.id_course,
+            is_completed=True
+        ).count()
+
+        progress = int((completed_modules / total_modules) * 100) if total_modules else 0
+
+        courses.append({
+            "id": course.id_course,
+            "title": course.title,
+            "short_description": course.short_description,
+            "image": course.image or "img/default_course.png",
+            "difficulty": course.difficulty,
+            "status": purchase.status,
+            "completed_modules": completed_modules,
+            "total_modules": total_modules,
+            "progress": progress,
+            "teacher": course.teacher,
+            "purchase_date": purchase.purchase_date
+        })
+
+    return render_template(
+        "profile.html",
+        user=user,
+        stats=stats,
+        courses=courses
+    )
