@@ -552,3 +552,135 @@ margin-top: 83px;
     justify-content: center;
 }
 
+/* ==========================
+   Вкладка Профиль
+=========================== */
+.profile-tab-title {
+    font-weight: 700;
+    font-size: 24px;
+    color: #111827;
+    margin-top: 30px;      /* расстояние от белого блока "Личный кабинет" */
+    margin-left: 32px;     /* отступ слева от карточки профиля */
+}
+
+.profile-settings-card {
+    display: flex;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 24px;
+    box-sizing: border-box;
+    position: relative; /* для абсолютного позиционирования кнопок снизу */
+    margin-left: 32px; /* отступ от профиля */
+    margin-top: 26px;  /* расстояние от заголовка вкладки */
+    width: 831px;
+    height: 589px;
+    gap: 24px;
+}
+
+.profile-settings-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.profile-settings-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #DB2777;
+}
+
+.btn-change-photo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #DB2777;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-change-photo:hover {
+    background-color: #A4205B;
+}
+
+.photo-note {
+    font-size: 12px;
+    color: #6B7280;
+    text-align: center;
+}
+
+.profile-settings-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+}
+
+.profile-settings-right label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #4B5563;
+}
+
+.profile-settings-right input {
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    padding: 0 12px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.profile-settings-right input:focus {
+    outline: none;
+    border-color: #DB2777;
+}
+
+.profile-settings-actions button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-cancel {
+    background-color: #fff;
+    color: #DB2777;
+    border: 1px solid #DB2777;
+}
+
+.btn-cancel:hover {
+    background-color: #DB2777;
+    color: #fff;
+}
+
+.btn-save {
+    background-color: #DB2777;
+    color: #fff;
+    border: none;
+}
+
+.btn-save:hover {
+    background-color: #A4205B;
+    color: #fff;
+}
+
+.btn-save svg,
+.btn-change-photo svg {
+    fill: currentColor;
+    transition: fill 0.3s ease;
+}
