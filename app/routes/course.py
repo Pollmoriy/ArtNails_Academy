@@ -1,9 +1,17 @@
 from flask import Blueprint, render_template, session, redirect, url_for, flash
 from app.models import Course, Module, Material, PracticeStage, Test, Progress
 from app import db
+from flask import send_from_directory, send_file, abort, current_app
+from werkzeug.utils import safe_join
+import os
 
 # Blueprint для страниц курса
 course_bp = Blueprint('course', __name__, template_folder='../templates')
+
+@course_bp.route('/download/<path:file_path>')
+def download_file(file_path):
+    full_path = os.path.join(current_app.static_folder, file_path)
+    return send_file(full_path, as_attachment=True)
 
 @course_bp.route('/course/<int:course_id>')
 def course_page(course_id):

@@ -372,7 +372,7 @@
 
 /* Список модулей слева */
 .modules-list {
-    width: 260px;
+    width: 280px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -388,4 +388,52 @@
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+.additional-materials {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.material-card {
+    display: flex;
+    align-items: center;
+    background-color: #F9FAFB;
+    border-radius: 8px;
+    padding: 10px 15px;
+    gap: 10px;
+}
+
+.material-img img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.material-info {
+    flex: 1; /* чтобы название занимало оставшееся место */
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #111827;
+}
+
+.material-download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #DB2777;
+    border: 1px solid #DB2777;
+    border-radius: 5px;
+    background-color: #fff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.material-download-btn:hover {
+    background-color: #DB2777;
+    color: #fff;
 }

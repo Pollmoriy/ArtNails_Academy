@@ -75,14 +75,20 @@
                     <div class="additional-materials">
                         {% for m in module.materials %}
                         <div class="material-card">
+                            <!-- Иконка файла слева -->
                             <div class="material-img">
                                 <img src="{{ url_for('static', filename='img/file_icon.png') }}" alt="иконка файла">
                             </div>
+
+                            <!-- Название файла -->
                             <div class="material-info">
                                 <span class="material-title">{{ m.file_name }}</span>
                             </div>
-                            <a href="{{ m.file_link }}" download class="material-download-btn">
-                                <span>⬇</span> Скачать
+
+                            <!-- Кнопка скачать -->
+                            <a href="{{ url_for('course.download_file', file_path=m.file_link) }}"
+                               class="material-download-btn">
+                                ⬇ Скачать
                             </a>
                         </div>
                         {% endfor %}
