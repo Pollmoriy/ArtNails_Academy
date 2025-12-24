@@ -45,7 +45,7 @@ def course_page(course_id):
             "tests": []
         }
 
-        # Добавляем материалы для теоретических модулей
+        # Теоретические материалы
         if module.type == "theory":
             module_dict["materials"] = [
                 {
@@ -55,7 +55,7 @@ def course_page(course_id):
                 } for m in module.materials
             ]
 
-        # Добавляем шаги для практических модулей
+        # Практические этапы
         if module.type == "practice":
             module_dict["practice_stages"] = [
                 {
@@ -65,14 +65,31 @@ def course_page(course_id):
                 } for ps in module.practice_stages
             ]
 
-        # Добавляем тесты для модулей типа "test"
+        # Тесты с вопросами и ответами
         if module.type == "test":
-            module_dict["tests"] = [
-                {
+            module_dict["tests"] = []
+            for t in module.tests:
+                test_dict = {
                     "id_test": t.id_test,
-                    "title": t.title
-                } for t in module.tests
-            ]
+                    "title": t.title,
+                    "passing_score": t.passing_score,
+                    "questions": []
+                }
+                for q in t.questions:  # вопросы привязаны к тесту
+                    question_dict = {
+                        "id_question": q.id_question,
+                        "text": q.question_text,  # правильное поле
+                        "answers": [
+                            {
+                                "id_answer": a.id_answer,
+                                "text": a.answer_text,  # правильное поле
+                                "is_correct": a.is_correct
+                            }
+                            for a in q.answers  # ответы привязаны к вопросу
+                        ]
+                    }
+                    test_dict["questions"].append(question_dict)
+                module_dict["tests"].append(test_dict)
 
         modules_data.append(module_dict)
 
@@ -89,7 +106,7 @@ def course_page(course_id):
 
     # Рендерим страницу курса
     return render_template(
-        "course_page.html",  # убедись, что файл лежит в app/templates/
+        "course_page.html",
         course=course,
         modules=modules_data,
         progress_percent=progress_percent,

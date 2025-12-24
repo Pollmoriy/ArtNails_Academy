@@ -144,15 +144,39 @@
                     </div>
 
                 {% elif module.type == 'test' %}
+                <div class="module-test" data-module-id="{{ module.id }}">
+                  {% for test in module.tests %}
+                    <div class="test-wrapper" data-test-id="{{ test.id_test }}">
+                      <h3>{{ test.title }}</h3>
 
-                    <div class="module-test">
-                        {% for test in module.tests %}
-                        <a href="{{ url_for('test.test_page', test_id=test.id_test) }}"
-                           class="btn-course-details">
-                            {{ test.title }}
-                        </a>
+                      <div class="question-wrapper">
+                        {% for question in test.questions %}
+                          <div class="question" {% if not loop.first %}style="display:none"{% endif %} data-question-index="{{ loop.index0 }}">
+                            <p class="question-text">{{ question.text }}</p>
+
+                            <ul class="answers-list">
+                              {% for answer in question.answers %}
+                                <li>
+                                  <input type="radio" name="q{{ question.id_question }}" value="{{ answer.is_correct }}">
+                                  {{ answer.text }}
+                                </li>
+                              {% endfor %}
+                            </ul>
+
+                            <button class="btn-next-question">
+                              {% if not loop.last %}Далее{% else %}Показать результаты{% endif %}
+                            </button>
+                          </div>
                         {% endfor %}
+                      </div>
+
+                      <div class="test-result" style="display:none;">
+                        <p class="result-text"></p>
+                        <button class="btn-retry">Попробовать еще раз</button>
+                      </div>
                     </div>
+                  {% endfor %}
+                </div>
 
                 {% endif %}
 

@@ -126,6 +126,7 @@ class Test(db.Model):
     questions = db.relationship('Question', back_populates='test')
 
 
+
 class Question(db.Model):
     __tablename__ = 'questions'
 
