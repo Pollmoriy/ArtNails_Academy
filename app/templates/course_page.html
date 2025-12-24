@@ -75,54 +75,76 @@
                     <div class="additional-materials">
                         {% for m in module.materials %}
                         <div class="material-card">
-                            <!-- Иконка файла слева -->
+
                             <div class="material-img">
                                 <img src="{{ url_for('static', filename='img/file_icon.png') }}" alt="иконка файла">
                             </div>
 
-                            <!-- Название файла -->
                             <div class="material-info">
                                 <span class="material-title">{{ m.file_name }}</span>
                             </div>
 
-                            <!-- Кнопка скачать -->
                             <a href="{{ url_for('course.download_file', file_path=m.file_link) }}"
                                class="material-download-btn">
                                 ⬇ Скачать
                             </a>
+
                         </div>
                         {% endfor %}
                     </div>
-                {% endif %}
 
-                {% if module.type == 'practice' %}
-                    {% if module.practice_stages %}
-                    <div class="practice-stages">
+                {% elif module.type == 'practice' %}
+
+                    <div class="practice-wrapper" data-module-id="{{ module.id }}">
+
                         {% for stage in module.practice_stages %}
-                        <div class="stage">
-                            <h4>Этап {{ stage.step_number }}</h4>
-                            <p>{{ stage.step_description }}</p>
+                        <div class="practice-stage {% if not loop.first %}hidden{% endif %}"
+                             data-stage-index="{{ loop.index0 }}">
+
+                            <div class="practice-stage-header">
+                                Этап {{ stage.step_number }} из {{ module.practice_stages|length }}
+                            </div>
+
+                            <p class="practice-text">
+                                {{ stage.step_description }}
+                            </p>
+
                             {% if stage.image %}
-                            <img src="{{ url_for('static', filename=stage.image) }}" alt="Этап {{ stage.step_number }}">
+                            <div class="practice-image">
+                                <img src="{{ url_for('static', filename=stage.image.replace('app/static/', '')) }}">
+                            </div>
                             {% endif %}
+
+                            <div class="practice-actions">
+                                {% if not loop.last %}
+                                    <button class="btn-next-stage">Продолжить</button>
+                                {% else %}
+                                    <button class="btn-mark-completed">Отметить как выполнено</button>
+                                {% endif %}
+                            </div>
+
                         </div>
                         {% endfor %}
-                    </div>
-                    <button class="btn-mark-completed">Отметить как выполнено</button>
-                    {% endif %}
-                {% endif %}
 
-                {% if module.type == 'test' %}
+                    </div>
+
+                {% elif module.type == 'test' %}
+
                     <div class="module-test">
                         {% for test in module.tests %}
-                        <a href="{{ url_for('test.test_page', test_id=test.id_test) }}" class="btn-course-details">{{ test.title }}</a>
+                        <a href="{{ url_for('test.test_page', test_id=test.id_test) }}"
+                           class="btn-course-details">
+                            {{ test.title }}
+                        </a>
                         {% endfor %}
                     </div>
+
                 {% endif %}
 
             </div>
             {% endfor %}
         </section>
+
 
 
     </div>

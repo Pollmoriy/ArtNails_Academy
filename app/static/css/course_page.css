@@ -437,3 +437,62 @@
     background-color: #DB2777;
     color: #fff;
 }
+
+.practice-stage.hidden {
+    display: none;
+}
+
+/* Общий контейнер кнопок практики */
+.practice-actions {
+    margin-top: 32px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Базовый стиль кнопок */
+.practice-actions button {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: none;
+    outline: none;
+}
+
+/* ===== КНОПКА "ПРОДОЛЖИТЬ" ===== */
+.btn-next-stage {
+    background-color: #ff5a8a;
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(255, 90, 138, 0.35);
+}
+
+.btn-next-stage:hover {
+    background-color: #ff3f77;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(255, 90, 138, 0.45);
+}
+
+.btn-next-stage:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(255, 90, 138, 0.3);
+}
+
+/* ===== КНОПКА "ОТМЕТИТЬ КАК ВЫПОЛНЕНО" ===== */
+.btn-mark-completed {
+    background-color: #ff5a8a;
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(255, 90, 138, 0.35);
+}
+
+.btn-mark-completed:hover {
+    background-color: #ff3f77;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(255, 90, 138, 0.45);
+}
+
+.btn-mark-completed:active {
+    box-shadow: 0 4px 10px rgba(255, 90, 138, 0.25);
+}

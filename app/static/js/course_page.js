@@ -30,3 +30,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+document.addEventListener('click', function (e) {
+    if (!e.target.classList.contains('btn-next-stage')) return;
+
+    const currentStage = e.target.closest('.practice-stage');
+    const nextStage = currentStage.nextElementSibling;
+
+    // скрываем кнопку "Продолжить" у текущего этапа
+    e.target.remove();
+
+    // показываем следующий этап
+    if (nextStage && nextStage.classList.contains('practice-stage')) {
+        nextStage.classList.remove('hidden');
+        nextStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+});
