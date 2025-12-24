@@ -1,16 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     const courseId = document.querySelector('.course-page').dataset.courseId;
 
+    // --- Прогресс-бар ---
     const progressFill = document.getElementById('modules-progress-fill');
     const totalModules = Number(progressFill.dataset.total);
-    let completedModules = Number(progressFill.dataset.completed);
 
-    if (totalModules > 0) {
-        progressFill.style.width = (completedModules / totalModules) * 100 + '%';
-        progressFill.textContent = `${completedModules}/${totalModules}`;
+    function updateProgress(completed) {
+        const percent = Math.round((completed / totalModules) * 100);
+        progressFill.style.width = percent + '%';
+        document.querySelector('.progress-text').textContent = `${completed}/${totalModules}`;
     }
 
-    // Переключение модулей
+    // --- Переключение модулей ---
     const moduleItems = document.querySelectorAll('.module-item');
     const moduleDetails = document.querySelectorAll('.module-detail');
 
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             item.classList.add('active');
 
             moduleDetails.forEach(detail => {
-                if(detail.dataset.moduleId === id){
+                if (detail.dataset.moduleId === id) {
                     detail.classList.remove('hidden');
                 } else {
                     detail.classList.add('hidden');
@@ -31,7 +32,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Практика: кнопки "Продолжить" и "Отметить как выполнено"
+    // --- Функция отметки модуля как выполненного ---
+    function markModuleCompleted(moduleId) {
+        fetch(`/course/${courseId}/complete_module/${moduleId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                // Отметить модуль на фронте зеленым
+                const moduleItem = document.querySelector(`.module-item[data-module-id="${moduleId}"]`);
+                if (moduleItem) moduleItem.classList.add('completed');
+
+                // Обновить прогресс
+                updateProgress(data.completed_modules);
+            }
+        })
+        .catch(err => console.error(err));
+    }
+
+    // --- Видео ---
+    document.querySelectorAll('.theory-video-wrapper video').forEach(video => {
+        video.addEventListener('ended', () => {
+            const moduleDiv = video.closest('.module-detail');
+            const moduleId = moduleDiv.dataset.moduleId;
+            markModuleCompleted(moduleId);
+        });
+    });
+
+    // --- Практика ---
     document.addEventListener('click', e => {
         if (e.target.classList.contains('btn-next-stage')) {
             const currentStage = e.target.closest('.practice-stage');
@@ -46,13 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (e.target.classList.contains('btn-mark-completed')) {
             const moduleDiv = e.target.closest('.module-detail');
-            markModuleCompleted(moduleDiv.dataset.moduleId);
+            const moduleId = moduleDiv.dataset.moduleId;
+            markModuleCompleted(moduleId);
             e.target.disabled = true;
             e.target.textContent = 'Выполнено';
         }
     });
 
-    // Тесты
+    // --- Тест ---
     document.querySelectorAll('.test-wrapper').forEach(testWrapper => {
         const questions = testWrapper.querySelectorAll('.question');
         const resultBlock = testWrapper.querySelector('.test-result');
@@ -66,8 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('Выберите ответ');
                     return;
                 }
-                q.dataset.correctAnswers = selected.value === "True" ? 1 : 0;
 
+                q.dataset.correctAnswers = selected.value === "True" ? 1 : 0;
                 q.style.display = 'none';
                 currentIndex++;
 
@@ -75,68 +108,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     questions[currentIndex].style.display = 'block';
                 } else {
                     let correctCount = 0;
-                    questions.forEach(quest => { correctCount += parseInt(quest.dataset.correctAnswers || 0); });
+                    questions.forEach(quest => {
+                        correctCount += parseInt(quest.dataset.correctAnswers || 0);
+                    });
                     const percent = Math.round((correctCount / questions.length) * 100);
 
                     if (percent >= 70) {
-                        const moduleDiv = testWrapper.closest('.module-detail');
-                        markModuleCompleted(moduleDiv.dataset.moduleId);
+                        const moduleId = testWrapper.closest('.module-detail').dataset.moduleId;
+                        markModuleCompleted(moduleId);
                     }
 
                     resultBlock.querySelector('.result-text').textContent =
-                        percent >= 70 ? `Тест пройден! Ваш результат: ${percent}%` : `Попробуйте еще раз. Ваш результат: ${percent}%`;
+                        percent >= 70 ? `Тест пройден! Ваш результат: ${percent}%` :
+                        `Попробуйте еще раз. Ваш результат: ${percent}%`;
                     resultBlock.style.display = 'block';
                 }
             });
         });
 
-        resultBlock.querySelector('.btn-retry').addEventListener('click', () => {
+        const btnRetry = resultBlock.querySelector('.btn-retry');
+        btnRetry.addEventListener('click', () => {
             currentIndex = 0;
             resultBlock.style.display = 'none';
-            questions.forEach((q, i) => {
-                q.style.display = i === 0 ? 'block' : 'none';
+            questions.forEach((q, idx) => {
+                q.style.display = idx === 0 ? 'block' : 'none';
                 q.dataset.correctAnswers = 0;
                 q.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
             });
         });
     });
-
-    // Теория
-    document.querySelectorAll('.theory-video-wrapper video').forEach(video => {
-        video.addEventListener('ended', () => {
-            const moduleDiv = video.closest('.module-detail');
-            markModuleCompleted(moduleDiv.dataset.moduleId);
-        });
-    });
-
-    function markModuleCompleted(moduleId) {
-    const courseId = document.querySelector('.course-page').dataset.courseId;
-
-    fetch(`/course/${courseId}/complete_module/${moduleId}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.success){
-            // Обновляем прогресс-бар
-            const progressFill = document.getElementById('modules-progress-fill');
-            if (progressFill) {
-                const totalModules = Number(progressFill.dataset.total);
-                const completed = data.completed_modules;
-                const percent = Math.round((completed / totalModules) * 100);
-                progressFill.style.width = percent + '%';
-                progressFill.textContent = `${completed}/${totalModules}`;
-            }
-
-            // Отмечаем модуль как выполненный визуально
-            const moduleItem = document.querySelector(`.module-item[data-module-id='${moduleId}']`);
-            if(moduleItem) moduleItem.classList.add('completed');
-        }
-    })
-    .catch(err => console.error(err));
-}
-
 });
