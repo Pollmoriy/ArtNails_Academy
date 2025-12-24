@@ -1,15 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const courseId = document.querySelector('.course-page').dataset.courseId;
+    const coursePage = document.querySelector('.course-page');
+    if (!coursePage) return;
 
-    // --- Прогресс-бар ---
+    const courseId = coursePage.dataset.courseId;
+
+    // --- Элементы прогресса ---
     const progressFill = document.getElementById('modules-progress-fill');
-    const totalModules = Number(progressFill.dataset.total);
+    const progressText = document.querySelector('.progress-text');
+
+    let completedModules = Number(progressFill.dataset.completed) || 0;
+    let totalModules = Number(progressFill.dataset.total) || 0;
 
     function updateProgress(completed) {
-        const percent = Math.round((completed / totalModules) * 100);
+        completedModules = completed;
+        const percent = totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0;
         progressFill.style.width = percent + '%';
-        document.querySelector('.progress-text').textContent = `${completed}/${totalModules}`;
+        progressText.textContent = `${completedModules}/${totalModules}`;
     }
+
+    // Инициализация прогресса при загрузке
+    updateProgress(completedModules);
 
     // --- Переключение модулей ---
     const moduleItems = document.querySelectorAll('.module-item');
@@ -32,22 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Функция отметки модуля как выполненного ---
+    // --- Отметка модуля как выполненного ---
     function markModuleCompleted(moduleId) {
         fetch(`/course/${courseId}/complete_module/${moduleId}`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: {'Content-Type': 'application/json'}
         })
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                // Отметить модуль на фронте зеленым
                 const moduleItem = document.querySelector(`.module-item[data-module-id="${moduleId}"]`);
                 if (moduleItem) moduleItem.classList.add('completed');
-
-                // Обновить прогресс
                 updateProgress(data.completed_modules);
             }
         })
@@ -58,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.theory-video-wrapper video').forEach(video => {
         video.addEventListener('ended', () => {
             const moduleDiv = video.closest('.module-detail');
+            if (!moduleDiv) return;
             const moduleId = moduleDiv.dataset.moduleId;
             markModuleCompleted(moduleId);
         });
@@ -65,19 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Практика ---
     document.addEventListener('click', e => {
+        // Кнопка перехода к следующему этапу
         if (e.target.classList.contains('btn-next-stage')) {
             const currentStage = e.target.closest('.practice-stage');
-            const nextStage = currentStage.nextElementSibling;
+            const nextStage = currentStage?.nextElementSibling;
             e.target.remove();
-
             if (nextStage && nextStage.classList.contains('practice-stage')) {
                 nextStage.classList.remove('hidden');
                 nextStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
+        // Кнопка отметить модуль выполненным
         if (e.target.classList.contains('btn-mark-completed')) {
             const moduleDiv = e.target.closest('.module-detail');
+            if (!moduleDiv) return;
             const moduleId = moduleDiv.dataset.moduleId;
             markModuleCompleted(moduleId);
             e.target.disabled = true;
@@ -85,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Тест ---
+    // --- Тесты ---
     document.querySelectorAll('.test-wrapper').forEach(testWrapper => {
         const questions = testWrapper.querySelectorAll('.question');
         const resultBlock = testWrapper.querySelector('.test-result');
@@ -113,13 +121,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     const percent = Math.round((correctCount / questions.length) * 100);
 
+                    // Если >=70%, отмечаем модуль завершённым
                     if (percent >= 70) {
-                        const moduleId = testWrapper.closest('.module-detail').dataset.moduleId;
-                        markModuleCompleted(moduleId);
+                        const moduleId = testWrapper.closest('.module-detail')?.dataset.moduleId;
+                        if (moduleId) markModuleCompleted(moduleId);
                     }
 
                     resultBlock.querySelector('.result-text').textContent =
-                        percent >= 70 ? `Тест пройден! Ваш результат: ${percent}%` :
+                        percent >= 70 ?
+                        `Тест пройден! Ваш результат: ${percent}%` :
                         `Попробуйте еще раз. Ваш результат: ${percent}%`;
                     resultBlock.style.display = 'block';
                 }
@@ -138,13 +148,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
-const completedModules = Number(document.getElementById('modules-progress-fill').dataset.completed);
-const totalModules = Number(document.getElementById('modules-progress-fill').dataset.total);
-const progressFill = document.getElementById('modules-progress-fill');
-
-if (totalModules > 0) {
-    const percent = (completedModules / totalModules) * 100;
-    progressFill.style.width = percent + '%';
-    progressFill.textContent = `${completedModules}/${totalModules}`;
-}
