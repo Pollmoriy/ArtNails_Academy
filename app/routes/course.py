@@ -60,7 +60,7 @@ def download_file(file_path):
         return send_file(full_path, as_attachment=True)
     return "Файл не найден", 404
 
-@course_bp.route('/course/<int:course_id>')
+@course_bp.route('/course/<int:course_id>/learn')
 def course_page(course_id):
     user_id = session.get('user_id')
     course = Course.query.get(course_id)
