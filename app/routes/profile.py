@@ -67,18 +67,46 @@ def profile_page():
     # Курсы пользователя
     # -------------------------
     courses = []
+
     for purchase in user.purchases:
         course = purchase.course
         if not course:
             continue
 
-        total_modules = len(course.modules)
-        completed_modules = total_modules if purchase.status == 'completed' else 0
-        progress = int((completed_modules / total_modules) * 100) if total_modules else 0
+        # Получаем прогресс пользователя по этому курсу
+        progress = Progress.query.filter_by(id_user=user.id_user, id_course=course.id_course).first()
+        completed_modules_ids = progress.completed_modules_ids if progress else []
+
+        # Сортируем модули по порядку
+        modules = sorted(course.modules, key=lambda m: m.order_index)
+        total_modules = len(modules)
+
+        # Считаем завершённые модули, учитывая доступность тестов
+        completed_count = 0
+        for i, module in enumerate(modules):
+            if module.id_module in completed_modules_ids:
+                completed_count += 1
+            elif module.type == 'test':
+                # Проверка для тестов по правилам:
+                # 1-й тест: модули 1–6 должны быть пройдены
+                # 2-й тест: модули 1–8
+                # финальный: модули 1–11
+                if module.id_module == 7:
+                    required = [1,2,3,4,5,6]
+                elif module.id_module == 9:
+                    required = [1,2,3,4,5,6,7,8]
+                elif module.id_module == 12:
+                    required = [1,2,3,4,5,6,7,8,9,10,11]
+                else:
+                    required = []
+
+                if required and all(r in completed_modules_ids for r in required):
+                    completed_count += 1  # тест доступен, учитываем
+
+        progress_percent = int((completed_count / total_modules) * 100) if total_modules else 0
 
         teacher_name = (
-            f"{course.teacher.first_name} {course.teacher.last_name}"
-            if course.teacher else "Имя Фамилия"
+            f"{course.teacher.first_name} {course.teacher.last_name}" if course.teacher else "Имя Фамилия"
         )
 
         courses.append({
@@ -88,9 +116,9 @@ def profile_page():
             "image": course.image or "img/default_course.png",
             "difficulty": course.difficulty,
             "status": purchase.status,
-            "completed_modules": completed_modules,
+            "completed_modules": completed_count,
             "total_modules": total_modules,
-            "progress": progress,
+            "progress": progress_percent,
             "teacher": teacher_name,
             "purchase_date": purchase.purchase_date
         })
