@@ -898,3 +898,122 @@ margin-top: 83px;
     flex-direction: column;
     padding: 16px;
 }
+
+/* Надпись */
+.certificates-title {
+    font-weight: 600; /* semi-bold */
+    font-size: 24px;
+    color: #111827;
+    margin-left: 32px; /* от профиля */
+    margin-top: 30px;  /* от белого блока "Личный кабинет" */
+}
+
+/* Список карточек */
+.certificates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-left: 32px; /* выравнивание с надписью */
+    margin-top: 26px;
+}
+
+/* Карточка сертификата */
+/* Карточка сертификата */
+.certificate-card {
+    width: 831px;
+    height: 120px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;  /* вертикальное выравнивание всех элементов */
+    padding: 19px 35px 20px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    justify-content: flex-start; /* текст слева, кнопки справа через margin-left:auto */
+}
+
+/* Текстовая часть */
+.certificate-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 23px;
+}
+
+/* Кнопки справа */
+.certificate-buttons {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;  /* сдвигаем кнопки максимально вправо */
+    align-items: center; /* центрируем по вертикали */
+}
+
+/* Иконка сертификата */
+.certificate-icon img {
+    width: 83px;
+    height: 83px;
+}
+
+.certificate-text .course-title {
+    font-weight: 600; /* semi-bold */
+    font-size: 18px;
+    color: #111827;
+}
+
+.certificate-text .course-teacher,
+.certificate-text .course-date {
+    font-weight: 400; /* regular */
+    font-size: 14px;
+    color: #6B7280;
+}
+
+
+/* Кнопка Скачать */
+.btn-download {
+    width: 139px;
+    height: 40px;
+    background: #DB2777;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background 0.2s;
+}
+
+.btn-download:hover {
+    background: #a21a5b;
+}
+
+/* Кнопка Посмотреть */
+.btn-view {
+    width: 162px;
+    height: 40px;
+    background: #fff;
+    color: #DB2777;
+    border: 2px solid #DB2777;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.btn-view:hover {
+    background: #DB2777;
+    color: #fff;
+}
+
+.btn-view:hover .btn-icon path {
+    fill: #fff;
+}
+
+/* Иконки внутри кнопок */
+.btn-icon {
+    display: inline-block;
+}

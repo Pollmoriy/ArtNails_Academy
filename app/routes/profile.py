@@ -65,9 +65,9 @@ def profile_page():
         flash("Пользователь не найден", "error")
         return redirect(url_for('auth.login'))
 
+    # Подготовка курсов
     courses_data = []
     completed_courses_count = 0
-    certificates_count = Certificate.query.filter_by(id_user=user.id_user).count()
 
     for purchase in user.purchases:
         course = purchase.course
@@ -93,24 +93,6 @@ def profile_page():
             purchase.status = 'completed'
             db.session.commit()
 
-        # Генерация сертификата только если курс завершён и сертификата нет
-        if is_course_completed:
-            existing_cert = Certificate.query.filter_by(
-                id_user=user.id_user,
-                id_course=course.id_course
-            ).first()
-            if not existing_cert:
-                file_path = generate_certificate_image(user, course)  # PIL/шаблон картинка
-                cert = Certificate(
-                    id_user=user.id_user,
-                    id_course=course.id_course,
-                    issued_date=datetime.utcnow(),
-                    file_path=file_path
-                )
-                db.session.add(cert)
-                db.session.commit()
-                certificates_count += 1
-
         # Имя преподавателя
         teacher_name = f"{course.teacher.first_name} {course.teacher.last_name}" if course.teacher else "Имя Фамилия"
 
@@ -131,15 +113,30 @@ def profile_page():
         if is_course_completed:
             completed_courses_count += 1
 
+    # Подготовка сертификатов
+    certificates_data = []
+    certificates = Certificate.query.filter_by(id_user=user.id_user).all()
+    for cert in certificates:
+        course = Course.query.get(cert.id_course)
+        teacher_name = f"{course.teacher.first_name} {course.teacher.last_name}" if course.teacher else "Имя Фамилия"
+        certificates_data.append({
+            "id_course": course.id_course,
+            "title": course.title,
+            "teacher": teacher_name,
+            "issued_date": cert.issued_date,
+            "file_path": cert.file_path
+        })
+
     stats = {
         "courses": len(user.purchases),
         "completed": completed_courses_count,
-        "certificates": certificates_count
+        "certificates": len(certificates_data)
     }
 
     return render_template(
         "profile.html",
         user=user,
         stats=stats,
-        courses=courses_data
+        courses=courses_data,
+        certificates=certificates_data
     )

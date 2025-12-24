@@ -161,6 +161,50 @@
                     {% endfor %}
                 </div>
             </div>
+              <!-- Вкладка Сертификаты -->
+            <div class="certificates" style="display:none;">
+                <h2 class="certificates-title">Мои сертификаты</h2>
+
+                <div class="certificates-list">
+                    {% for cert in certificates %}
+                    <div class="certificate-card">
+                        <!-- Иконка -->
+                        <div class="certificate-icon">
+                            <img src="{{ url_for('static', filename='img/certificate_icon.png') }}" alt="Сертификат" width="83" height="83">
+                        </div>
+
+                        <!-- Текст -->
+                        <div class="certificate-text">
+                            <div class="course-title">{{ cert.title }}</div>
+                            <div class="course-teacher">Преподаватель: {{ cert.teacher }}</div>
+                            <div class="course-date">Выдан: {{ cert.issued_date.strftime('%d.%m.%Y') }}</div>
+                        </div>
+
+                        <!-- Кнопки справа -->
+                        <div class="certificate-buttons">
+                            <!-- Посмотреть курс -->
+                            <button class="btn-view" onclick="window.location.href='{{ url_for('course.course_page', course_id=cert.id_course) }}'">
+                                <svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M8 3C4 3 1.333 8 8 13C14.667 8 12 3 8 3ZM8 11C6.343 11 5 9.657 5 8C5 6.343 6.343 5 8 5C9.657 5 11 6.343 11 8C11 9.657 9.657 11 8 11Z"/>
+                                </svg>
+                                Посмотреть
+                            </button>
+
+                            <!-- Скачать сертификат -->
+                            <button class="btn-download" onclick="window.location.href='{{ url_for('profile.download_certificate', course_id=cert.id_course) }}'">
+                                <svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M4 8H7V12H9V8H12L8 4L4 8Z"/>
+                                </svg>
+                                Скачать
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+
             <!-- Вкладка Профиль -->
             <div class="profile-info" style="display:none;">
                 <h2 class="profile-tab-title">Настройки профиля</h2>
