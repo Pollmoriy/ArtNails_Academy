@@ -148,7 +148,7 @@
                                     Посмотреть
                                 </button>
 
-                                <button class="btn-certificate">
+                                <button class="btn-certificate" onclick="window.location.href='{{ url_for('profile.download_certificate', course_id=course.id) }}'">
                                     <svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                                         <path d="M4 8H7V12H9V8H12L8 4L4 8Z"/>
                                     </svg>

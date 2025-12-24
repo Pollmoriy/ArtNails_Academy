@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, session, redirect, url_for, flash, request, jsonify
-from app.models import User, Progress
+from flask import Blueprint, render_template, session, redirect, url_for, flash, jsonify, request
 from werkzeug.utils import secure_filename
 import os
 from app import db
+from app.models import User, Course, Purchase, Progress, Certificate, Module
+from app.utils.certificate_generator import generate_certificate_image  # новый генератор через PIL
+from datetime import datetime
 
 profile_bp = Blueprint('profile', __name__, template_folder='../templates')
 
@@ -26,7 +28,6 @@ def update_profile():
     user.first_name = request.form.get('first_name', user.first_name)
     user.email = request.form.get('email', user.email)
 
-
     avatar_url = None
     file = request.files.get('avatar')
     if file and allowed_file(file.filename):
@@ -39,8 +40,18 @@ def update_profile():
         avatar_url = url_for('static', filename=user.avatar)
 
     db.session.commit()
-
     return jsonify(success=True, avatar_url=avatar_url), 200
+
+
+@profile_bp.route('/certificate/<int:course_id>')
+def download_certificate(course_id):
+    user_id = session.get('user_id')
+    cert = Certificate.query.filter_by(
+        id_user=user_id,
+        id_course=course_id
+    ).first_or_404()
+    return redirect(url_for('static', filename=cert.file_path))
+
 
 @profile_bp.route('/profile')
 def profile_page():
@@ -54,78 +65,81 @@ def profile_page():
         flash("Пользователь не найден", "error")
         return redirect(url_for('auth.login'))
 
-    # -------------------------
-    # Статистика пользователя
-    # -------------------------
-    stats = {
-        "courses": len(user.purchases),
-        "completed": sum(1 for p in user.purchases if p.status == 'completed'),
-        "certificates": len(user.certificates)
-    }
-
-    # -------------------------
-    # Курсы пользователя
-    # -------------------------
-    courses = []
+    courses_data = []
+    completed_courses_count = 0
+    certificates_count = Certificate.query.filter_by(id_user=user.id_user).count()
 
     for purchase in user.purchases:
         course = purchase.course
         if not course:
             continue
 
-        # Получаем прогресс пользователя по этому курсу
-        progress = Progress.query.filter_by(id_user=user.id_user, id_course=course.id_course).first()
-        completed_modules_ids = progress.completed_modules_ids if progress else []
+        # Прогресс пользователя
+        progress = Progress.query.filter_by(
+            id_user=user.id_user,
+            id_course=course.id_course
+        ).first()
 
-        # Сортируем модули по порядку
-        modules = sorted(course.modules, key=lambda m: m.order_index)
+        modules = Module.query.filter_by(id_course=course.id_course).order_by(Module.order_index).all()
         total_modules = len(modules)
+        completed_modules_count = len(progress.completed_modules_ids) if progress else 0
+        progress_percent = int((completed_modules_count / total_modules) * 100) if total_modules else 0
 
-        # Считаем завершённые модули, учитывая доступность тестов
-        completed_count = 0
-        for i, module in enumerate(modules):
-            if module.id_module in completed_modules_ids:
-                completed_count += 1
-            elif module.type == 'test':
-                # Проверка для тестов по правилам:
-                # 1-й тест: модули 1–6 должны быть пройдены
-                # 2-й тест: модули 1–8
-                # финальный: модули 1–11
-                if module.id_module == 7:
-                    required = [1,2,3,4,5,6]
-                elif module.id_module == 9:
-                    required = [1,2,3,4,5,6,7,8]
-                elif module.id_module == 12:
-                    required = [1,2,3,4,5,6,7,8,9,10,11]
-                else:
-                    required = []
+        # Курс считается завершённым только если все модули пройдены
+        is_course_completed = progress and completed_modules_count == total_modules
 
-                if required and all(r in completed_modules_ids for r in required):
-                    completed_count += 1  # тест доступен, учитываем
+        # Обновляем статус покупки
+        if is_course_completed and purchase.status != 'completed':
+            purchase.status = 'completed'
+            db.session.commit()
 
-        progress_percent = int((completed_count / total_modules) * 100) if total_modules else 0
+        # Генерация сертификата только если курс завершён и сертификата нет
+        if is_course_completed:
+            existing_cert = Certificate.query.filter_by(
+                id_user=user.id_user,
+                id_course=course.id_course
+            ).first()
+            if not existing_cert:
+                file_path = generate_certificate_image(user, course)  # PIL/шаблон картинка
+                cert = Certificate(
+                    id_user=user.id_user,
+                    id_course=course.id_course,
+                    issued_date=datetime.utcnow(),
+                    file_path=file_path
+                )
+                db.session.add(cert)
+                db.session.commit()
+                certificates_count += 1
 
-        teacher_name = (
-            f"{course.teacher.first_name} {course.teacher.last_name}" if course.teacher else "Имя Фамилия"
-        )
+        # Имя преподавателя
+        teacher_name = f"{course.teacher.first_name} {course.teacher.last_name}" if course.teacher else "Имя Фамилия"
 
-        courses.append({
+        courses_data.append({
             "id": course.id_course,
             "title": course.title,
             "short_description": course.short_description,
             "image": course.image or "img/default_course.png",
             "difficulty": course.difficulty,
             "status": purchase.status,
-            "completed_modules": completed_count,
+            "completed_modules": completed_modules_count,
             "total_modules": total_modules,
             "progress": progress_percent,
             "teacher": teacher_name,
             "purchase_date": purchase.purchase_date
         })
 
+        if is_course_completed:
+            completed_courses_count += 1
+
+    stats = {
+        "courses": len(user.purchases),
+        "completed": completed_courses_count,
+        "certificates": certificates_count
+    }
+
     return render_template(
         "profile.html",
         user=user,
         stats=stats,
-        courses=courses
+        courses=courses_data
     )

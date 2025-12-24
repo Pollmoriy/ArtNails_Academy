@@ -142,15 +142,21 @@
 
                 {# Проверка открытия теста по завершённым модулям #}
                 {% set test_unlocked = false %}
+
                 {% if module.id == 7 %}
                     {% set required = [1,2,3,4,5,6] %}
-                    {% set test_unlocked = required | select('in', completed_modules_ids) | list | length == required|length %}
                 {% elif module.id == 9 %}
                     {% set required = [1,2,3,4,5,6,7,8] %}
-                    {% set test_unlocked = required | select('in', completed_modules_ids) | list | length == required|length %}
                 {% elif module.id == 12 %}
                     {% set required = [1,2,3,4,5,6,7,8,9,10,11] %}
-                    {% set test_unlocked = required | select('in', completed_modules_ids) | list | length == required|length %}
+                {% else %}
+                    {% set required = [] %}
+                {% endif %}
+
+                {% if required %}
+                    {% set test_unlocked = required | select("in", completed_modules_ids) | list | length == required|length %}
+                {% else %}
+                    {% set test_unlocked = true %} {# Тест без ограничений #}
                 {% endif %}
 
                 {% if test_unlocked %}
@@ -188,6 +194,7 @@
                 {% endif %}
 
             {% endif %}
+
 
         </div>
     {% endfor %}

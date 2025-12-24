@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            width: 1123px;
+            height: 794px;
+            margin: 0;
+            font-family: "DejaVu Sans", sans-serif;
+            background-image: url("{{ bg_path }}");
+            background-size: cover;
+            position: relative;
+        }
+
+        .frame {
+            position: absolute;
+            inset: 40px;
+            border: 6px solid #caa85c;
+        }
+
+        .content {
+            text-align: center;
+            padding-top: 160px;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .name {
+            margin-top: 40px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .course {
+            margin-top: 20px;
+            font-size: 28px;
+        }
+
+        .date {
+            margin-top: 60px;
+            font-size: 20px;
+        }
+
+        .serial {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            font-size: 14px;
+        }
+
+        .qr {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame"></div>
+
+    <div class="content">
+        <div class="name">{{ user_name }}</div>
+        <div class="course">
+            успешно завершила курс<br>
+            «{{ course_title }}»
+        </div>
+        <div class="date">
+            Дата выдачи: {{ issued_date }}
+        </div>
+    </div>
+
+    <div class="serial">№ {{ cert_number }}</div>
+    <img src="{{ qr_path }}" class="qr">
+</body>
+</html>

@@ -63,25 +63,67 @@ def download_file(file_path):
 @course_bp.route('/course/<int:course_id>/learn')
 def course_page(course_id):
     user_id = session.get('user_id')
-    course = Course.query.get(course_id)
-    if not course:
-        flash("Курс не найден", "error")
-        return redirect(url_for('profile.profile_page'))
+    course = Course.query.get_or_404(course_id)
 
     progress = None
     if user_id:
-        progress = Progress.query.filter_by(id_user=user_id, id_course=course_id).first()
+        progress = Progress.query.filter_by(
+            id_user=user_id,
+            id_course=course_id
+        ).first()
 
-    modules = Module.query.filter_by(id_course=course_id).order_by(Module.order_index).all()
+    modules = (
+        Module.query
+        .filter_by(id_course=course_id)
+        .order_by(Module.order_index)
+        .all()
+    )
+
+    # -----------------------------
+    # Завершённые модули
+    # -----------------------------
+    completed_modules_ids = []
+
+    if progress:
+        if isinstance(progress.completed_modules_ids, str):
+            completed_modules_ids = [
+                int(mid) for mid in progress.completed_modules_ids.split(',')
+                if mid
+            ]
+        elif isinstance(progress.completed_modules_ids, list):
+            completed_modules_ids = progress.completed_modules_ids
+
+    completed_set = set(completed_modules_ids)
+
     modules_data = []
 
     for module in modules:
+        # ---------------------------------
+        # Определяем доступность теста
+        # ---------------------------------
+        test_unlocked = True
+
+        if module.type == "test":
+            if module.order_index == 7:
+                required = {1, 2, 3, 4, 5, 6}
+            elif module.order_index == 9:
+                required = {1, 2, 3, 4, 5, 6, 7, 8}
+            elif module.order_index == 12:
+                required = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+            else:
+                required = set()
+
+            test_unlocked = required.issubset(completed_set)
+
         module_dict = {
             "id": module.id_module,
+            "order_index": module.order_index,
             "title": module.title,
             "type": module.type,
             "description": module.description,
             "video_link": module.video_link,
+            "is_completed": module.id_module in completed_set,
+            "test_unlocked": test_unlocked,
             "materials": [],
             "practice_stages": [],
             "tests": []
@@ -89,20 +131,27 @@ def course_page(course_id):
 
         if module.type == "theory":
             module_dict["materials"] = [
-                {"id": m.id_material, "file_name": m.file_name, "file_link": m.file_link}
+                {
+                    "id": m.id_material,
+                    "file_name": m.file_name,
+                    "file_link": m.file_link
+                }
                 for m in module.materials
             ]
 
         if module.type == "practice":
             module_dict["practice_stages"] = [
-                {"step_number": ps.step_number, "step_description": ps.step_description, "image": ps.image}
+                {
+                    "step_number": ps.step_number,
+                    "step_description": ps.step_description,
+                    "image": ps.image
+                }
                 for ps in module.practice_stages
             ]
 
         if module.type == "test":
-            module_dict["tests"] = []
             for t in module.tests:
-                test_dict = {
+                module_dict["tests"].append({
                     "id_test": t.id_test,
                     "title": t.title,
                     "passing_score": t.passing_score,
@@ -111,43 +160,32 @@ def course_page(course_id):
                             "id_question": q.id_question,
                             "text": q.question_text,
                             "answers": [
-                                {"id_answer": a.id_answer, "text": a.answer_text, "is_correct": a.is_correct}
+                                {
+                                    "id_answer": a.id_answer,
+                                    "text": a.answer_text,
+                                    "is_correct": a.is_correct
+                                }
                                 for a in q.answers
                             ]
                         }
                         for q in t.questions
                     ]
-                }
-                module_dict["tests"].append(test_dict)
+                })
 
         modules_data.append(module_dict)
-
-    # Получаем реальные ID завершённых модулей из БД
-    completed_modules_ids = []
-    if progress:
-        if isinstance(progress.completed_modules_ids, str):
-            completed_modules_ids = [int(mid) for mid in progress.completed_modules_ids.split(',') if mid]
-        elif isinstance(progress.completed_modules_ids, list):
-            completed_modules_ids = progress.completed_modules_ids
 
     completed_modules_count = len(completed_modules_ids)
     total_modules = len(modules)
     progress_percent = int((completed_modules_count / total_modules) * 100) if total_modules else 0
 
-    # Определяем индекс последнего завершённого модуля
-    last_completed_module_index = -1
-    for i, module in enumerate(modules):
-        if module.id_module in completed_modules_ids:
-            last_completed_module_index = i
-
     return render_template(
         "course_page.html",
         course=course,
         modules=modules_data,
-        progress_percent=progress_percent,
-        completed_modules=completed_modules_count,
         completed_modules_ids=completed_modules_ids,
+        completed_modules=completed_modules_count,
         total_modules=total_modules,
-        last_completed_module_index=last_completed_module_index
+        progress_percent=progress_percent
     )
+
 
