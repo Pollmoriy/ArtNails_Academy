@@ -496,3 +496,16 @@
 .btn-mark-completed:active {
     box-shadow: 0 4px 10px rgba(255, 90, 138, 0.25);
 }
+.practice-image {
+    text-align: center;         /* центрируем картинку */
+    margin: 20px 0;             /* отступы сверху и снизу */
+}
+
+.practice-image img {
+    width: 100%;
+    max-width: 600px;        /* ограничение по ширине */
+    height: 350px;           /* фиксированная высота */
+    object-fit: cover;       /* обрезает лишнее, сохраняет центр */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}

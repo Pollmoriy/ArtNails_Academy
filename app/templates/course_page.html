@@ -105,14 +105,29 @@
                                 Этап {{ stage.step_number }} из {{ module.practice_stages|length }}
                             </div>
 
-                            <p class="practice-text">
-                                {{ stage.step_description }}
-                            </p>
+                            <div class="practice-text">
+                                {% for block in stage.step_description.split('\n\n') %}
+                                    {% if '—' in block %}
+                                        <ul>
+                                            {% for line in block.split('\n') %}
+                                                {% if line.startswith('—') %}
+                                                    <li>{{ line[1:].strip() }}</li>
+                                                {% else %}
+                                                    <p>{{ line }}</p>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p>{{ block }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
 
                             {% if stage.image %}
-                            <div class="practice-image">
-                                <img src="{{ url_for('static', filename=stage.image.replace('app/static/', '')) }}">
-                            </div>
+                                <div class="practice-image">
+                                    <img src="{{ url_for('static', filename=stage.image.replace('app/static/', '')) }}" alt="Этап {{ stage.step_number }}">
+                                </div>
                             {% endif %}
 
                             <div class="practice-actions">
