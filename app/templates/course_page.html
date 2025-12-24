@@ -3,7 +3,7 @@
 {% block title %}{{ course.title }} — ArtNails Academy{% endblock %}
 
 {% block content %}
-<main class="course-page" style="margin-top: 80px;"> <!-- отступ из-за хедера -->
+<main class="course-page" data-course-id="{{ course.id_course }}" style="margin-top: 80px;">
 
     <div class="course-container">
 
@@ -21,7 +21,6 @@
                 <span class="progress-text">{{ completed_modules }}/{{ total_modules }}</span>
             </div>
 
-
             <!-- Список модулей -->
             <ul>
                 {% for module in modules %}
@@ -30,14 +29,15 @@
                                {% if loop.first %}active{% endif %}"
                         data-module-id="{{ module.id }}">
                         {{ module.title }}
-                        {% if module.type == 'theory' %}<span class="module-type">Теория</span>{% endif %}
-                        {% if module.type == 'practice' %}<span class="module-type">Практика</span>{% endif %}
-                        {% if module.type == 'test' %}<span class="module-type">Тест</span>{% endif %}
+                        <span class="module-type">
+                            {% if module.type == 'theory' %}Теория{% endif %}
+                            {% if module.type == 'practice' %}Практика{% endif %}
+                            {% if module.type == 'test' %}Тест{% endif %}
+                        </span>
                     </li>
                 {% endfor %}
-                </ul>
+            </ul>
         </aside>
-
 
         <!-- Правый блок: контент выбранного модуля -->
         <section class="module-content">
@@ -75,20 +75,16 @@
                     <div class="additional-materials">
                         {% for m in module.materials %}
                         <div class="material-card">
-
                             <div class="material-img">
                                 <img src="{{ url_for('static', filename='img/file_icon.png') }}" alt="иконка файла">
                             </div>
-
                             <div class="material-info">
                                 <span class="material-title">{{ m.file_name }}</span>
                             </div>
-
                             <a href="{{ url_for('course.download_file', file_path=m.file_link) }}"
                                class="material-download-btn">
                                 ⬇ Скачать
                             </a>
-
                         </div>
                         {% endfor %}
                     </div>
@@ -96,11 +92,9 @@
                 {% elif module.type == 'practice' %}
 
                     <div class="practice-wrapper" data-module-id="{{ module.id }}">
-
                         {% for stage in module.practice_stages %}
                         <div class="practice-stage {% if not loop.first %}hidden{% endif %}"
                              data-stage-index="{{ loop.index0 }}">
-
                             <div class="practice-stage-header">
                                 Этап {{ stage.step_number }} из {{ module.practice_stages|length }}
                             </div>
@@ -123,7 +117,6 @@
                                 {% endfor %}
                             </div>
 
-
                             {% if stage.image %}
                                 <div class="practice-image">
                                     <img src="{{ url_for('static', filename=stage.image.replace('app/static/', '')) }}" alt="Этап {{ stage.step_number }}">
@@ -140,78 +133,46 @@
 
                         </div>
                         {% endfor %}
-
                     </div>
 
                 {% elif module.type == 'test' %}
                 <div class="module-test" data-module-id="{{ module.id }}">
-                  {% for test in module.tests %}
+                    {% for test in module.tests %}
                     <div class="test-wrapper" data-test-id="{{ test.id_test }}">
-                      <h3>{{ test.title }}</h3>
-
-                      <div class="question-wrapper">
-                        {% for question in test.questions %}
-                          <div class="question" {% if not loop.first %}style="display:none"{% endif %} data-question-index="{{ loop.index0 }}">
-                            <p class="question-text">{{ question.text }}</p>
-
-                            <ul class="answers-list">
-                              {% for answer in question.answers %}
-                                <li>
-                                  <input type="radio" name="q{{ question.id_question }}" value="{{ answer.is_correct }}">
-                                  {{ answer.text }}
-                                </li>
-                              {% endfor %}
-                            </ul>
-
-                            <button class="btn-next-question">
-                              {% if not loop.last %}Далее{% else %}Показать результаты{% endif %}
-                            </button>
-                          </div>
-                        {% endfor %}
-                      </div>
-
-                      <div class="test-result" style="display:none;">
-                        <p class="result-text"></p>
-                        <button class="btn-retry">Попробовать еще раз</button>
-                      </div>
+                        <h3>{{ test.title }}</h3>
+                        <div class="question-wrapper">
+                            {% for question in test.questions %}
+                            <div class="question" {% if not loop.first %}style="display:none"{% endif %} data-question-index="{{ loop.index0 }}">
+                                <p class="question-text">{{ question.text }}</p>
+                                <ul class="answers-list">
+                                    {% for answer in question.answers %}
+                                    <li>
+                                        <input type="radio" name="q{{ question.id_question }}" value="{{ answer.is_correct }}">
+                                        {{ answer.text }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <button class="btn-next-question">
+                                    {% if not loop.last %}Далее{% else %}Показать результаты{% endif %}
+                                </button>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="test-result" style="display:none;">
+                            <p class="result-text"></p>
+                            <button class="btn-retry">Попробовать еще раз</button>
+                        </div>
                     </div>
-                  {% endfor %}
+                    {% endfor %}
                 </div>
-
                 {% endif %}
 
             </div>
             {% endfor %}
         </section>
 
-
-
     </div>
-
 </main>
 
-<script>
-    // Простая логика переключения модулей
-    const moduleItems = document.querySelectorAll('.module-item');
-    const moduleDetails = document.querySelectorAll('.module-detail');
-
-    moduleItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const id = item.dataset.moduleId;
-
-            moduleItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-
-            moduleDetails.forEach(detail => {
-                if(detail.dataset.moduleId === id){
-                    detail.classList.remove('hidden');
-                } else {
-                    detail.classList.add('hidden');
-                }
-            });
-        });
-    });
-</script>
 <script src="{{ url_for('static', filename='js/course_page.js') }}"></script>
-
 {% endblock %}

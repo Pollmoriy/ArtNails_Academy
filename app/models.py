@@ -1,6 +1,6 @@
 from datetime import datetime
 from app import db
-
+from sqlalchemy.dialects.mysql import JSON
 # ===================== Пользователи =====================
 class User(db.Model):
     __tablename__ = 'users'
@@ -174,7 +174,7 @@ class Progress(db.Model):
     is_completed = db.Column(db.Boolean)
     completed_modules = db.Column(db.Integer)
     completion_date = db.Column(db.DateTime)
-
+    completed_modules_ids = db.Column(JSON)
     user = db.relationship('User', back_populates='progress')
     course = db.relationship('Course', back_populates='progress')
 
