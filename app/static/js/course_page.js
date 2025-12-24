@@ -138,3 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+const completedModules = Number(document.getElementById('modules-progress-fill').dataset.completed);
+const totalModules = Number(document.getElementById('modules-progress-fill').dataset.total);
+const progressFill = document.getElementById('modules-progress-fill');
+
+if (totalModules > 0) {
+    const percent = (completedModules / totalModules) * 100;
+    progressFill.style.width = percent + '%';
+    progressFill.textContent = `${completedModules}/${totalModules}`;
+}

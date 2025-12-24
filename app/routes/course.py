@@ -122,18 +122,32 @@ def course_page(course_id):
 
         modules_data.append(module_dict)
 
-    # Используем реальные ID завершённых модулей из БД
-    completed_modules_ids = progress.completed_modules_ids if progress else []
+    # Получаем реальные ID завершённых модулей из БД
+    completed_modules_ids = []
+    if progress:
+        if isinstance(progress.completed_modules_ids, str):
+            completed_modules_ids = [int(mid) for mid in progress.completed_modules_ids.split(',') if mid]
+        elif isinstance(progress.completed_modules_ids, list):
+            completed_modules_ids = progress.completed_modules_ids
+
     completed_modules_count = len(completed_modules_ids)
     total_modules = len(modules)
     progress_percent = int((completed_modules_count / total_modules) * 100) if total_modules else 0
+
+    # Определяем индекс последнего завершённого модуля
+    last_completed_module_index = -1
+    for i, module in enumerate(modules):
+        if module.id_module in completed_modules_ids:
+            last_completed_module_index = i
 
     return render_template(
         "course_page.html",
         course=course,
         modules=modules_data,
-        completed_modules_ids=completed_modules_ids,
+        progress_percent=progress_percent,
         completed_modules=completed_modules_count,
+        completed_modules_ids=completed_modules_ids,
         total_modules=total_modules,
-        progress_percent=progress_percent
+        last_completed_module_index=last_completed_module_index
     )
+

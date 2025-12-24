@@ -41,135 +41,159 @@
 
         <!-- Правый блок: контент выбранного модуля -->
         <section class="module-content">
-            {% for module in modules %}
-            <div class="module-detail {% if not loop.first %}hidden{% endif %}" data-module-id="{{ module.id }}">
+    {% for module in modules %}
+        {% set module_index = loop.index0 %}
+        {% set prev_modules_completed = module_index == 0 or modules[:module_index] | selectattr('id', 'in', completed_modules_ids) | list | length == module_index %}
 
-                <h2>{{ module.title }}</h2>
-                <p>{{ module.description }}</p>
+        <div class="module-detail {% if not loop.first %}hidden{% endif %}" data-module-id="{{ module.id }}">
 
-                {% if module.type == 'theory' %}
+            <h2>{{ module.title }}</h2>
+            <p>{{ module.description }}</p>
 
-                    {% if module.video_link %}
-                    <div class="theory-video-wrapper">
-                        <video controls>
-                            <source src="{{ url_for('static', filename=module.video_link) }}" type="video/mp4">
-                            Ваш браузер не поддерживает видео.
-                        </video>
-                    </div>
-                    {% endif %}
+            {% if module.type == 'theory' %}
 
-                    <div class="theory-text">
-                        <p><strong>Теоретический материал</strong><br>
-                        В этом модуле вы изучите основные принципы и теоретические аспекты темы. Материал структурирован для лучшего понимания и включает практические примеры.</p>
-                        <ul>
-                            <li>Основные понятия и определения</li>
-                            <li>Практическое применение знаний</li>
-                            <li>Типичные ошибки и способы их избежать</li>
-                            <li>Рекомендации экспертов</li>
-                        </ul>
-                    </div>
-
-                    <hr class="theory-divider">
-
-                    <h3>Дополнительные материалы</h3>
-                    <div class="additional-materials">
-                        {% for m in module.materials %}
-                        <div class="material-card">
-                            <div class="material-img">
-                                <img src="{{ url_for('static', filename='img/file_icon.png') }}" alt="иконка файла">
-                            </div>
-                            <div class="material-info">
-                                <span class="material-title">{{ m.file_name }}</span>
-                            </div>
-                            <a href="{{ url_for('course.download_file', file_path=m.file_link) }}"
-                               class="material-download-btn">
-                                ⬇ Скачать
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                {% elif module.type == 'practice' %}
-
-                    <div class="practice-wrapper" data-module-id="{{ module.id }}">
-                        {% for stage in module.practice_stages %}
-                        <div class="practice-stage {% if not loop.first %}hidden{% endif %}"
-                             data-stage-index="{{ loop.index0 }}">
-                            <div class="practice-stage-header">
-                                Этап {{ stage.step_number }} из {{ module.practice_stages|length }}
-                            </div>
-
-                            <div class="practice-text">
-                                {% for block in stage.step_description.split('\n\n') %}
-                                    {% if '—' in block %}
-                                        <ul>
-                                            {% for line in block.split('\n') %}
-                                                {% if line.startswith('—') %}
-                                                    <li>{{ line[1:].strip() }}</li>
-                                                {% else %}
-                                                    <p>{{ line }}</p>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </ul>
-                                    {% else %}
-                                        <p>{{ block }}</p>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-
-                            {% if stage.image %}
-                                <div class="practice-image">
-                                    <img src="{{ url_for('static', filename=stage.image.replace('app/static/', '')) }}" alt="Этап {{ stage.step_number }}">
-                                </div>
-                            {% endif %}
-
-                            <div class="practice-actions">
-                                {% if not loop.last %}
-                                    <button class="btn-next-stage">Продолжить</button>
-                                {% else %}
-                                    <button class="btn-mark-completed">Отметить как выполнено</button>
-                                {% endif %}
-                            </div>
-
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                {% elif module.type == 'test' %}
-                <div class="module-test" data-module-id="{{ module.id }}">
-                    {% for test in module.tests %}
-                    <div class="test-wrapper" data-test-id="{{ test.id_test }}">
-                        <h3>{{ test.title }}</h3>
-                        <div class="question-wrapper">
-                            {% for question in test.questions %}
-                            <div class="question" {% if not loop.first %}style="display:none"{% endif %} data-question-index="{{ loop.index0 }}">
-                                <p class="question-text">{{ question.text }}</p>
-                                <ul class="answers-list">
-                                    {% for answer in question.answers %}
-                                    <li>
-                                        <input type="radio" name="q{{ question.id_question }}" value="{{ answer.is_correct }}">
-                                        {{ answer.text }}
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                                <button class="btn-next-question">
-                                    {% if not loop.last %}Далее{% else %}Показать результаты{% endif %}
-                                </button>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <div class="test-result" style="display:none;">
-                            <p class="result-text"></p>
-                            <button class="btn-retry">Попробовать еще раз</button>
-                        </div>
-                    </div>
-                    {% endfor %}
+                {% if module.video_link %}
+                <div class="theory-video-wrapper">
+                    <video controls>
+                        <source src="{{ url_for('static', filename=module.video_link) }}" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
                 </div>
                 {% endif %}
 
-            </div>
-            {% endfor %}
-        </section>
+                <div class="theory-text">
+                    <p><strong>Теоретический материал</strong><br>
+                    В этом модуле вы изучите основные принципы и теоретические аспекты темы. Материал структурирован для лучшего понимания и включает практические примеры.</p>
+                    <ul>
+                        <li>Основные понятия и определения</li>
+                        <li>Практическое применение знаний</li>
+                        <li>Типичные ошибки и способы их избежать</li>
+                        <li>Рекомендации экспертов</li>
+                    </ul>
+                </div>
+
+                <hr class="theory-divider">
+
+                <h3>Дополнительные материалы</h3>
+                <div class="additional-materials">
+                    {% for m in module.materials %}
+                    <div class="material-card">
+                        <div class="material-img">
+                            <img src="{{ url_for('static', filename='img/file_icon.png') }}" alt="иконка файла">
+                        </div>
+                        <div class="material-info">
+                            <span class="material-title">{{ m.file_name }}</span>
+                        </div>
+                        <a href="{{ url_for('course.download_file', file_path=m.file_link) }}"
+                           class="material-download-btn">
+                            ⬇ Скачать
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            {% elif module.type == 'practice' %}
+
+                <div class="practice-wrapper" data-module-id="{{ module.id }}">
+                    {% for stage in module.practice_stages %}
+                    <div class="practice-stage {% if not loop.first %}hidden{% endif %}"
+                         data-stage-index="{{ loop.index0 }}">
+                        <div class="practice-stage-header">
+                            Этап {{ stage.step_number }} из {{ module.practice_stages|length }}
+                        </div>
+
+                        <div class="practice-text">
+                            {% for block in stage.step_description.split('\n\n') %}
+                                {% if '—' in block %}
+                                    <ul>
+                                        {% for line in block.split('\n') %}
+                                            {% if line.startswith('—') %}
+                                                <li>{{ line[1:].strip() }}</li>
+                                            {% else %}
+                                                <p>{{ line }}</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>{{ block }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        {% if stage.image %}
+                            <div class="practice-image">
+                                <img src="{{ url_for('static', filename=stage.image.replace('app/static/', '')) }}" alt="Этап {{ stage.step_number }}">
+                            </div>
+                        {% endif %}
+
+                        <div class="practice-actions">
+                            {% if not loop.last %}
+                                <button class="btn-next-stage">Продолжить</button>
+                            {% else %}
+                                <button class="btn-mark-completed">Отметить как выполнено</button>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+
+            {% elif module.type == 'test' %}
+
+                {# Проверка открытия теста по завершённым модулям #}
+                {% set test_unlocked = false %}
+                {% if module.id == 7 %}
+                    {% set required = [1,2,3,4,5,6] %}
+                    {% set test_unlocked = required | select('in', completed_modules_ids) | list | length == required|length %}
+                {% elif module.id == 9 %}
+                    {% set required = [1,2,3,4,5,6,7,8] %}
+                    {% set test_unlocked = required | select('in', completed_modules_ids) | list | length == required|length %}
+                {% elif module.id == 12 %}
+                    {% set required = [1,2,3,4,5,6,7,8,9,10,11] %}
+                    {% set test_unlocked = required | select('in', completed_modules_ids) | list | length == required|length %}
+                {% endif %}
+
+                {% if test_unlocked %}
+                    <div class="module-test" data-module-id="{{ module.id }}">
+                        {% for test in module.tests %}
+                            <div class="test-wrapper" data-test-id="{{ test.id_test }}">
+                                <h3>{{ test.title }}</h3>
+                                <div class="question-wrapper">
+                                    {% for question in test.questions %}
+                                        <div class="question" {% if not loop.first %}style="display:none"{% endif %} data-question-index="{{ loop.index0 }}">
+                                            <p class="question-text">{{ question.text }}</p>
+                                            <ul class="answers-list">
+                                                {% for answer in question.answers %}
+                                                    <li>
+                                                        <input type="radio" name="q{{ question.id_question }}" value="{{ answer.is_correct }}">
+                                                        {{ answer.text }}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <button class="btn-next-question">
+                                                {% if not loop.last %}Далее{% else %}Показать результаты{% endif %}
+                                            </button>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="test-result" style="display:none;">
+                                    <p class="result-text"></p>
+                                    <button class="btn-retry">Попробовать еще раз</button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="locked-text">Пройдите предыдущие модули, чтобы открыть тест.</p>
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+    {% endfor %}
+</section>
+
+
 
     </div>
 </main>
