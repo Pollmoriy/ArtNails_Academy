@@ -181,5 +181,257 @@
          <a href="{{ url_for('enroll.enroll_page') }}" class="cta-btn-outline">Записаться на курс</a>
     </div>
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ==========================
+    // Блок "О нашей академии"
+    // ==========================
+    const aboutTitle = document.querySelector(".about-title");
+    const aboutText = document.querySelector(".about-text");
+
+    aboutTitle.style.opacity = 0;
+    aboutTitle.style.transform = "translateY(-30px)";
+    aboutText.style.opacity = 0;
+    aboutText.style.transform = "translateY(-30px)";
+
+    setTimeout(() => {
+        aboutTitle.style.transition = "all 1s ease";
+        aboutTitle.style.opacity = 1;
+        aboutTitle.style.transform = "translateY(0)";
+    }, 200);
+
+    setTimeout(() => {
+        aboutText.style.transition = "all 1s ease";
+        aboutText.style.opacity = 1;
+        aboutText.style.transform = "translateY(0)";
+    }, 600);
+
+    // ==========================
+    // Блок "Статистика"
+    // ==========================
+    const statsNumbers = document.querySelectorAll(".stats-number");
+    const statsLabels = document.querySelectorAll(".stats-label");
+
+    statsNumbers.forEach((num, i) => {
+        num.style.opacity = 0;
+    });
+    statsLabels.forEach((label, i) => {
+        label.style.opacity = 0;
+    });
+
+    function animateStats() {
+        statsNumbers.forEach((num, i) => {
+            if(num.getBoundingClientRect().top < window.innerHeight - 50 && num.style.opacity == 0) {
+                // fade-in
+                setTimeout(() => {
+                    num.style.transition = "all 1s ease";
+                    num.style.opacity = 1;
+                    // счётчик
+                    const target = parseInt(num.textContent.replace(/\D/g,''));
+                    let count = 0;
+                    const step = Math.ceil(target / 50);
+                    const interval = setInterval(() => {
+                        count += step;
+                        if(count >= target) count = target;
+                        num.textContent = num.textContent.replace(/\d+/, count);
+                        if(count == target) clearInterval(interval);
+                    }, 20);
+                }, i * 200);
+                // label fade-in чуть позже
+                setTimeout(() => {
+                    statsLabels[i].style.transition = "all 1s ease";
+                    statsLabels[i].style.opacity = 1;
+                }, i * 200 + 500);
+            }
+        });
+    }
+    window.addEventListener("scroll", animateStats);
+    animateStats();
+
+    // ==========================
+// Блок "Наша миссия"
+// ==========================
+const missionText = document.querySelector(".mission-text");
+const missionImageContainer = document.querySelector(".mission-image");
+
+missionText.style.opacity = 0;
+missionText.style.transform = "translateX(-50px)";
+missionImageContainer.style.opacity = 0;
+missionImageContainer.style.transform = "translateX(50px)";
+
+function revealMission() {
+    if(missionText.getBoundingClientRect().top < window.innerHeight - 50 && missionText.style.opacity == 0) {
+        missionText.style.transition = "all 1s ease";
+        missionText.style.opacity = 1;
+        missionText.style.transform = "translateX(0)";
+    }
+    if(missionImageContainer.getBoundingClientRect().top < window.innerHeight - 50 && missionImageContainer.style.opacity == 0) {
+        missionImageContainer.style.transition = "all 1s ease 0.3s"; // небольшая задержка
+        missionImageContainer.style.opacity = 1;
+        missionImageContainer.style.transform = "translateX(0)";
+    }
+}
+window.addEventListener("scroll", revealMission);
+revealMission();
+
+    // ==========================
+    // Блок "Наши ценности"
+    // ==========================
+    const valueCards = document.querySelectorAll(".values-card");
+    const valuesTitle = document.querySelector(".values-title");
+    const valuesSubtext = document.querySelector(".values-subtext");
+
+    valuesTitle.style.opacity = 0;
+    valuesTitle.style.transform = "translateY(-20px)";
+    valuesSubtext.style.opacity = 0;
+    valuesSubtext.style.transform = "translateY(-20px)";
+
+    valueCards.forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = "scale(0.9)";
+        card.style.transition = "all 0.8s ease";
+    });
+
+    function revealValues() {
+        if(valuesTitle.getBoundingClientRect().top < window.innerHeight - 50 && valuesTitle.style.opacity == 0) {
+            valuesTitle.style.transition = "all 1s ease";
+            valuesTitle.style.opacity = 1;
+            valuesTitle.style.transform = "translateY(0)";
+        }
+        if(valuesSubtext.getBoundingClientRect().top < window.innerHeight - 50 && valuesSubtext.style.opacity == 0) {
+            valuesSubtext.style.transition = "all 1s ease";
+            valuesSubtext.style.opacity = 1;
+            valuesSubtext.style.transform = "translateY(0)";
+        }
+        valueCards.forEach((card, i) => {
+            if(card.getBoundingClientRect().top < window.innerHeight - 50 && card.style.opacity == 0) {
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = "scale(1)";
+                }, i * 150);
+            }
+        });
+    }
+    window.addEventListener("scroll", revealValues);
+    revealValues();
+
+    // ==========================
+    // Блок "Наша команда"
+    // ==========================
+    const teamCards = document.querySelectorAll(".team-card");
+    teamCards.forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = "translateY(50px)";
+        card.style.transition = "all 0.8s ease";
+    });
+
+    function revealTeam() {
+        teamCards.forEach((card, i) => {
+            if(card.getBoundingClientRect().top < window.innerHeight - 50 && card.style.opacity == 0) {
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = "translateY(0)";
+                }, i * 150);
+            }
+        });
+    }
+    window.addEventListener("scroll", revealTeam);
+    revealTeam();
+
+    // ==========================
+    // Блок "Наша история"
+    // ==========================
+    const historyImage = document.querySelector(".history-image");
+    const historyContent = document.querySelector(".history-content");
+    const historyItems = document.querySelectorAll(".history-item");
+
+    historyImage.style.opacity = 0;
+    historyImage.style.transform = "translateX(-50px)";
+    historyContent.style.opacity = 0;
+    historyContent.style.transform = "translateX(50px)";
+    historyItems.forEach(item => {
+        item.style.opacity = 0;
+        item.style.transform = "translateY(20px)";
+        item.style.transition = "all 0.8s ease";
+    });
+
+    function revealHistory() {
+        if(historyImage.getBoundingClientRect().top < window.innerHeight - 50 && historyImage.style.opacity == 0) {
+            historyImage.style.transition = "all 1s ease";
+            historyImage.style.opacity = 1;
+            historyImage.style.transform = "translateX(0)";
+        }
+        if(historyContent.getBoundingClientRect().top < window.innerHeight - 50 && historyContent.style.opacity == 0) {
+            historyContent.style.transition = "all 1s ease";
+            historyContent.style.opacity = 1;
+            historyContent.style.transform = "translateX(0)";
+        }
+        historyItems.forEach((item, i) => {
+            if(item.getBoundingClientRect().top < window.innerHeight - 50 && item.style.opacity == 0) {
+                setTimeout(() => {
+                    item.style.opacity = 1;
+                    item.style.transform = "translateY(0)";
+                }, i * 150);
+            }
+        });
+    }
+    window.addEventListener("scroll", revealHistory);
+    revealHistory();
+
+    // ==========================
+    // CTA-блок
+    // ==========================
+    const ctaBlock = document.querySelector(".cta-block");
+    const ctaTitle = ctaBlock.querySelector("h2");
+    const ctaText = ctaBlock.querySelector("p");
+    const ctaButtons = ctaBlock.querySelectorAll(".cta-btn-primary, .cta-btn-outline");
+
+    ctaTitle.style.opacity = 0;
+    ctaTitle.style.transform = "scale(0.95)";
+    ctaText.style.opacity = 0;
+    ctaText.style.transform = "scale(0.95)";
+    ctaButtons.forEach(btn => {
+        btn.style.opacity = 0;
+        btn.style.transform = "scale(0.95)";
+        btn.style.transition = "all 0.8s ease";
+    });
+
+    function revealCTA() {
+        if(ctaBlock.getBoundingClientRect().top < window.innerHeight - 50 && ctaTitle.style.opacity == 0) {
+            ctaTitle.style.transition = "all 1s ease";
+            ctaTitle.style.opacity = 1;
+            ctaTitle.style.transform = "scale(1)";
+        }
+        if(ctaText.getBoundingClientRect().top < window.innerHeight - 50 && ctaText.style.opacity == 0) {
+            ctaText.style.transition = "all 1s ease";
+            ctaText.style.opacity = 1;
+            ctaText.style.transform = "scale(1)";
+        }
+        ctaButtons.forEach((btn, i) => {
+            if(btn.style.opacity == 0) {
+                setTimeout(() => {
+                    btn.style.opacity = 1;
+                    btn.style.transform = "scale(1)";
+                }, i * 150);
+            }
+        });
+    }
+    window.addEventListener("scroll", revealCTA);
+    revealCTA();
+
+    // ==========================
+    // Небольшая анимация градиента CTA
+    // ==========================
+    let gradientPos = 0;
+    function animateGradient() {
+        gradientPos += 0.2;
+        ctaBlock.style.background = `linear-gradient(${gradientPos}deg, #DB2777 0%, #9333EA 100%)`;
+        requestAnimationFrame(animateGradient);
+    }
+    animateGradient();
+
+});
+</script>
 
 {% endblock %}

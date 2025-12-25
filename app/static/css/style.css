@@ -1596,6 +1596,62 @@ header {
     color: #000000;
 }
 
+/* ==== Начальные состояния для анимаций ==== */
+.about-title,
+.about-text,
+.btn-hero,
+.stats-number,
+.stats-label,
+.mission-text,
+.mission-image,
+.values-title,
+.values-subtext,
+.values-card,
+.team-card,
+.history-image,
+.history-content,
+.history-item,
+.cta-block h2,
+.cta-block p,
+.cta-btn-primary,
+.cta-btn-outline {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Для блоков с slide-in по горизонтали */
+.mission-text,
+.history-content {
+    transform: translateX(50px);
+}
+.mission-image,
+.history-image {
+    transform: translateX(-50px);
+}
+
+/* Для карточек ценностей */
+.values-card {
+    transform: scale(0.9);
+}
+
+/* Для CTA кнопок */
+.cta-btn-primary,
+.cta-btn-outline {
+    transform: scale(0.95);
+}
+
+/* Плавная анимация градиента для CTA */
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.cta-block {
+    background: linear-gradient(90deg, #DB2777 0%, #9333EA 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 10s ease infinite;
+}
 
 /* ==========================
    Каталог
