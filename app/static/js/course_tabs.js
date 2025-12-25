@@ -1,3 +1,6 @@
+// ==========================
+// Вкладки курса и анимации
+// ==========================
 document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab');
     const contents = document.querySelectorAll('.tab-content');
@@ -12,7 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Активируем текущую вкладку и контент
             tab.classList.add('active');
             const tabName = tab.dataset.tab;
-            document.getElementById(tabName + '-content').classList.add('active');
+            const content = document.getElementById(tabName + '-content');
+            content.classList.add('active');
+
+            // Анимация элементов вкладки
+            if (tabName === 'overview') animateOverview(content);
+            if (tabName === 'program') animateModules(content);
+            if (tabName === 'teacher') animateTeacher(content);
+            if (tabName === 'reviews') animateReviews(content);
 
             // Линия под активной вкладкой
             activeLine.style.width = tab.offsetWidth + 'px';
@@ -24,41 +34,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const initialTab = document.querySelector('.tab.active');
     activeLine.style.width = initialTab.offsetWidth + 'px';
     activeLine.style.left = initialTab.offsetLeft + 'px';
+
+    // Анимация активной вкладки при загрузке
+    const activeContent = document.querySelector('.tab-content.active');
+    if (activeContent) {
+        if (activeContent.id === 'overview-content') animateOverview(activeContent);
+        if (activeContent.id === 'program-content') animateModules(activeContent);
+        if (activeContent.id === 'teacher-content') animateTeacher(activeContent);
+        if (activeContent.id === 'reviews-content') animateReviews(activeContent);
+    }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const reviewCards = document.querySelectorAll('.review-card');
+// ==========================
+// Анимации
+// ==========================
+function animateOverview(content) {
+    const learningItems = content.querySelectorAll(".learning-outcomes .column p");
+    const requirements = content.querySelectorAll(".requirements p");
+    const statsRows = content.querySelectorAll(".course-stats-row");
 
-    reviewCards.forEach(card => {
-        const rating = parseInt(card.dataset.rating); // фактический рейтинг
-        const stars = card.querySelectorAll('.review-rating .star');
-
-        // Инициализация: подсветка звезд согласно рейтингу
-        stars.forEach((star, index) => {
-            star.src = index < rating
-                ? star.dataset.yellow || '/static/icons/star-yellow.svg'
-                : star.dataset.gray || '/static/icons/star-gray.svg';
-        });
-
-        // Анимация при наведении
-        stars.forEach((star, index) => {
-            star.addEventListener('mouseenter', () => {
-                stars.forEach((s, i) => {
-                    s.src = i <= index
-                        ? s.dataset.yellow || '/static/icons/star-yellow.svg'
-                        : s.dataset.gray || '/static/icons/star-gray.svg';
-                    s.style.transform = 'scale(1.2)';
-                });
-            });
-
-            star.addEventListener('mouseleave', () => {
-                stars.forEach((s, i) => {
-                    s.src = i < rating
-                        ? s.dataset.yellow || '/static/icons/star-yellow.svg'
-                        : s.dataset.gray || '/static/icons/star-gray.svg';
-                    s.style.transform = 'scale(1)';
-                });
-            });
-        });
+    let delay = 0;
+    [...learningItems, ...requirements, ...statsRows].forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = "translateY(20px)";
+        setTimeout(() => {
+            el.style.transition = "all 0.6s ease";
+            el.style.opacity = 1;
+            el.style.transform = "translateY(0)";
+        }, delay += 150);
     });
-});
+}
+
+function animateModules(content) {
+    const modules = content.querySelectorAll(".modules-wrapper .module-card");
+    let delay = 0;
+    modules.forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = "translateY(20px)";
+        setTimeout(() => {
+            el.style.transition = "all 0.6s ease";
+            el.style.opacity = 1;
+            el.style.transform = "translateY(0)";
+        }, delay += 150);
+    });
+}
+
+function animateTeacher(content) {
+    const photo = content.querySelector(".teacher-photo");
+    const info = content.querySelector(".teacher-info");
+    const bio = content.querySelector(".teacher-bio");
+
+    [photo, info, bio].forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = "translateY(20px)";
+    });
+
+    setTimeout(() => {
+        photo.style.transition = info.style.transition = bio.style.transition = "all 0.6s ease";
+        photo.style.opacity = 1; photo.style.transform = "translateY(0)";
+        info.style.opacity = 1; info.style.transform = "translateY(0)";
+        bio.style.opacity = 1; bio.style.transform = "translateY(0)";
+    }, 100);
+}
+
+function animateReviews(content) {
+    const reviewCards = content.querySelectorAll(".review-card");
+    let delay = 0;
+    reviewCards.forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = "translateY(20px)";
+        setTimeout(() => {
+            el.style.transition = "all 0.6s ease";
+            el.style.opacity = 1;
+            el.style.transform = "translateY(0)";
+        }, delay += 150);
+    });
+}

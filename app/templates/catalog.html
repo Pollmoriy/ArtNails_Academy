@@ -119,6 +119,90 @@
     </section>
 
 </main>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    // ==========================
+    // Верхний блок: заголовок и подзаголовок
+    // ==========================
+    const catalogTitle = document.querySelector(".catalog-title");
+    const catalogSubtitle = document.querySelector(".catalog-subtitle");
+
+    catalogTitle.style.opacity = 0;
+    catalogTitle.style.transform = "translateY(20px)";
+    catalogSubtitle.style.opacity = 0;
+    catalogSubtitle.style.transform = "translateY(20px)";
+
+    setTimeout(() => {
+        catalogTitle.style.transition = "all 1s ease";
+        catalogTitle.style.opacity = 1;
+        catalogTitle.style.transform = "translateY(0)";
+    }, 200);
+
+    setTimeout(() => {
+        catalogSubtitle.style.transition = "all 1s ease";
+        catalogSubtitle.style.opacity = 1;
+        catalogSubtitle.style.transform = "translateY(0)";
+    }, 600);
+
+    // ==========================
+    // Фильтры
+    // ==========================
+    const filterContainer = document.querySelector(".filter-container");
+    filterContainer.style.opacity = 0;
+    filterContainer.style.transform = "translateY(20px)";
+    setTimeout(() => {
+        filterContainer.style.transition = "all 0.8s ease";
+        filterContainer.style.opacity = 1;
+        filterContainer.style.transform = "translateY(0)";
+    }, 1000);
+
+    // ==========================
+    // Карточки курсов
+    // ==========================
+    const courseCards = document.querySelectorAll(".public-course-card");
+
+    function isInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight - 50;
+    }
+
+    function revealCourses() {
+        courseCards.forEach((card, i) => {
+            if (isInViewport(card)) {
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = "scale(1)";
+                    const name = card.querySelector(".course-name");
+                    const desc = card.querySelector(".course-desc");
+                    const price = card.querySelector(".course-price");
+                    const btn = card.querySelector(".btn-course-details");
+
+                    // Появление текста внутри карточки
+                    setTimeout(() => { name.style.opacity = 1; name.style.transform = "translateY(0)"; }, 100);
+                    setTimeout(() => { desc.style.opacity = 1; desc.style.transform = "translateY(0)"; }, 300);
+                    setTimeout(() => { price.style.opacity = 1; price.style.transform = "translateY(0)"; }, 500);
+                    setTimeout(() => { btn.style.opacity = 1; btn.style.transform = "translateY(0)"; }, 700);
+                }, i * 200); // задержка между карточками
+            }
+        });
+    }
+
+    window.addEventListener("scroll", revealCourses);
+    revealCourses();
+
+    // ==========================
+    // Clear search button
+    // ==========================
+    const clearBtn = document.getElementById("clear-search");
+    const searchInput = document.getElementById("search");
+    clearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        searchInput.focus();
+    });
+
+});
+</script>
 
 <script src="{{ url_for('static', filename='js/catalog_filter.js') }}"></script>
 {% endblock %}

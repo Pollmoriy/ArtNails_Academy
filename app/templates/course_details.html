@@ -285,7 +285,65 @@
 
 </section>
 
+<script>
+// ==========================
+// Плавное появление всей страницы и элементов hero
+// ==========================
+document.addEventListener('DOMContentLoaded', () => {
+    const heroInfo = document.querySelector('.course-hero__info');
+    const heroCard = document.querySelector('.course-hero__card');
 
+    [heroInfo, heroCard].forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = "translateY(20px)";
+    });
+
+    setTimeout(() => {
+        heroInfo.style.transition = heroCard.style.transition = "all 0.8s ease";
+        heroInfo.style.opacity = 1; heroInfo.style.transform = "translateY(0)";
+        heroCard.style.opacity = 1; heroCard.style.transform = "translateY(0)";
+    }, 100);
+});
+
+// ==========================
+// Анимация звезд рейтинга на странице
+// ==========================
+document.addEventListener('DOMContentLoaded', () => {
+    const reviewCards = document.querySelectorAll('.review-card');
+
+    reviewCards.forEach(card => {
+        const rating = parseInt(card.dataset.rating);
+        const stars = card.querySelectorAll('.review-rating .star');
+
+        stars.forEach((star, index) => {
+            star.src = index < rating
+                ? star.dataset.yellow || '/static/icons/star-yellow.svg'
+                : star.dataset.gray || '/static/icons/star-gray.svg';
+        });
+
+        stars.forEach((star, index) => {
+            star.addEventListener('mouseenter', () => {
+                stars.forEach((s, i) => {
+                    s.src = i <= index
+                        ? s.dataset.yellow || '/static/icons/star-yellow.svg'
+                        : s.dataset.gray || '/static/icons/star-gray.svg';
+                    s.style.transform = 'scale(1.2)';
+                });
+            });
+
+            star.addEventListener('mouseleave', () => {
+                stars.forEach((s, i) => {
+                    s.src = i < rating
+                        ? s.dataset.yellow || '/static/icons/star-yellow.svg'
+                        : s.dataset.gray || '/static/icons/star-gray.svg';
+                    s.style.transform = 'scale(1)';
+                });
+            });
+        });
+    });
+});
+
+</script>
 
 
 
