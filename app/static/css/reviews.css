@@ -264,3 +264,21 @@
         opacity: 1;
     }
 }
+
+
+.btn-delete-review {
+    background: linear-gradient(135deg, #ff7eb9, #ff65a3); /* розовый градиент */
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    align-self: flex-start; /* под аватаром слева */
+    transition: background 0.3s, transform 0.1s;
+}
+
+.btn-delete-review:hover {
+    background: linear-gradient(135deg, #ff65a3, #ff3d8f); /* ярче при наведении */
+    transform: scale(1.05);
+}

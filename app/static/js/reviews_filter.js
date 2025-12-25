@@ -28,40 +28,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderReviews(reviews) {
-        reviewsContainer.innerHTML = '';
+    reviewsContainer.innerHTML = '';
 
-        if (!reviews.length) {
-            reviewsContainer.innerHTML = '<p>Отзывы не найдены</p>';
-            return;
+    if (!reviews.length) {
+        reviewsContainer.innerHTML = '<p>Отзывы не найдены</p>';
+        return;
+    }
+
+    reviews.forEach(r => {
+        const card = document.createElement('div');
+        card.className = 'review-card';
+        card.dataset.reviewId = r.id; // ⚠️ важно для удаления
+
+        card.innerHTML = `
+            <img class="review-avatar"
+                 src="${r.avatar ? `/static/${r.avatar}` : '/static/img/default_avatar.png'}">
+
+            <div class="review-header">
+                <div class="review-name">${r.user_name}</div>
+                <div class="review-course">${r.course_title}</div>
+            </div>
+
+            <div class="review-stars">
+                ${[1,2,3,4,5].map(i =>
+                    `<img class="star"
+                     src="/static/icons/${i <= r.rating ? 'star-filled' : 'star-empty'}.svg">`
+                ).join('')}
+            </div>
+
+            <div class="review-date">${r.created_at}</div>
+            <p class="review-text">${r.comment}</p>
+        `;
+
+        // ✅ КНОПКА УДАЛЕНИЯ
+        if (r.is_owner) {
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'btn-delete-review';
+            deleteBtn.textContent = 'Удалить';
+            card.appendChild(deleteBtn);
         }
 
-        reviews.forEach(r => {
-            const card = document.createElement('div');
-            card.className = 'review-card';
+        reviewsContainer.appendChild(card);
+    });
+}
 
-            card.innerHTML = `
-                <img class="review-avatar"
-                     src="${r.avatar ? `/static/${r.avatar}` : '/static/img/default_avatar.png'}">
-
-                <div class="review-header">
-                    <div class="review-name">${r.user_name}</div>
-                    <div class="review-course">${r.course_title}</div>
-                </div>
-
-                <div class="review-stars">
-                    ${[1,2,3,4,5].map(i =>
-                        `<img class="star"
-                         src="/static/icons/${i <= r.rating ? 'star-filled' : 'star-empty'}.svg">`
-                    ).join('')}
-                </div>
-
-                <div class="review-date">${r.created_at}</div>
-                <p class="review-text">${r.comment}</p>
-            `;
-
-            reviewsContainer.appendChild(card);
-        });
-    }
 
     courseSelect.addEventListener('change', fetchReviews);
     sortSelect.addEventListener('change', fetchReviews);
@@ -119,4 +129,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+});
+
+// ===== УДАЛЕНИЕ ОТЗЫВА =====
+document.addEventListener('click', function (e) {
+    if (!e.target.classList.contains('btn-delete-review')) return;
+
+    const card = e.target.closest('.review-card');
+    const reviewId = card.dataset.reviewId;
+
+    if (!reviewId) return;
+
+    const confirmDelete = confirm('Удалить этот отзыв?');
+    if (!confirmDelete) return;
+
+    fetch('/reviews/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            review_id: reviewId
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            card.remove(); // 💥 аккуратно удаляем карточку
+        } else {
+            alert(data.error || 'Ошибка при удалении');
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert('Ошибка сети');
+    });
 });
