@@ -148,5 +148,126 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    // ==========================
+    // Hero Block
+    // ==========================
+    const heroTitleWords = document.querySelectorAll(".hero-title span");
+    const heroSub = document.querySelector(".hero-subtext");
+    const heroButtons = document.querySelectorAll(".hero-buttons .btn-hero");
+    const heroBg = document.querySelector(".hero-bg");
+
+    // Hero text animation
+    heroTitleWords.forEach((word, i) => {
+        setTimeout(() => {
+            word.style.opacity = 1;
+            word.style.transform = "translateY(0)";
+        }, i * 400);
+    });
+
+    setTimeout(() => {
+        heroSub.style.opacity = 1;
+        heroSub.style.transform = "translateY(0)";
+    }, heroTitleWords.length * 400);
+
+    heroButtons.forEach((btn, i) => {
+        setTimeout(() => {
+            btn.style.opacity = 1;
+            btn.style.transform = "translateY(0)";
+        }, heroTitleWords.length * 400 + i * 200);
+    });
+
+    // Parallax background
+    window.addEventListener('scroll', () => {
+        let offset = window.scrollY;
+        heroBg.style.transform = `translateY(${offset * 0.2}px) scale(1.05)`;
+    });
+
+    // ==========================
+    // Utility: check if element is in viewport
+    // ==========================
+    function isInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight - 50;
+    }
+
+    // ==========================
+    // Cards "Почему выбирают нас"
+    // ==========================
+    const cards = document.querySelectorAll(".card");
+    function revealCards() {
+        cards.forEach((card, i) => {
+            if (isInViewport(card)) {
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = "translateY(0)";
+                    const title = card.querySelector(".card-title");
+                    const desc = card.querySelector(".card-desc");
+                    setTimeout(() => { title.style.opacity = 1; title.style.transform = "translateY(0)"; }, 100);
+                    setTimeout(() => { desc.style.opacity = 1; desc.style.transform = "translateY(0)"; }, 300);
+                }, i * 200);
+            }
+        });
+    }
+    window.addEventListener("scroll", revealCards);
+    revealCards();
+
+    // ==========================
+    // Popular Courses
+    // ==========================
+    const courseCards = document.querySelectorAll(".public-course-card");
+    function revealCourses() {
+        courseCards.forEach((card, i) => {
+            if (isInViewport(card)) {
+                setTimeout(() => {
+                    card.classList.add("visible");
+
+                    const name = card.querySelector(".course-name");
+                    const desc = card.querySelector(".course-desc");
+                    const price = card.querySelector(".course-price");
+                    const btn = card.querySelector(".btn-course-details");
+
+                    setTimeout(() => { name.style.opacity = 1; name.style.transform = "translateY(0)"; }, 100);
+                    setTimeout(() => { desc.style.opacity = 1; desc.style.transform = "translateY(0)"; }, 300);
+                    setTimeout(() => { price.style.opacity = 1; price.style.transform = "translateY(0)"; }, 500);
+                    setTimeout(() => { btn.style.opacity = 1; btn.style.transform = "translateY(0)"; }, 700);
+                }, i * 300);
+            }
+        });
+    }
+    window.addEventListener("scroll", revealCourses);
+    revealCourses();
+
+    // ==========================
+    // Start Learning Block
+    // ==========================
+    const startTitle = document.querySelector(".start-title");
+    const startSub = document.querySelector(".start-subtitle");
+    const startButtons = document.querySelectorAll(".start-buttons .btn-start, .start-buttons .btn-choose");
+
+    function revealStartBlock() {
+        if (isInViewport(startTitle)) {
+            startTitle.style.opacity = 1;
+            startTitle.style.transform = "translateY(0)";
+            setTimeout(() => {
+                startSub.style.opacity = 1;
+                startSub.style.transform = "translateY(0)";
+            }, 200);
+            startButtons.forEach((btn, i) => {
+                setTimeout(() => {
+                    btn.style.opacity = 1;
+                    btn.style.transform = "translateY(0)";
+                }, 400 + i * 150);
+            });
+        }
+    }
+
+    window.addEventListener("scroll", revealStartBlock);
+    revealStartBlock();
+});
+
+</script>
 
 {% endblock %}

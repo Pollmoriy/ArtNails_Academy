@@ -563,6 +563,98 @@ header {
     transition: filter 0.3s ease;
 }
 
+/* ==========================
+   Hero Block
+=========================== */
+.hero-bg {
+    transition: transform 10s ease-in-out;
+}
+
+.hero-block:hover .hero-bg {
+    transform: scale(1.05);
+}
+
+/* Hero text */
+.hero-title span,
+.hero-subtext,
+.hero-buttons .btn-hero {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease;
+}
+
+.hero-buttons .btn-hero:hover {
+    transform: translateY(-5px);
+}
+
+/* ==========================
+   Cards "Почему выбирают нас"
+=========================== */
+.card {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.card-title,
+.card-desc {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.6s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* ==========================
+   Popular Courses
+=========================== */
+.public-course-card {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 1s ease;
+}
+
+.public-course-card.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.course-name,
+.course-desc,
+.course-price,
+.btn-course-details {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.6s ease;
+}
+
+.public-course-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+/* ==========================
+   Start Learning Block
+=========================== */
+.start-title,
+.start-subtitle,
+.start-buttons .btn-start,
+.start-buttons .btn-choose {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+
+.start-buttons .btn-start:hover,
+.start-buttons .btn-choose:hover {
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
 
 /* ==========================
    Футер
