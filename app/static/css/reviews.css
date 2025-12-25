@@ -1,0 +1,164 @@
+/* Весь блок страницы отзывов */
+.reviews-page {
+    font-family: 'Inter', sans-serif;
+    background: #F9FAFB;
+    margin-top: 80px;
+}
+
+/* Верхний белый блок */
+.reviews-page .reviews-header {
+    width: 1920px;
+    height: 109px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reviews-page .reviews-header-content {
+    width: 1117px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reviews-page .reviews-title {
+    font-weight: 700;
+    font-size: 30px;
+    color: #111827;
+    margin: 0;
+}
+
+.reviews-page .btn-add-review {
+    width: 194px;
+    height: 58px;
+    background: #DB2777;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.reviews-page .btn-add-review:hover {
+    background: #a21a5b;
+}
+
+/* Фильтры */
+.reviews-page .reviews-filters-card {
+    width: 1117px;
+    height: 112px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 32px auto 0;
+}
+
+.reviews-page .filter-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.reviews-page .filter-wrapper label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #374151;
+    margin-bottom: 4px;
+}
+
+.reviews-page .filter-wrapper select {
+    width: 527px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    padding: 4px 8px;
+}
+
+/* Список отзывов */
+.reviews-page .reviews-list-container {
+    width: 1117px;
+    margin: 34px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 170px;
+}
+
+/* Карточка отзыва */
+.reviews-page .review-card {
+    width: 1077px;
+    min-height: 183px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 24px;
+    position: relative;
+}
+
+.reviews-page .review-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    position: absolute;
+    top: 24px;
+    left: 24px;
+}
+
+.reviews-page .review-header {
+    margin-left: 104px;
+    margin-top: 24px;
+}
+
+.reviews-page .review-name {
+    font-weight: 600;
+    font-size: 24px;
+    color: #111827;
+}
+
+.reviews-page .review-course {
+    font-weight: 400;
+    font-size: 14px;
+    color: #DB2777;
+    margin-top: 5px;
+}
+
+.reviews-page .review-stars {
+    position: absolute;
+    top: 12px;
+    right: 21px;
+    display: flex;
+    gap: 4px;
+}
+
+.reviews-page .star {
+    width: 24px;
+    height: 24px;
+}
+
+.reviews-page .review-date {
+    position: absolute;
+    top: 42px;
+    right: 21px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #4B5563;
+}
+
+.reviews-page .review-text {
+    margin-left: 104px;
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #4B5563;
+    margin-right: 54px;
+}

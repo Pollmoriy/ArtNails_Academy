@@ -34,8 +34,11 @@ def create_app():
     from app.routes.enroll import enroll_bp
     from app.routes.course import course_bp
     from app.routes.test import test_bp
-    app.register_blueprint(test_bp)
+    from app.routes.reviews import reviews_bp
 
+
+    app.register_blueprint(test_bp)
+    app.register_blueprint(reviews_bp)
     app.register_blueprint(course_bp)
     app.register_blueprint(enroll_bp)
     app.register_blueprint(course_desk_bp)

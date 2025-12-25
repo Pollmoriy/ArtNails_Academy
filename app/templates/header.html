@@ -5,7 +5,7 @@
         <nav class="nav">
             <a href="{{ url_for('main.home') }}">Главная</a>
             <a href="{{ url_for('catalog.catalog') }}">Курсы</a>
-            <a href="#">Отзывы</a>
+            <a href="{{ url_for('reviews.reviews_page') }}">Отзывы</a>
             <a href="{{ url_for('about.about') }}">О нас</a>
 
             {% if 'user_id' in session %}
