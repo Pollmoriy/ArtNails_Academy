@@ -28,50 +28,72 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderReviews(reviews) {
-    reviewsContainer.innerHTML = '';
+        reviewsContainer.innerHTML = '';
 
-    if (!reviews.length) {
-        reviewsContainer.innerHTML = '<p>Отзывы не найдены</p>';
-        return;
-    }
-
-    reviews.forEach(r => {
-        const card = document.createElement('div');
-        card.className = 'review-card';
-        card.dataset.reviewId = r.id; // ⚠️ важно для удаления
-
-        card.innerHTML = `
-            <img class="review-avatar"
-                 src="${r.avatar ? `/static/${r.avatar}` : '/static/img/default_avatar.png'}">
-
-            <div class="review-header">
-                <div class="review-name">${r.user_name}</div>
-                <div class="review-course">${r.course_title}</div>
-            </div>
-
-            <div class="review-stars">
-                ${[1,2,3,4,5].map(i =>
-                    `<img class="star"
-                     src="/static/icons/${i <= r.rating ? 'star-filled' : 'star-empty'}.svg">`
-                ).join('')}
-            </div>
-
-            <div class="review-date">${r.created_at}</div>
-            <p class="review-text">${r.comment}</p>
-        `;
-
-        // ✅ КНОПКА УДАЛЕНИЯ
-        if (r.is_owner) {
-            const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'btn-delete-review';
-            deleteBtn.textContent = 'Удалить';
-            card.appendChild(deleteBtn);
+        if (!reviews.length) {
+            reviewsContainer.innerHTML = '<p>Отзывы не найдены</p>';
+            return;
         }
 
-        reviewsContainer.appendChild(card);
-    });
-}
+        reviews.forEach((r, i) => {
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            card.dataset.reviewId = r.id;
 
+            // Сразу ставим начальные стили для анимации
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+
+            card.innerHTML = `
+                <img class="review-avatar" src="${r.avatar ? `/static/${r.avatar}` : '/static/img/default_avatar.png'}">
+                <div class="review-header">
+                    <div class="review-name">${r.user_name}</div>
+                    <div class="review-course">${r.course_title}</div>
+                </div>
+                <div class="review-stars">
+                    ${[1,2,3,4,5].map(i =>
+                        `<img class="star" src="/static/icons/${i <= r.rating ? 'star-filled' : 'star-empty'}.svg">`
+                    ).join('')}
+                </div>
+                <div class="review-date">${r.created_at}</div>
+                <p class="review-text">${r.comment}</p>
+            `;
+
+            // Кнопка удаления
+            if (r.is_owner) {
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn-delete-review';
+                deleteBtn.textContent = 'Удалить';
+                deleteBtn.style.opacity = 0;
+                deleteBtn.style.transform = 'translateY(20px)';
+                card.appendChild(deleteBtn);
+            }
+
+            reviewsContainer.appendChild(card);
+
+            // Анимация с задержкой для плавного появления
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s ease';
+                card.style.opacity = 1;
+                card.style.transform = 'translateY(0)';
+
+                const avatar = card.querySelector('.review-avatar');
+                const header = card.querySelector('.review-header');
+                const starsElem = card.querySelector('.review-stars');
+                const date = card.querySelector('.review-date');
+                const text = card.querySelector('.review-text');
+                const deleteBtn = card.querySelector('.btn-delete-review');
+
+                if (avatar) setTimeout(() => { avatar.style.opacity = 1; avatar.style.transform = 'translateY(0)'; }, 100);
+                if (header) setTimeout(() => { header.style.opacity = 1; header.style.transform = 'translateY(0)'; }, 200);
+                if (starsElem) setTimeout(() => { starsElem.style.opacity = 1; starsElem.style.transform = 'translateY(0)'; }, 300);
+                if (date) setTimeout(() => { date.style.opacity = 1; date.style.transform = 'translateY(0)'; }, 400);
+                if (text) setTimeout(() => { text.style.opacity = 1; text.style.transform = 'translateY(0)'; }, 500);
+                if (deleteBtn) setTimeout(() => { deleteBtn.style.opacity = 1; deleteBtn.style.transform = 'translateY(0)'; }, 600);
+
+            }, i * 150);
+        });
+    }
 
     courseSelect.addEventListener('change', fetchReviews);
     sortSelect.addEventListener('change', fetchReviews);
@@ -82,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
     addReviewBtn.addEventListener('click', () => {
         modal.style.display = 'flex';
     });
-
     closeModalBtn.addEventListener('click', () => {
         modal.style.display = 'none';
     });
@@ -91,9 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         star.addEventListener('click', () => {
             selectedRating = +star.dataset.value;
             stars.forEach(s => s.classList.remove('selected'));
-            for (let i = 0; i < selectedRating; i++) {
-                stars[i].classList.add('selected');
-            }
+            for (let i = 0; i < selectedRating; i++) stars[i].classList.add('selected');
         });
     });
 
@@ -109,11 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('/reviews/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                course_id: courseId,
-                rating: selectedRating,
-                comment: comment
-            })
+            body: JSON.stringify({ course_id: courseId, rating: selectedRating, comment })
         })
         .then(res => res.json())
         .then(data => {
@@ -123,9 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 stars.forEach(s => s.classList.remove('selected'));
                 selectedRating = 0;
                 fetchReviews();
-            } else {
-                alert('Ошибка при добавлении отзыва');
-            }
+            } else alert('Ошибка при добавлении отзыва');
         });
     });
 
@@ -145,20 +158,13 @@ document.addEventListener('click', function (e) {
 
     fetch('/reviews/delete', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            review_id: reviewId
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ review_id: reviewId })
     })
     .then(res => res.json())
     .then(data => {
-        if (data.success) {
-            card.remove(); // 💥 аккуратно удаляем карточку
-        } else {
-            alert(data.error || 'Ошибка при удалении');
-        }
+        if (data.success) card.remove();
+        else alert(data.error || 'Ошибка при удалении');
     })
     .catch(err => {
         console.error(err);

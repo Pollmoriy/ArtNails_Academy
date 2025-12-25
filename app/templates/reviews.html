@@ -99,6 +99,96 @@
 
 </main>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
 
+    // ==========================
+    // Верхний блок: заголовок и кнопка "Оставить отзыв"
+    // ==========================
+    const headerTitle = document.querySelector(".reviews-title");
+    const addBtn = document.querySelector(".btn-add-review");
+
+    headerTitle.style.opacity = 0;
+    headerTitle.style.transform = "translateY(20px)";
+    addBtn.style.opacity = 0;
+    addBtn.style.transform = "translateY(20px)";
+
+    setTimeout(() => {
+        headerTitle.style.transition = "all 1s ease";
+        headerTitle.style.opacity = 1;
+        headerTitle.style.transform = "translateY(0)";
+    }, 200);
+
+    setTimeout(() => {
+        addBtn.style.transition = "all 1s ease";
+        addBtn.style.opacity = 1;
+        addBtn.style.transform = "translateY(0)";
+    }, 600);
+
+    // ==========================
+    // Фильтры
+    // ==========================
+    const filters = document.querySelector(".reviews-filters-card");
+    filters.style.opacity = 0;
+    filters.style.transform = "translateY(20px)";
+    setTimeout(() => {
+        filters.style.transition = "all 0.8s ease";
+        filters.style.opacity = 1;
+        filters.style.transform = "translateY(0)";
+    }, 1000);
+
+    // ==========================
+    // Карточки отзывов
+    // ==========================
+    const reviewsContainer = document.getElementById("reviews-container");
+
+    function isInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight - 50;
+    }
+
+    function animateReviewCards() {
+        const cards = document.querySelectorAll(".review-card");
+
+        cards.forEach((card, i) => {
+            if (!card.classList.contains("animated") && isInViewport(card)) {
+                card.classList.add("animated");
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = "translateY(0)";
+
+                    // Анимация элементов внутри карточки
+                    const avatar = card.querySelector(".review-avatar");
+                    const header = card.querySelector(".review-header");
+                    const stars = card.querySelector(".review-stars");
+                    const date = card.querySelector(".review-date");
+                    const text = card.querySelector(".review-text");
+                    const deleteBtn = card.querySelector(".btn-delete-review");
+
+                    if (avatar) setTimeout(() => { avatar.style.opacity = 1; avatar.style.transform = "translateY(0)"; }, 100);
+                    if (header) setTimeout(() => { header.style.opacity = 1; header.style.transform = "translateY(0)"; }, 200);
+                    if (stars) setTimeout(() => { stars.style.opacity = 1; stars.style.transform = "translateY(0)"; }, 300);
+                    if (date) setTimeout(() => { date.style.opacity = 1; date.style.transform = "translateY(0)"; }, 400);
+                    if (text) setTimeout(() => { text.style.opacity = 1; text.style.transform = "translateY(0)"; }, 500);
+                    if (deleteBtn) setTimeout(() => { deleteBtn.style.opacity = 1; deleteBtn.style.transform = "translateY(0)"; }, 600);
+
+                }, i * 150);
+            }
+        });
+    }
+
+    window.addEventListener("scroll", animateReviewCards);
+    window.addEventListener("resize", animateReviewCards);
+    animateReviewCards();
+
+    // ⚡ После перерендеринга карточек через fetch
+    const originalRenderReviews = window.renderReviews;
+    window.renderReviews = function(reviews) {
+        originalRenderReviews(reviews);
+        animateReviewCards();
+    };
+});
+
+</script>
 <script src="{{ url_for('static', filename='js/reviews_filter.js') }}"></script>
 {% endblock %}

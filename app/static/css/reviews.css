@@ -282,3 +282,27 @@
     background: linear-gradient(135deg, #ff65a3, #ff3d8f); /* ярче при наведении */
     transform: scale(1.05);
 }
+
+.review-card,
+.review-avatar,
+.review-header,
+.review-stars,
+.review-date,
+.review-text,
+.btn-delete-review {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.reviews-title,
+.btn-add-review,
+.reviews-filters-card {
+    transition: all 1s ease;
+}
+
+.reviews-filters-card {
+    opacity: 1;            /* сразу видим */
+    transform: translateY(0); /* нет смещения */
+    transition: none;      /* без перехода на старте */
+}
