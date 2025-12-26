@@ -65,26 +65,16 @@ if (profileCard) {
     const contents = document.querySelectorAll('#tab-content > div');
 
     function animateContent(el) {
-        el.style.opacity = 0;
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        setTimeout(() => {
-            el.style.opacity = 1;
-            el.style.transform = 'translateY(0)';
-        }, 50);
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(25px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
 
-        // Анимация всех вложенных элементов
-        const children = el.querySelectorAll('*');
-        children.forEach((child, i) => {
-            child.style.opacity = 0;
-            child.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                child.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                child.style.opacity = 1;
-                child.style.transform = 'translateY(0)';
-            }, i * 50);
-        });
-    }
+    requestAnimationFrame(() => {
+        el.style.opacity = 1;
+        el.style.transform = 'translateY(0)';
+    });
+}
+
 
     function animateCards(cards) {
         cards.forEach((card, i) => {
