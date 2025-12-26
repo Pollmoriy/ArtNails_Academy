@@ -59,6 +59,40 @@
 
 
     </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const registerContainer = document.querySelector('.login-container');
+    if (!registerContainer) return;
+
+    const elements = [
+        registerContainer.querySelector('.login-title'),
+        registerContainer.querySelector('.login-subtitle'),
+        registerContainer.querySelector('.login-form'),
+        registerContainer.querySelector('.login-divider'),
+        registerContainer.querySelector('.login-social')
+    ];
+
+    // Скрываем элементы изначально
+    elements.forEach(el => {
+        if (el) {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+        }
+    });
+
+    // Каскадная анимация появления
+    elements.forEach((el, i) => {
+        if (el) {
+            setTimeout(() => {
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                el.style.opacity = 1;
+                el.style.transform = 'translateY(0)';
+            }, i * 300); // 300ms задержка между элементами
+        }
+    });
+});
+</script>
+
 </main>
 
 {% include 'footer.html' %}

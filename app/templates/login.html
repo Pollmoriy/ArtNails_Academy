@@ -45,6 +45,40 @@
 
 
     </div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const loginContainer = document.querySelector('.login-container');
+    if (!loginContainer) return;
+
+    const elements = [
+        loginContainer.querySelector('.login-title'),
+        loginContainer.querySelector('.login-subtitle'),
+        loginContainer.querySelector('.login-form'),
+        loginContainer.querySelector('.login-divider-wrapper'),
+        loginContainer.querySelector('.login-social')
+    ];
+
+    // Скрываем элементы
+    elements.forEach(el => {
+        if (el) {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+        }
+    });
+
+    // Каскадная анимация
+    elements.forEach((el, i) => {
+        if (el) {
+            setTimeout(() => {
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                el.style.opacity = 1;
+                el.style.transform = 'translateY(0)';
+            }, i * 300); // 300ms между элементами, медленнее
+        }
+    });
+});
+</script>
+
 </main>
 
 {% include 'footer.html' %}
