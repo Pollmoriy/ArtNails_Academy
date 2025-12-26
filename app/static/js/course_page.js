@@ -1,27 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     const coursePage = document.querySelector('.course-page');
     if (!coursePage) return;
 
+    /* ===================== */
+    /* ПЕРВАЯ ЗАГРУЗКА */
+    /* ===================== */
+
+    setTimeout(() => {
+        coursePage.classList.add('page-loaded');
+        document.querySelector('.modules-list')?.classList.add('visible');
+        document.querySelector('.module-content')?.classList.add('visible');
+    }, 100);
+
     const courseId = coursePage.dataset.courseId;
 
-    // --- Элементы прогресса ---
+    /* ===================== */
+    /* ПРОГРЕСС */
+    /* ===================== */
+
     const progressFill = document.getElementById('modules-progress-fill');
     const progressText = document.querySelector('.progress-text');
 
     let completedModules = Number(progressFill.dataset.completed) || 0;
     let totalModules = Number(progressFill.dataset.total) || 0;
 
-    function updateProgress(completed) {
-        completedModules = completed;
-        const percent = totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0;
-        progressFill.style.width = percent + '%';
-        progressText.textContent = `${completedModules}/${totalModules}`;
+    function updateProgress(value) {
+        const percent = totalModules
+            ? Math.round((value / totalModules) * 100)
+            : 0;
+
+        requestAnimationFrame(() => {
+            progressFill.style.width = percent + '%';
+            progressText.textContent = `${value}/${totalModules}`;
+        });
     }
 
-    // Инициализация прогресса при загрузке
-    updateProgress(completedModules);
+    setTimeout(() => updateProgress(completedModules), 300);
 
-    // --- Переключение модулей ---
+    /* ===================== */
+    /* ПЕРЕКЛЮЧЕНИЕ МОДУЛЕЙ */
+    /* ===================== */
+
     const moduleItems = document.querySelectorAll('.module-item');
     const moduleDetails = document.querySelectorAll('.module-detail');
 
@@ -42,108 +62,113 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Отметка модуля как выполненного ---
+    /* ===================== */
+    /* ОТМЕТКА МОДУЛЯ */
+    /* ===================== */
+
     function markModuleCompleted(moduleId) {
         fetch(`/course/${courseId}/complete_module/${moduleId}`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'}
+            headers: { 'Content-Type': 'application/json' }
         })
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                const moduleItem = document.querySelector(`.module-item[data-module-id="${moduleId}"]`);
-                if (moduleItem) moduleItem.classList.add('completed');
+                document
+                    .querySelector(`.module-item[data-module-id="${moduleId}"]`)
+                    ?.classList.add('completed');
+
                 updateProgress(data.completed_modules);
             }
-        })
-        .catch(err => console.error(err));
+        });
     }
 
-    // --- Видео ---
-    document.querySelectorAll('.theory-video-wrapper video').forEach(video => {
+    /* ===================== */
+    /* ВИДЕО */
+    /* ===================== */
+
+    document.querySelectorAll('video').forEach(video => {
         video.addEventListener('ended', () => {
-            const moduleDiv = video.closest('.module-detail');
-            if (!moduleDiv) return;
-            const moduleId = moduleDiv.dataset.moduleId;
-            markModuleCompleted(moduleId);
+            const moduleId = video.closest('.module-detail')?.dataset.moduleId;
+            if (moduleId) markModuleCompleted(moduleId);
         });
     });
 
-    // --- Практика ---
+    /* ===================== */
+    /* ПРАКТИКА */
+    /* ===================== */
+
     document.addEventListener('click', e => {
-        // Кнопка перехода к следующему этапу
+
         if (e.target.classList.contains('btn-next-stage')) {
-            const currentStage = e.target.closest('.practice-stage');
-            const nextStage = currentStage?.nextElementSibling;
+            const current = e.target.closest('.practice-stage');
+            const next = current.nextElementSibling;
+
             e.target.remove();
-            if (nextStage && nextStage.classList.contains('practice-stage')) {
-                nextStage.classList.remove('hidden');
-                nextStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            if (next) {
+                next.classList.remove('hidden');
+                next.scrollIntoView({ behavior: 'smooth' });
             }
         }
 
-        // Кнопка отметить модуль выполненным
         if (e.target.classList.contains('btn-mark-completed')) {
-            const moduleDiv = e.target.closest('.module-detail');
-            if (!moduleDiv) return;
-            const moduleId = moduleDiv.dataset.moduleId;
+            const moduleId = e.target.closest('.module-detail')?.dataset.moduleId;
+            if (!moduleId) return;
+
             markModuleCompleted(moduleId);
-            e.target.disabled = true;
             e.target.textContent = 'Выполнено';
+            e.target.disabled = true;
         }
     });
 
-    // --- Тесты ---
-    document.querySelectorAll('.test-wrapper').forEach(testWrapper => {
-        const questions = testWrapper.querySelectorAll('.question');
-        const resultBlock = testWrapper.querySelector('.test-result');
-        let currentIndex = 0;
+    /* ===================== */
+    /* ТЕСТЫ */
+    /* ===================== */
 
-        questions.forEach((q, index) => {
-            const btnNext = q.querySelector('.btn-next-question');
-            btnNext.addEventListener('click', () => {
-                const selected = q.querySelector('input[type="radio"]:checked');
-                if (!selected) {
-                    alert('Выберите ответ');
-                    return;
-                }
+    document.querySelectorAll('.test-wrapper').forEach(wrapper => {
+        const questions = wrapper.querySelectorAll('.question');
+        const result = wrapper.querySelector('.test-result');
+        let index = 0;
 
-                q.dataset.correctAnswers = selected.value === "True" ? 1 : 0;
+        questions.forEach((q, i) => {
+            q.querySelector('.btn-next-question').addEventListener('click', () => {
+                const checked = q.querySelector('input:checked');
+                if (!checked) return alert('Выберите ответ');
+
+                q.dataset.correct = checked.value === 'True' ? 1 : 0;
                 q.style.display = 'none';
-                currentIndex++;
+                index++;
 
-                if (currentIndex < questions.length) {
-                    questions[currentIndex].style.display = 'block';
+                if (questions[index]) {
+                    questions[index].style.display = 'block';
                 } else {
-                    let correctCount = 0;
-                    questions.forEach(quest => {
-                        correctCount += parseInt(quest.dataset.correctAnswers || 0);
-                    });
-                    const percent = Math.round((correctCount / questions.length) * 100);
+                    let score = 0;
+                    questions.forEach(x => score += Number(x.dataset.correct || 0));
+                    const percent = Math.round(score / questions.length * 100);
 
-                    // Если >=70%, отмечаем модуль завершённым
                     if (percent >= 70) {
-                        const moduleId = testWrapper.closest('.module-detail')?.dataset.moduleId;
+                        const moduleId = wrapper.closest('.module-detail')?.dataset.moduleId;
                         if (moduleId) markModuleCompleted(moduleId);
                     }
 
-                    resultBlock.querySelector('.result-text').textContent =
-                        percent >= 70 ?
-                        `Тест пройден! Ваш результат: ${percent}%` :
-                        `Попробуйте еще раз. Ваш результат: ${percent}%`;
-                    resultBlock.style.display = 'block';
+                    result.style.display = 'block';
+                    result.querySelector('.result-text').textContent =
+                        percent >= 70
+                            ? `Тест пройден! ${percent}%`
+                            : `Попробуйте снова. ${percent}%`;
                 }
             });
         });
 
-        const btnRetry = resultBlock.querySelector('.btn-retry');
-        btnRetry.addEventListener('click', () => {
-            currentIndex = 0;
-            resultBlock.style.display = 'none';
-            questions.forEach((q, idx) => {
-                q.style.display = idx === 0 ? 'block' : 'none';
-                q.dataset.correctAnswers = 0;
-                q.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+        result.querySelector('.btn-retry').addEventListener('click', () => {
+            index = 0;
+            result.style.display = 'none';
+
+            questions.forEach((q, i) => {
+                q.style.display = i === 0 ? 'block' : 'none';
+                q.dataset.correct = 0;
+                q.querySelectorAll('input').forEach(r => r.checked = false);
             });
         });
     });
