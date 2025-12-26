@@ -1017,3 +1017,31 @@ margin-top: 83px;
 .btn-icon {
     display: inline-block;
 }
+/* Весь верхний блок */
+.profile-header {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Карточки курсов и сертификатов */
+.course-card, .certificate-card, .profile-settings-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Вложенные элементы карточек */
+.course-title, .course-desc, .course-info, .course-meta, .course-progress-info,
+.certificate-text, .profile-settings-left, .profile-settings-right {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Табличные блоки вкладок */
+#tab-content > div {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
