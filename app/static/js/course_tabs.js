@@ -96,17 +96,45 @@ function animateTeacher(content) {
         bio.style.opacity = 1; bio.style.transform = "translateY(0)";
     }, 100);
 }
-
 function animateReviews(content) {
     const reviewCards = content.querySelectorAll(".review-card");
-    let delay = 0;
-    reviewCards.forEach(el => {
-        el.style.opacity = 0;
-        el.style.transform = "translateY(20px)";
+
+    let globalDelay = 0;
+
+    reviewCards.forEach(card => {
+        // элементы внутри карточки
+        const avatar = card.querySelector(".review-avatar");
+        const header = card.querySelector(".review-header");
+        const stars = card.querySelector(".review-stars");
+        const date = card.querySelector(".review-date");
+        const text = card.querySelector(".review-text");
+        const deleteBtn = card.querySelector(".btn-delete-review");
+
+        const elements = [avatar, header, stars, date, text, deleteBtn].filter(Boolean);
+
+        // начальное состояние
+        card.style.opacity = 1;
+        elements.forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = "translateY(16px)";
+        });
+
+        // небольшая задержка между карточками
         setTimeout(() => {
-            el.style.transition = "all 0.6s ease";
-            el.style.opacity = 1;
-            el.style.transform = "translateY(0)";
-        }, delay += 150);
+            let innerDelay = 0;
+
+            elements.forEach(el => {
+                setTimeout(() => {
+                    el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                    el.style.opacity = 1;
+                    el.style.transform = "translateY(0)";
+                }, innerDelay);
+
+                innerDelay += 100;
+            });
+
+        }, globalDelay);
+
+        globalDelay += 180;
     });
 }

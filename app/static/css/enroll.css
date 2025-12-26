@@ -302,4 +302,10 @@ select.error:focus {
     from { opacity: 0; transform: translateY(-10px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+.enroll-header-inner > *,
+.enroll-form > *,
+.order-summary > * {
+    opacity: 0;
+    transform: translateY(30px);
+}
 

@@ -112,7 +112,64 @@
     </div>
 
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const enrollHeader = document.querySelector('.enroll-header-inner');
+    const enrollForm = document.querySelector('.enroll-form');
+    const orderSummary = document.querySelector('.order-summary');
 
+    const headerElements = enrollHeader ? [enrollHeader.querySelector('h1'), enrollHeader.querySelector('p')] : [];
+    const formElements = enrollForm ? Array.from(enrollForm.querySelectorAll('h2, .form-group, .agreement, .submit-btn')) : [];
+    const summaryElements = orderSummary ? [orderSummary.querySelector('.summary-title'), orderSummary.querySelector('#summaryContent'), orderSummary.querySelector('.mini-summary-block')] : [];
+
+    // Скрываем все элементы изначально
+    [...headerElements, ...formElements, ...summaryElements].forEach(el => {
+        if(el) {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+        }
+    });
+
+    function animateElements(elements, delayStep = 200) {
+        elements.forEach((el, i) => {
+            if(el) {
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                }, i * delayStep);
+            }
+        });
+    }
+
+    animateElements(headerElements, 300);
+    animateElements(formElements, 150);
+    animateElements(summaryElements, 300);
+
+    // Дополнительно: плавное появление выбранного курса в сводке
+    const courseSelect = document.getElementById('courseSelect');
+    const summaryContent = document.getElementById('summaryContent');
+    if(courseSelect && summaryContent) {
+        courseSelect.addEventListener('change', () => {
+            summaryContent.style.opacity = 0;
+            summaryContent.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                const selectedOption = courseSelect.selectedOptions[0];
+                if(selectedOption.value) {
+                    const price = selectedOption.dataset.price || '—';
+                    summaryContent.innerHTML = `<p>Курс: ${selectedOption.text}</p><p>Цена: ${price} ₽</p>`;
+                } else {
+                    summaryContent.innerHTML = '<p class="summary-placeholder">Выберите курс для отображения информации</p>';
+                }
+                summaryContent.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                summaryContent.style.opacity = 1;
+                summaryContent.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    }
+});
+
+</script>
 <script src="{{ url_for('static', filename='js/enroll.js') }}"></script>
 
 {% endblock %}
