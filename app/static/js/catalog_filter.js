@@ -1,12 +1,27 @@
+// ==========================
+// Переменные
+// ==========================
 const searchInput = document.getElementById('search');
 const levelSelect = document.getElementById('level');
 const priceSelect = document.getElementById('price');
 const durationSelect = document.getElementById('duration');
 const container = document.getElementById('courses-container');
 const suggestions = document.getElementById('search-suggestions');
+const clearSearchBtn = document.getElementById('clear-search');
 
 let timeout = null;
 
+// ==========================
+// Настройка контейнера
+// ==========================
+container.style.display = 'grid';
+container.style.gridTemplateColumns = 'repeat(3, 1fr)';
+container.style.gap = '32px';
+container.style.justifyContent = 'center'; // центрирование при <3 карточках
+
+// ==========================
+// Fetch
+// ==========================
 function fetchCourses() {
     const params = new URLSearchParams({
         search: searchInput.value,
@@ -15,106 +30,133 @@ function fetchCourses() {
         duration: durationSelect.value
     });
 
+    container.classList.add('loading');
+
     fetch(`/catalog?${params.toString()}`, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
-    .then(res => res.json())
-    .then(data => {
-        renderCourses(data);
-        updateSuggestions(data);
-    });
+        .then(res => res.json())
+        .then(data => {
+            renderCourses(data);
+            updateSuggestions(data);
+            requestAnimationFrame(() => {
+                animateCards();
+            });
+            container.classList.remove('loading');
+        });
 }
 
+// ==========================
+// Render
+// ==========================
 function renderCourses(courses) {
     container.innerHTML = '';
 
-    if (courses.length === 0) {
-        container.innerHTML = '<p>Курсы не найдены</p>';
+    if (!courses.length) {
+        container.innerHTML = '<p class="no-results">Курсы не найдены</p>';
         return;
     }
 
     courses.forEach(course => {
         const card = document.createElement('div');
-        card.className = 'course-card';
+        card.className = 'course-card public-course-card';
+        card.style.width = '100%'; // чтобы занимала одну колонку грид
 
-        // Изображение
-        const img = document.createElement('img');
-        img.src = `/static/${course.image}`;
-        img.alt = course.title;
-        img.className = 'course-img';
-        card.appendChild(img);
+        card.innerHTML = `
+            <img class="course-img" src="/static/${course.image}" alt="${course.title}">
 
-        // Верхняя информация
-        const topInfo = document.createElement('div');
-        topInfo.className = 'course-top-info';
+            <div class="course-top-info">
+                <span class="course-level">${course.difficulty}</span>
+                <span class="course-duration">${course.duration_weeks} недели</span>
+            </div>
 
-        const levelSpan = document.createElement('span');
-        levelSpan.className = 'course-level';
-        levelSpan.textContent = course.difficulty;
+            <h3 class="course-name">${course.title}</h3>
+            <p class="course-desc">${course.short_description}</p>
+            <span class="course-price">${course.price} BYN</span>
 
-        const durationSpan = document.createElement('span');
-        durationSpan.className = 'course-duration';
-        durationSpan.textContent = `${course.duration_weeks} недели`;
+            <a href="/course/${course.id_course}" class="btn-course-details">
+                Подробнее
+            </a>
+        `;
 
-        topInfo.appendChild(levelSpan);
-        topInfo.appendChild(durationSpan);
-        card.appendChild(topInfo);
+        // начальное состояние ВСЕХ элементов
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
 
-        // Название
-        const title = document.createElement('h3');
-        title.className = 'course-name';
-        title.textContent = course.title;
-        card.appendChild(title);
-
-        // Описание
-        const desc = document.createElement('p');
-        desc.className = 'course-desc';
-        desc.textContent = course.short_description;
-        card.appendChild(desc);
-
-        // Цена
-        const price = document.createElement('span');
-        price.className = 'course-price';
-        price.textContent = `${course.price} BYN`;
-        card.appendChild(price);
-
-        // Кнопка "Подробнее" как ссылка
-        const btn = document.createElement('a');
-        btn.className = 'btn-course-details';
-        btn.href = `/course/${course.id_course}`; // <-- ссылка на страницу курса
-        btn.textContent = 'Подробнее';
-        card.appendChild(btn);
+        card.querySelectorAll(
+            '.course-name, .course-desc, .course-price, .btn-course-details'
+        ).forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(10px)';
+        });
 
         container.appendChild(card);
     });
 }
 
+// ==========================
+// Анимация карточек
+// ==========================
+function animateCards() {
+    const cards = container.querySelectorAll('.course-card');
 
+    cards.forEach((card, i) => {
+        setTimeout(() => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            card.style.opacity = 1;
+            card.style.transform = 'translateY(0)';
 
-function updateSuggestions(courses) {
-    suggestions.innerHTML = '';
-    const titles = [...new Set(courses.map(c => c.title))];
-    titles.forEach(title => {
-        suggestions.innerHTML += `<option value="${title}">`;
+            const inner = card.querySelectorAll(
+                '.course-name, .course-desc, .course-price, .btn-course-details'
+            );
+
+            inner.forEach((el, j) => {
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                }, j * 80);
+            });
+        }, i * 150); // задержка между карточками
     });
 }
 
-// debounce
+// ==========================
+// Suggestions
+// ==========================
+function updateSuggestions(courses) {
+    suggestions.innerHTML = '';
+    [...new Set(courses.map(c => c.title))].forEach(title => {
+        const option = document.createElement('option');
+        option.value = title;
+        suggestions.appendChild(option);
+    });
+}
+
+// ==========================
+// Debounce
+// ==========================
 function delayedFetch() {
     clearTimeout(timeout);
     timeout = setTimeout(fetchCourses, 300);
 }
 
-const clearSearchBtn = document.getElementById('clear-search');
-
-clearSearchBtn.addEventListener('click', () => {
-    searchInput.value = '';
-    fetchCourses(); // обновляем список курсов после очистки
-});
-
-
-// listeners
+// ==========================
+// Listeners
+// ==========================
 searchInput.addEventListener('input', delayedFetch);
 levelSelect.addEventListener('change', fetchCourses);
 priceSelect.addEventListener('change', fetchCourses);
 durationSelect.addEventListener('change', fetchCourses);
+
+clearSearchBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    fetchCourses();
+});
+
+// ==========================
+// Initial animation
+// ==========================
+document.addEventListener("DOMContentLoaded", () => {
+    animateCards();
+});
