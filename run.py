@@ -1,11 +1,22 @@
 from app import create_app, db
 from sqlalchemy import text
+from sqlalchemy.exc import OperationalError
+import time
 
 app = create_app()
 
 with app.app_context():
-    # Проверяем подключение
-    print("🔗 Подключение к базе данных:", db.engine.url)
+    # Ждём, пока база данных станет доступной
+    for i in range(10):
+        try:
+            with db.engine.connect() as conn:
+                print("🔗 Подключение к базе данных:", db.engine.url)
+                break
+        except OperationalError:
+            print("⚠️ MySQL ещё не готов, ждём 3 секунды...")
+            time.sleep(3)
+    else:
+        raise Exception("❌ Не удалось подключиться к базе данных")
 
     # Используем text() для SQL-запроса
     with db.engine.connect() as conn:
