@@ -81,7 +81,8 @@
 - Flask  
 
 ### База данных
-- SQLite  
+- MySQL
+- Workbench  
 
 ### Инструменты разработки
 - Git, GitHub  
