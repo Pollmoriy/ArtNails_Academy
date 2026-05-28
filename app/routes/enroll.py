@@ -8,7 +8,7 @@ import stripe
 
 enroll_bp = Blueprint('enroll', __name__, url_prefix='/enroll')
 
-EUR_RATE = 0.30  # временно, конвертация BYN -> EUR
+EUR_RATE = 0.30  
 
 # ---------- СТРАНИЦА ЗАПИСИ НА КУРС ----------
 @enroll_bp.route('/', methods=['GET'])
@@ -31,13 +31,10 @@ def create_stripe_session():
 
     course = Course.query.get_or_404(course_id)
 
-    # Цена в BYN
     price_byn = float(course.price)
 
-    # Конвертация в EUR (Stripe принимает цену в центах)
     price_eur = int(price_byn * EUR_RATE * 100)
 
-    # 1️⃣ Создаем запись о покупке (pending)
     purchase = Purchase(
         id_user=session['user_id'],
         id_course=course.id_course,
@@ -47,7 +44,6 @@ def create_stripe_session():
     db.session.add(purchase)
     db.session.commit()
 
-    # 2️⃣ Создаем Stripe Checkout Session
     try:
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
@@ -64,10 +60,8 @@ def create_stripe_session():
             cancel_url=url_for("main.home", _external=True) + "?payment=cancel"
         )
     except stripe.error.StripeError as e:
-        # Ошибка при создании платежа
         return jsonify({'error': str(e)}), 500
 
-    # 3️⃣ Сохраняем Stripe session и ссылку
     purchase.stripe_session_id = checkout_session.id
     purchase.payment_link = checkout_session.url
     db.session.commit()
