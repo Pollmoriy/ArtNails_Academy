@@ -9,7 +9,6 @@ from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime
 
 
-# Blueprint для страниц курса
 course_bp = Blueprint('course', __name__, template_folder='../templates')
 
 @course_bp.route('/course/<int:course_id>/complete_module/<int:module_id>', methods=['POST'])
@@ -18,11 +17,9 @@ def complete_module(course_id, module_id):
     if not user_id:
         return jsonify({"success": False, "message": "Пользователь не авторизован"}), 403
 
-    # Получаем прогресс пользователя по курсу
     progress = Progress.query.filter_by(id_user=user_id, id_course=course_id).first()
 
     if not progress:
-        # Если прогресса нет — создаём новый
         progress = Progress(
             id_user=user_id,
             id_course=course_id,
@@ -30,19 +27,13 @@ def complete_module(course_id, module_id):
             completed_modules_ids=[]
         )
         db.session.add(progress)
-        db.session.commit()  # сначала создаём, чтобы был id
+        db.session.commit()  
 
-    # Добавляем модуль в список завершённых, если ещё нет
     if module_id not in progress.completed_modules_ids:
         progress.completed_modules_ids.append(module_id)
         progress.completed_modules = len(progress.completed_modules_ids)
 
-        # Если все модули пройдены, отмечаем курс как завершённый
-        # total_modules нужно передавать из фронта или получать через модель Course/Module
-        # Например:
-        # total_modules = Module.query.filter_by(id_course=course_id).count()
-        # if progress.completed_modules >= total_modules:
-        #     progress.is_completed = True
+       
         progress.completion_date = datetime.utcnow()
 
         db.session.commit()
@@ -79,9 +70,6 @@ def course_page(course_id):
         .all()
     )
 
-    # -----------------------------
-    # Завершённые модули
-    # -----------------------------
     completed_modules_ids = []
 
     if progress:
@@ -98,9 +86,7 @@ def course_page(course_id):
     modules_data = []
 
     for module in modules:
-        # ---------------------------------
-        # Определяем доступность теста
-        # ---------------------------------
+        
         test_unlocked = True
 
         if module.type == "test":
