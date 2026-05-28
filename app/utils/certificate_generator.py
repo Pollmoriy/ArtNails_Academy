@@ -22,8 +22,8 @@ def generate_certificate_image(user, course):
 
     width, height = 1123, 794
     background_color = (255, 255, 255)
-    border_color = (202, 168, 92)  # золотая рамка
-    accent_color = (180, 130, 50)  # дополнительный цвет
+    border_color = (202, 168, 92)  
+    accent_color = (180, 130, 50)  
 
     img = Image.new('RGB', (width, height), background_color)
     draw = ImageDraw.Draw(img)
@@ -36,15 +36,12 @@ def generate_certificate_image(user, course):
         width=border_width
     )
 
-    # декоративные линии сверху и снизу
     margin = 50
     for y in [margin, height - margin]:
         draw.line([(100, y), (width-100, y)], fill=accent_color, width=4)
-        # маленькие звездочки/точки вдоль линии
         for x in range(120, width-120, 50):
             draw.ellipse([x-3, y-3, x+3, y+3], fill=accent_color)
 
-    # угловые элементы (маленькие треугольники)
     triangle_size = 30
     draw.polygon([(border_width, border_width),
                   (border_width + triangle_size, border_width),
@@ -70,7 +67,7 @@ def generate_certificate_image(user, course):
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
         x = (width - text_width) / 2
-        draw.text((x+2, y+2), text, font=font, fill=(150,150,150))  # тень
+        draw.text((x+2, y+2), text, font=font, fill=(150,150,150))  
         draw.text((x, y), text, font=font, fill=fill)
         return text_height
 
@@ -81,7 +78,6 @@ def generate_certificate_image(user, course):
     issued_date = datetime.utcnow().strftime('%d.%m.%Y')
     draw_text_centered(f"Дата выдачи: {issued_date}", height - 100, font_date)
 
-    # ---------- Сохраняем ----------
     filename = f"certificate_{user.id_user}_{course.id_course}.png"
     file_path = os.path.join(CERT_DIR, filename)
     img.save(file_path)
