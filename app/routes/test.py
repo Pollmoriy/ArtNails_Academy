@@ -6,13 +6,11 @@ test_bp = Blueprint('test', __name__, template_folder='../templates')
 
 @test_bp.route('/test/<int:test_id>')
 def test_page(test_id):
-    # Получаем тест
     test = Test.query.get(test_id)
     if not test:
         flash("Тест не найден", "error")
-        return redirect(url_for('course.course_page', course_id=1))  # или другую страницу
+        return redirect(url_for('course.course_page', course_id=1)) 
 
-    # Получаем вопросы и ответы
     questions_data = []
     for q in test.questions:
         questions_data.append({
