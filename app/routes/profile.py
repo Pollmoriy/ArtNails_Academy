@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 from app import db
 from app.models import User, Course, Purchase, Progress, Certificate, Module
-from app.utils.certificate_generator import generate_certificate_image  # новый генератор через PIL
+from app.utils.certificate_generator import generate_certificate_image  
 from datetime import datetime
 
 profile_bp = Blueprint('profile', __name__, template_folder='../templates')
@@ -65,7 +65,6 @@ def profile_page():
         flash("Пользователь не найден", "error")
         return redirect(url_for('auth.login'))
 
-    # Подготовка курсов
     courses_data = []
     completed_courses_count = 0
 
@@ -74,7 +73,6 @@ def profile_page():
         if not course:
             continue
 
-        # Прогресс пользователя
         progress = Progress.query.filter_by(
             id_user=user.id_user,
             id_course=course.id_course
@@ -85,15 +83,12 @@ def profile_page():
         completed_modules_count = len(progress.completed_modules_ids) if progress else 0
         progress_percent = int((completed_modules_count / total_modules) * 100) if total_modules else 0
 
-        # Курс считается завершённым только если все модули пройдены
         is_course_completed = progress and completed_modules_count == total_modules
 
-        # Обновляем статус покупки
         if is_course_completed and purchase.status != 'completed':
             purchase.status = 'completed'
             db.session.commit()
 
-        # Имя преподавателя
         teacher_name = f"{course.teacher.first_name} {course.teacher.last_name}" if course.teacher else "Имя Фамилия"
 
         courses_data.append({
@@ -113,7 +108,6 @@ def profile_page():
         if is_course_completed:
             completed_courses_count += 1
 
-    # Подготовка сертификатов
     certificates_data = []
     certificates = Certificate.query.filter_by(id_user=user.id_user).all()
     for cert in certificates:
